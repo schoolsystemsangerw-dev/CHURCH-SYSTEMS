@@ -25,7 +25,7 @@
   <!-- Header -->
   <header class="bg-indigo-950 text-white shadow-lg border-b-4 border-indigo-700 py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
-      <!-- Diocese Logo (BIGGER SIZE) -->
+      <!-- Diocese Logo -->
       <div class="flex items-center justify-center flex-shrink-0">
         <img src="log-diocese.png" alt="Diocese Logo" class="h-28 sm:h-36 md:h-44 w-auto object-contain max-w-[140px] sm:max-w-[200px] hover:scale-105 transition-transform duration-300" />
       </div>
@@ -41,14 +41,14 @@
         <p class="text-xs sm:text-sm md:text-base text-indigo-200 font-medium mt-1">Matrimony Application Form</p>
       </div>
 
-      <!-- EAR Rwanda Logo (BIGGER SIZE) -->
+      <!-- EAR Rwanda Logo -->
       <div class="flex items-center justify-center flex-shrink-0">
         <img src="logo-rwanda.png" alt="EAR Rwanda Logo" class="h-28 sm:h-36 md:h-44 w-auto object-contain max-w-[140px] sm:max-w-[200px] hover:scale-105 transition-transform duration-300" />
       </div>
     </div>
   </header>
 
-  <!-- BLESSING MESSAGE (BELOW LOGOS, ABOVE FORM CONTAINER) -->
+  <!-- BLESSING MESSAGE -->
   <div class="bg-amber-50 border-b-2 border-amber-300 p-4 sm:p-5 text-center shadow-sm">
     <div class="max-w-4xl mx-auto">
       <p class="text-xs sm:text-sm md:text-base font-bold text-amber-900 leading-relaxed italic">
@@ -90,7 +90,6 @@
         
         <!-- Groom Photo Box & Inputs -->
         <div class="flex flex-col md:flex-row gap-6 items-start">
-          <!-- Big Photo Box -->
           <div class="w-full md:w-56 flex-shrink-0 flex flex-col items-center">
             <label class="block text-xs font-bold text-slate-700 mb-2">Groom Photo (Iphoto y'Umukwe) *</label>
             <div class="relative w-44 h-52 bg-slate-100 border-2 border-dashed border-indigo-300 rounded-xl overflow-hidden flex flex-col items-center justify-center p-2 text-center group hover:border-indigo-500 transition cursor-pointer shadow-sm" onclick="document.getElementById('groom_photo').click()">
@@ -107,7 +106,6 @@
             <input type="file" id="groom_photo" accept="image/*" capture="environment" class="hidden" onchange="previewImage(this, 'groom_photo_preview', 'groom_photo_placeholder')" required />
           </div>
 
-          <!-- Groom Inputs -->
           <div class="flex-grow w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name (Amazina yose) *</label>
@@ -140,7 +138,7 @@
           </div>
         </div>
 
-        <!-- Groom Geographical Location (Aho Atuye) -->
+        <!-- Groom Geographical Location -->
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
           <h3 class="font-bold text-xs text-indigo-900 uppercase">Aho Umukwe Atuye (Groom's Geographical Residence)</h3>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -225,7 +223,6 @@
         
         <!-- Bride Photo Box & Inputs -->
         <div class="flex flex-col md:flex-row gap-6 items-start">
-          <!-- Big Photo Box -->
           <div class="w-full md:w-56 flex-shrink-0 flex flex-col items-center">
             <label class="block text-xs font-bold text-slate-700 mb-2">Bride Photo (Iphoto y'Umugeni) *</label>
             <div class="relative w-44 h-52 bg-slate-100 border-2 border-dashed border-indigo-300 rounded-xl overflow-hidden flex flex-col items-center justify-center p-2 text-center group hover:border-indigo-500 transition cursor-pointer shadow-sm" onclick="document.getElementById('bride_photo').click()">
@@ -242,7 +239,6 @@
             <input type="file" id="bride_photo" accept="image/*" capture="environment" class="hidden" onchange="previewImage(this, 'bride_photo_preview', 'bride_photo_placeholder')" required />
           </div>
 
-          <!-- Bride Inputs -->
           <div class="flex-grow w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name (Amazina yose) *</label>
@@ -275,7 +271,7 @@
           </div>
         </div>
 
-        <!-- Bride Geographical Location (Aho Atuye) -->
+        <!-- Bride Geographical Location -->
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
           <h3 class="font-bold text-xs text-indigo-900 uppercase">Aho Umugeni Atuye (Bride's Geographical Residence)</h3>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -365,9 +361,39 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 p-4 text-center text-xs text-slate-600">
-    <p class="font-bold text-slate-800 mb-1">hindura imibereho yawe uyumunsi</p>
-    <p class="text-slate-400">Technical Support: <a href="mailto:support@diocese.rw" class="text-indigo-600 underline">support@diocese.rw</a></p>
+  <footer class="bg-indigo-950 text-white border-t-4 border-amber-500 py-10 px-4 text-center text-xs">
+    <div class="max-w-4xl mx-auto space-y-4">
+      
+      <!-- Value Proposition Sentence -->
+      <p class="text-sm sm:text-base font-semibold text-amber-300 leading-relaxed max-w-2xl mx-auto">
+        Empowering organizations with modern, reliable, and scalable digital solutions tailored to transform your daily operations.
+      </p>
+
+      <p class="font-bold text-slate-200 tracking-wide">hindura imibereho yawe uyumunsi</p>
+
+      <hr class="border-indigo-800 w-1/2 mx-auto my-4" />
+
+      <!-- IT Architectural & Design Showcase -->
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-widest text-indigo-300 font-bold">
+          IT Architecture & System Design
+        </p>
+        <p class="text-slate-300 text-xs">
+          Engineered for excellence in Church Management Systems, School Management Systems, & Enterprise Portals.
+        </p>
+        <p class="text-amber-400 font-medium pt-1">
+          Looking for custom software engineering or system architecture? 
+          <a href="mailto:schoolsystems.ange.rw@gmail.com" class="underline font-bold text-white hover:text-amber-300 transition">
+            Contact Us: schoolsystems.ange.rw@gmail.com
+          </a>
+        </p>
+      </div>
+
+      <p class="text-[10px] text-slate-500 pt-2">
+        Technical Support: <a href="mailto:support@diocese.rw" class="text-indigo-400 underline">support@diocese.rw</a>
+      </p>
+
+    </div>
   </footer>
 
   <!-- DEDICATED BOTTOM MOVING SCRIPTURE BANNER -->
@@ -416,7 +442,7 @@
       }
     }
 
-    // RWANDA GEOGRAPHICAL LOCATION DATA DUMMY STRUCTURE (DYNAMICALLY LINKED)
+    // RWANDA GEOGRAPHICAL LOCATION DATA STRUCTURE
     const rwandaLocations = {
       "Kigali City": {
         "Nyarugenge": {
@@ -516,13 +542,6 @@
         select.innerHTML = `<option value="">Hitamo ${lvl.toUpperCase()}</option>`;
       });
     }
-
-    document.getElementById('matrimonyForm').addEventListener('submit', async function (e) {
-      e.preventDefault();
-      const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Iri koherezwa...";
-    });
   </script>
 </body>
 </html>
