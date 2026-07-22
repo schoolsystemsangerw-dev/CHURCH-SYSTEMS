@@ -61,26 +61,15 @@
   <main class="flex-grow p-4 sm:p-6 max-w-5xl mx-auto w-full">
     <form id="matrimonyForm" class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8 space-y-8">
 
-      <!-- CHURCH MEMBER / REGISTRANT DETAILS -->
-      <div class="bg-emerald-50/70 p-4 sm:p-6 rounded-xl border border-emerald-100">
-        <h2 class="font-bold text-emerald-950 text-sm uppercase tracking-wider mb-4">Uwandikisha / Umunyamuryango w'Itorero (Church Member / Registrant)</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Registrant Type *</label>
-            <select id="registrant_type" required onchange="handleRegistrantTypeChange()" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500">
-              <option value="couple">Gusezerana (Couple Application)</option>
-              <option value="member">Kwiyandikisha nk'Umunyamuryango w'Itorero (Register Church Member)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Registrant Full Name *</label>
-            <input type="text" id="registrant_name" required placeholder="Andika amazina yawe" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Registrant Telephone *</label>
-            <input type="tel" id="registrant_phone" required placeholder="078XXXXXXX" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500" />
-          </div>
+      <!-- CHURCH MEMBER REGISTRATION BUTTON & MODAL TRIGGER SECTION -->
+      <div class="bg-emerald-50/70 p-4 sm:p-6 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h2 class="font-bold text-emerald-950 text-sm uppercase tracking-wider">Umunyamuryango w'Itorero (Church Member Registration)</h2>
+          <p class="text-xs text-slate-600 mt-1">Kanda hano munsi niba uri umunyamuryango w'itorero ushaka kwiyandikisha cyangwa kuzuza imyirondoro yawe.</p>
         </div>
+        <button type="button" onclick="openMemberModal()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2 flex-shrink-0">
+          <span>📝 Kwiyandikisha nk'Umunyamuryango (Register as Member)</span>
+        </button>
       </div>
 
       <!-- CHURCH STRUCTURE DETAILS -->
@@ -131,19 +120,19 @@
           <div class="flex-grow w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name (Amazina yose) *</label>
-              <input type="text" id="groom_name" placeholder="Izina ryose" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" id="groom_name" required placeholder="Izina ryose" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">National ID Number (16 Digits) *</label>
-              <input type="text" id="groom_id_number" maxlength="16" placeholder="119XXXXXXXXXXXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" id="groom_id_number" required maxlength="16" placeholder="119XXXXXXXXXXXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Date of Birth (Itariki y'amavuko) *</label>
-              <input type="date" id="groom_dob" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="date" id="groom_dob" required class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Telephone Number *</label>
-              <input type="tel" id="groom_phone" placeholder="078XXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="tel" id="groom_phone" required placeholder="078XXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
@@ -151,11 +140,11 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Level of Education (Aho wagejeje amashuri) *</label>
-              <input type="text" id="groom_education" placeholder="Urugero: Primary, Kaminuza..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" id="groom_education" required placeholder="Urugero: Primary, Kaminuza..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div class="sm:col-span-2">
               <label class="block text-xs font-semibold text-slate-700 mb-1">Current Job / Profession (Umwuga/Akazi) *</label>
-              <input type="text" id="groom_job" placeholder="Urugero: Umwarimu, Umuhinzi..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" id="groom_job" required placeholder="Urugero: Umwarimu, Umuhinzi..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
           </div>
         </div>
@@ -207,18 +196,18 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label class="block text-[11px] font-medium text-slate-600 mb-1">Umuhamya wa 1 (Name & Tel) *</label>
-              <input type="text" id="groom_witness_1_name" placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
-              <input type="tel" id="groom_witness_1_phone" placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
+              <input type="text" id="groom_witness_1_name" required placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
+              <input type="tel" id="groom_witness_1_phone" required placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
             </div>
             <div>
               <label class="block text-[11px] font-medium text-slate-600 mb-1">Umuhamya wa 2 (Name & Tel) *</label>
-              <input type="text" id="groom_witness_2_name" placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
-              <input type="tel" id="groom_witness_2_phone" placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
+              <input type="text" id="groom_witness_2_name" required placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
+              <input type="tel" id="groom_witness_2_phone" required placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
             </div>
             <div>
               <label class="block text-[11px] font-medium text-slate-600 mb-1">Umuhamya wa 3 (Name & Tel) *</label>
-              <input type="text" id="groom_witness_3_name" placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
-              <input type="tel" id="groom_witness_3_phone" placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
+              <input type="text" id="groom_witness_3_name" required placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
+              <input type="tel" id="groom_witness_3_phone" required placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
             </div>
           </div>
         </div>
@@ -264,19 +253,19 @@
           <div class="flex-grow w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name (Amazina yose) *</label>
-              <input type="text" id="bride_name" placeholder="Izina ryose" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" id="bride_name" required placeholder="Izina ryose" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">National ID Number (16 Digits) *</label>
-              <input type="text" id="bride_id_number" maxlength="16" placeholder="119XXXXXXXXXXXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" id="bride_id_number" required maxlength="16" placeholder="119XXXXXXXXXXXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Date of Birth (Itariki y'amavuko) *</label>
-              <input type="date" id="bride_dob" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="date" id="bride_dob" required class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Telephone Number *</label>
-              <input type="tel" id="bride_phone" placeholder="078XXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="tel" id="bride_phone" required placeholder="078XXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
@@ -284,11 +273,11 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Level of Education (Aho wagejeje amashuri) *</label>
-              <input type="text" id="bride_education" placeholder="Urugero: Primary, Kaminuza..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" id="bride_education" required placeholder="Urugero: Primary, Kaminuza..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
             <div class="sm:col-span-2">
               <label class="block text-xs font-semibold text-slate-700 mb-1">Current Job / Profession (Umwuga/Akazi) *</label>
-              <input type="text" id="bride_job" placeholder="Urugero: Umwarimu, Umuhinzi..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+              <input type="text" id="bride_job" required placeholder="Urugero: Umwarimu, Umuhinzi..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
             </div>
           </div>
         </div>
@@ -340,18 +329,18 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label class="block text-[11px] font-medium text-slate-600 mb-1">Umuhamya wa 1 (Name & Tel) *</label>
-              <input type="text" id="bride_witness_1_name" placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
-              <input type="tel" id="bride_witness_1_phone" placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
+              <input type="text" id="bride_witness_1_name" required placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
+              <input type="tel" id="bride_witness_1_phone" required placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
             </div>
             <div>
               <label class="block text-[11px] font-medium text-slate-600 mb-1">Umuhamya wa 2 (Name & Tel) *</label>
-              <input type="text" id="bride_witness_2_name" placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
-              <input type="tel" id="bride_witness_2_phone" placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
+              <input type="text" id="bride_witness_2_name" required placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
+              <input type="tel" id="bride_witness_2_phone" required placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
             </div>
             <div>
               <label class="block text-[11px] font-medium text-slate-600 mb-1">Umuhamya wa 3 (Name & Tel) *</label>
-              <input type="text" id="bride_witness_3_name" placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
-              <input type="tel" id="bride_witness_3_phone" placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
+              <input type="text" id="bride_witness_3_name" required placeholder="Izina ry'umuhamya" class="w-full p-2 mb-1 border rounded text-xs" />
+              <input type="tel" id="bride_witness_3_phone" required placeholder="078XXXXXXX" class="w-full p-2 border rounded text-xs font-mono" />
             </div>
           </div>
         </div>
@@ -373,10 +362,7 @@
       </div>
 
       <!-- SUBMIT BUTTON -->
-      <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <button type="button" id="showMembersBtn" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition text-sm flex items-center justify-center gap-2">
-          <span>👥 Show Members of This Church</span>
-        </button>
+      <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-end gap-4">
         <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-indigo-700 hover:bg-indigo-800 text-white font-bold px-8 py-3 rounded-xl shadow-lg hover:shadow-indigo-200 transition text-sm">
           Ohereza Icyifuzo (Submit Application)
         </button>
@@ -384,6 +370,64 @@
 
     </form>
   </main>
+
+  <!-- CHURCH MEMBER REGISTRATION MODAL -->
+  <div id="memberModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 sm:p-8 space-y-6 relative transform transition-all">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b pb-4">
+        <div>
+          <h3 class="font-extrabold text-indigo-950 text-base uppercase tracking-wider">Kwiyandikisha nk'Umunyamuryango</h3>
+          <p class="text-xs text-slate-500">Uzuza imyirondoro yawe n'ibijyanye n'itorero</p>
+        </div>
+        <button onclick="closeMemberModal()" class="text-slate-400 hover:text-slate-700 font-bold text-xl p-1">&times;</button>
+      </div>
+
+      <!-- Modal Form -->
+      <form id="memberRegistrationForm" onsubmit="handleMemberSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Full Names (Amazina yose) *</label>
+          <input type="text" id="member_fullname" required placeholder="Andika amazina yawe yose" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">National ID (Indangamuntu) *</label>
+          <input type="text" id="member_national_id" required maxlength="16" placeholder="119XXXXXXXXXXXXXXXX" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500 font-mono" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 mb-1">Ikanisa (Local Church) *</label>
+          <input type="text" id="member_ikanisa" required placeholder="Andika izina ry'ikanisa usengeramo" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <!-- Checkboxes for Baptism & Confirmation Status -->
+        <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100 space-y-3">
+          <label class="block text-xs font-bold text-emerald-950 uppercase mb-2">Amakuru y'Umubatizo n'Gukomezwa (Church Sacraments)</label>
+          
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="member_yabatijwe" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500" />
+            <label for="member_yabatijwe" class="text-xs font-medium text-slate-700 cursor-pointer">Yabatijwe (Baptized)</label>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="member_yakomejwe" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500" />
+            <label for="member_yakomejwe" class="text-xs font-medium text-slate-700 cursor-pointer">Yakomejwe (Confirmed)</label>
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-end gap-3 border-t">
+          <button type="button" onclick="closeMemberModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-xs transition">
+            Hagarika (Cancel)
+          </button>
+          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow-md transition">
+            Ohereza Imyirondoro (Save Member)
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="bg-indigo-950 text-white border-t-4 border-amber-500 py-10 px-4 text-center text-xs">
@@ -471,29 +515,46 @@
       }
     }
 
-    // REGISTRANT TYPE DYNAMIC BEHAVIOR
-    function handleRegistrantTypeChange() {
-      const type = document.getElementById('registrant_type').value;
-      const groomSec = document.getElementById('groom_section');
-      const brideSec = document.getElementById('bride_section');
+    // MEMBER MODAL CONTROLS
+    function openMemberModal() {
+      document.getElementById('memberModal').classList.remove('hidden');
+    }
 
-      const groomInputs = groomSec.querySelectorAll('input:not([readonly])');
-      const brideInputs = brideSec.querySelectorAll('input:not([readonly])');
+    function closeMemberModal() {
+      document.getElementById('memberModal').classList.add('hidden');
+      document.getElementById('memberRegistrationForm').reset();
+    }
 
-      if (type === 'member') {
-        groomSec.style.display = 'none';
-        brideSec.style.display = 'none';
-        groomInputs.forEach(input => input.removeAttribute('required'));
-        brideInputs.forEach(input => input.removeAttribute('required'));
-      } else {
-        groomSec.style.display = 'block';
-        brideSec.style.display = 'block';
-        groomInputs.forEach(input => {
-          if(!input.id.includes('email') && !input.id.includes('file')) input.setAttribute('required', 'true');
-        });
-        brideInputs.forEach(input => {
-          if(!input.id.includes('email') && !input.id.includes('file')) input.setAttribute('required', 'true');
-        });
+    // HANDLE MEMBER SUBMISSION TO SUPABASE
+    async function handleMemberSubmit(event) {
+      event.preventDefault();
+      
+      const fullName = document.getElementById('member_fullname').value;
+      const nationalId = document.getElementById('member_national_id').value;
+      const ikanisa = document.getElementById('member_ikanisa').value;
+      const yabatijwe = document.getElementById('member_yabatijwe').checked;
+      const yakomejwe = document.getElementById('member_yakomejwe').checked;
+
+      try {
+        const { data, error } = await supabase
+          .from('church_members')
+          .insert([
+            { 
+              full_name: fullName, 
+              national_id: nationalId, 
+              ikanisa: ikanisa, 
+              yabatijwe: yabatijwe, 
+              yakomejwe: yakomejwe 
+            }
+          ]);
+
+        if (error) throw error;
+
+        alert('Umunyamuryango yanditswe neza!');
+        closeMemberModal();
+      } catch (err) {
+        console.error('Error saving member:', err);
+        alert('Byanze kohereza amakuru. Ongera ugerageze.');
       }
     }
   </script>
