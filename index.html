@@ -47,16 +47,27 @@
 
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8">
       <h2 class="text-2xl font-bold text-slate-900 mb-1">Matrimony Certificate Request</h2>
-      <p class="text-sm text-slate-500 mb-6">Uzusaza amakuru yombi neza ku mpande zombi (Umukwe n'Umugeni) maze wohereze icyifuzo cyawe.</p>
+      <p class="text-sm text-slate-500 mb-6">Uzuza amakuru yose neza ku mpande zombi (Umukwe n'Umugeni) maze wohereze icyifuzo cyawe.</p>
 
       <form id="matrimonyForm" class="space-y-8">
 
-        <!-- Parish Selection -->
-        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
-          <label class="block text-xs font-bold text-indigo-900 uppercase mb-2">Select Parish (Hitamo Paruwasi) *</label>
-          <select id="parishSelect" required class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none bg-white font-medium">
-            <option value="">-- Hitamo Paruwasi --</option>
-          </select>
+        <!-- Church Hierarchy Text Inputs -->
+        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100 space-y-3">
+          <h3 class="text-xs font-bold text-indigo-900 uppercase">Church Structure Details (Urwego rw'Itorero)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Diocese (Diyosezi) *</label>
+              <input type="text" id="dioceseName" required class="w-full p-2.5 border rounded-lg bg-white" placeholder="Andika Diyosezi" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Archdeaconry (Ubudikoni) *</label>
+              <input type="text" id="archdeaconryName" required class="w-full p-2.5 border rounded-lg bg-white" placeholder="Andika Ubudikoni" />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Parish (Paruwasi) *</label>
+              <input type="text" id="parishName" required class="w-full p-2.5 border rounded-lg bg-white" placeholder="Andika Paruwasi" />
+            </div>
+          </div>
         </div>
 
         <!-- ==================== GROOM SECTION ==================== -->
@@ -88,15 +99,7 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Level of Education (Aho wagejeje amashuri) *</label>
-              <select id="groomEducation" required class="w-full p-2.5 border rounded-lg bg-white">
-                <option value="">-- Hitamo --</option>
-                <option value="Primary">Primary</option>
-                <option value="Secondary">Secondary</option>
-                <option value="Bachelor">Bachelor's Degree</option>
-                <option value="Master">Master's Degree</option>
-                <option value="PhD">PhD</option>
-                <option value="Other">Other / None</option>
-              </select>
+              <input type="text" id="groomEducation" required class="w-full p-2.5 border rounded-lg" placeholder="Urugero: Primary, Kaminuza..." />
             </div>
             <div class="sm:col-span-2">
               <label class="block text-xs font-semibold text-slate-700 mb-1">Current Job / Profession (Umwuga/Akazi) *</label>
@@ -104,22 +107,19 @@
             </div>
           </div>
 
-          <!-- Baptism Info (Groom) -->
+          <!-- Groom Certificates Upload -->
           <div class="bg-indigo-50/50 p-4 border border-indigo-100 rounded-lg space-y-3">
-            <label class="block text-xs font-bold text-indigo-900 uppercase">Baptism Status (Warabatijwe?) *</label>
-            <div class="flex items-center gap-6 text-sm">
-              <label class="flex items-center gap-2">
-                <input type="radio" name="groomBaptized" value="yes" required class="accent-indigo-700" />
-                <span>Yego (Yes)</span>
-              </label>
-              <label class="flex items-center gap-2">
-                <input type="radio" name="groomBaptized" value="no" class="accent-indigo-700" />
-                <span>Oya (No)</span>
-              </label>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Baptism Certificate (Manura icyahombwe cy'ububatizo)</label>
-              <input type="file" id="groomBaptismCert" accept="image/*,.pdf" class="w-full text-xs text-slate-600 border rounded-lg p-2 bg-white" />
+            <h4 class="text-xs font-bold text-indigo-900 uppercase">Documents & Church Status (Ibyangombwa by'Umukwe)</h4>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Baptism Certificate (Icyemezo cy'Ububatizo)</label>
+                <input type="file" id="groomBaptismCert" accept="image/*,.pdf" class="w-full text-xs text-slate-600 border rounded-lg p-2 bg-white" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Confirmation Certificate (Icyemezo cy'Gukomezwa)</label>
+                <input type="file" id="groomConfirmationCert" accept="image/*,.pdf" class="w-full text-xs text-slate-600 border rounded-lg p-2 bg-white" />
+              </div>
             </div>
           </div>
 
@@ -139,15 +139,15 @@
           <div class="space-y-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <input type="text" id="groomW1Name" required placeholder="Umuhamya 1: Izina Ryose" class="p-2 border rounded-lg text-xs" />
-              <input type="tel" id="groomW1Phone" required placeholder="Umuhamya 1: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="groomW1Phone" required placeholder="Umuhamya 1: Telefone" class="p-2 border rounded-lg text-xs" />
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <input type="text" id="groomW2Name" required placeholder="Umuhamya 2: Izina Ryose" class="p-2 border rounded-lg text-xs" />
-              <input type="tel" id="groomW2Phone" required placeholder="Umuhamya 2: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="groomW2Phone" required placeholder="Umuhamya 2: Telefone" class="p-2 border rounded-lg text-xs" />
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <input type="text" id="groomW3Name" required placeholder="Umuhamya 3: Izina Ryose" class="p-2 border rounded-lg text-xs" />
-              <input type="tel" id="groomW3Phone" required placeholder="Umuhamya 3: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="groomW3Phone" required placeholder="Umuhamya 3: Telefone" class="p-2 border rounded-lg text-xs" />
             </div>
           </div>
         </div>
@@ -182,15 +182,7 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 mb-1">Level of Education (Aho wagejeje amashuri) *</label>
-              <select id="brideEducation" required class="w-full p-2.5 border rounded-lg bg-white">
-                <option value="">-- Hitamo --</option>
-                <option value="Primary">Primary</option>
-                <option value="Secondary">Secondary</option>
-                <option value="Bachelor">Bachelor's Degree</option>
-                <option value="Master">Master's Degree</option>
-                <option value="PhD">PhD</option>
-                <option value="Other">Other / None</option>
-              </select>
+              <input type="text" id="brideEducation" required class="w-full p-2.5 border rounded-lg" placeholder="Urugero: Primary, Kaminuza..." />
             </div>
             <div class="sm:col-span-2">
               <label class="block text-xs font-semibold text-slate-700 mb-1">Current Job / Profession (Umwuga/Akazi) *</label>
@@ -198,22 +190,19 @@
             </div>
           </div>
 
-          <!-- Baptism Info (Bride) -->
+          <!-- Bride Certificates Upload -->
           <div class="bg-indigo-50/50 p-4 border border-indigo-100 rounded-lg space-y-3">
-            <label class="block text-xs font-bold text-indigo-900 uppercase">Baptism Status (Warabatijwe?) *</label>
-            <div class="flex items-center gap-6 text-sm">
-              <label class="flex items-center gap-2">
-                <input type="radio" name="brideBaptized" value="yes" required class="accent-indigo-700" />
-                <span>Yego (Yes)</span>
-              </label>
-              <label class="flex items-center gap-2">
-                <input type="radio" name="brideBaptized" value="no" class="accent-indigo-700" />
-                <span>Oya (No)</span>
-              </label>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Baptism Certificate (Manura icyahombwe cy'ububatizo)</label>
-              <input type="file" id="brideBaptismCert" accept="image/*,.pdf" class="w-full text-xs text-slate-600 border rounded-lg p-2 bg-white" />
+            <h4 class="text-xs font-bold text-indigo-900 uppercase">Documents & Church Status (Ibyangombwa by'Umugeni)</h4>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Baptism Certificate (Icyemezo cy'Ububatizo)</label>
+                <input type="file" id="brideBaptismCert" accept="image/*,.pdf" class="w-full text-xs text-slate-600 border rounded-lg p-2 bg-white" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Confirmation Certificate (Icyemezo cy'Gukomezwa)</label>
+                <input type="file" id="brideConfirmationCert" accept="image/*,.pdf" class="w-full text-xs text-slate-600 border rounded-lg p-2 bg-white" />
+              </div>
             </div>
           </div>
 
@@ -233,15 +222,15 @@
           <div class="space-y-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <input type="text" id="brideW1Name" required placeholder="Umuhamya 1: Izina Ryose" class="p-2 border rounded-lg text-xs" />
-              <input type="tel" id="brideW1Phone" required placeholder="Umuhamya 1: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="brideW1Phone" required placeholder="Umuhamya 1: Telefone" class="p-2 border rounded-lg text-xs" />
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <input type="text" id="brideW2Name" required placeholder="Umuhamya 2: Izina Ryose" class="p-2 border rounded-lg text-xs" />
-              <input type="tel" id="brideW2Phone" required placeholder="Umuhamya 2: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="brideW2Phone" required placeholder="Umuhamya 2: Telefone" class="p-2 border rounded-lg text-xs" />
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <input type="text" id="brideW3Name" required placeholder="Umuhamya 3: Izina Ryose" class="p-2 border rounded-lg text-xs" />
-              <input type="tel" id="brideW3Phone" required placeholder="Umuhamya 3: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="brideW3Phone" required placeholder="Umuhamya 3: Telefone" class="p-2 border rounded-lg text-xs" />
             </div>
           </div>
         </div>
@@ -270,21 +259,6 @@
 
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Load Parishes into dropdown on page load
-    async function loadParishes() {
-      const { data, error } = await supabase.from('parishes').select('id, name');
-      const select = document.getElementById('parishSelect');
-      if (data) {
-        data.forEach(p => {
-          const opt = document.createElement('option');
-          opt.value = p.id;
-          opt.textContent = p.name;
-          select.appendChild(opt);
-        });
-      }
-    }
-    loadParishes();
-
     // Helper function to compress and upload files to Supabase storage
     async function handleFileUpload(fileInputId, pathPrefix) {
       const input = document.getElementById(fileInputId);
@@ -292,7 +266,6 @@
 
       let file = input.files[0];
 
-      // Compress image if it's an image
       if (file.type.startsWith('image/')) {
         const options = { maxSizeMB: 0.3, maxWidthOrHeight: 1200, useWebWorker: true };
         try {
@@ -320,12 +293,16 @@
       btn.disabled = true;
       btn.textContent = "Iri koherezwa (Uploading & Saving)...";
 
-      // Process certificate uploads
-      const groomCertUrl = await handleFileUpload('groomBaptismCert', 'groom_cert');
-      const brideCertUrl = await handleFileUpload('brideBaptismCert', 'bride_cert');
+      // File uploads
+      const groomBaptismUrl = await handleFileUpload('groomBaptismCert', 'groom_bapt');
+      const groomConfirmUrl = await handleFileUpload('groomConfirmationCert', 'groom_conf');
+      const brideBaptismUrl = await handleFileUpload('brideBaptismCert', 'bride_bapt');
+      const brideConfirmUrl = await handleFileUpload('brideConfirmationCert', 'bride_conf');
 
       const payload = {
-        parish_id: document.getElementById('parishSelect').value,
+        diocese: document.getElementById('dioceseName').value,
+        archdeaconry: document.getElementById('archdeaconryName').value,
+        parish_name: document.getElementById('parishName').value,
         status: 'pending',
 
         // Groom
@@ -336,8 +313,8 @@
         groom_email: document.getElementById('groomEmail').value,
         groom_education: document.getElementById('groomEducation').value,
         groom_job: document.getElementById('groomJob').value,
-        groom_is_baptized: document.querySelector('input[name="groomBaptized"]:checked')?.value === 'yes',
-        groom_baptism_cert_url: groomCertUrl,
+        groom_baptism_cert_url: groomBaptismUrl,
+        groom_confirmation_cert_url: groomConfirmUrl,
         groom_address: {
           country: 'Rwanda',
           province: document.getElementById('groomProvince').value,
@@ -360,8 +337,8 @@
         bride_email: document.getElementById('brideEmail').value,
         bride_education: document.getElementById('brideEducation').value,
         bride_job: document.getElementById('brideJob').value,
-        bride_is_baptized: document.querySelector('input[name="brideBaptized"]:checked')?.value === 'yes',
-        bride_baptism_cert_url: brideCertUrl,
+        bride_baptism_cert_url: brideBaptismUrl,
+        bride_confirmation_cert_url: brideConfirmUrl,
         bride_address: {
           country: 'Rwanda',
           province: document.getElementById('brideProvince').value,
