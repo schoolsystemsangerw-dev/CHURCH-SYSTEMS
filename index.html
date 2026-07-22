@@ -68,7 +68,7 @@
           <p class="text-xs text-slate-600 mt-1">Kanda hano munsi niba uri umunyamuryango w'itorero ushaka kwiyandikisha cyangwa kuzuza imyirondoro yawe.</p>
         </div>
         <button type="button" onclick="openMemberModal()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2 flex-shrink-0">
-          <span>📝 Kwiyandikisha nk'Umunyamuryango (Register as Member) - Yakomejwe</span>
+          <span>📝 Kwiyandikisha nk'Umunyamuryango (Register as Member)</span>
         </button>
       </div>
 
@@ -459,8 +459,27 @@
       </div>
 
       <p class="text-[10px] text-slate-500 pt-2">
-        Technical Support: <span class="text-indigo-400">su</span>
+        Tech Powered by Superior Engineering Solutions
+      </p>
     </div>
   </footer>
+
+  <!-- Script block to handle modal interactivity -->
+  <script>
+    function openMemberModal() {
+      document.getElementById('memberModal').classList.remove('hidden');
+    }
+
+    function closeMemberModal() {
+      document.getElementById('memberModal').classList.add('hidden');
+    }
+
+    function handleMemberSubmit(event) {
+      event.preventDefault();
+      // Add your Supabase or form submission handler here
+      alert("Member registration submitted successfully!");
+      closeMemberModal();
+    }
+  </script>
 </body>
 </html>
