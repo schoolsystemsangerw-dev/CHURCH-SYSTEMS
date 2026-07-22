@@ -12,7 +12,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-  <!-- Header with Larger Logos -->
+  <!-- Header with Logos -->
   <header class="bg-indigo-950 text-white shadow-lg border-b-4 border-indigo-700">
     <div class="max-w-4xl mx-auto p-4 flex items-center justify-between">
       
@@ -104,6 +104,25 @@
             </div>
           </div>
 
+          <!-- Baptism Info (Groom) -->
+          <div class="bg-indigo-50/50 p-4 border border-indigo-100 rounded-lg space-y-3">
+            <label class="block text-xs font-bold text-indigo-900 uppercase">Baptism Status (Warabatijwe?) *</label>
+            <div class="flex items-center gap-6 text-sm">
+              <label class="flex items-center gap-2">
+                <input type="radio" name="groomBaptized" value="yes" required class="accent-indigo-700" />
+                <span>Yego (Yes)</span>
+              </label>
+              <label class="flex items-center gap-2">
+                <input type="radio" name="groomBaptized" value="no" class="accent-indigo-700" />
+                <span>Oya (No)</span>
+              </label>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Baptism Certificate (Manura icyahombwe cy'ububatizo)</label>
+              <input type="file" id="groomBaptismCert" accept="image/*,.pdf" class="w-full text-xs text-slate-600 border rounded-lg p-2 bg-white" />
+            </div>
+          </div>
+
           <!-- Groom Location -->
           <h4 class="text-xs font-bold text-slate-700 uppercase pt-2">Geographical Location (Aho Atuye)</h4>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -117,10 +136,19 @@
 
           <!-- Groom Witnesses -->
           <h4 class="text-xs font-bold text-slate-700 uppercase pt-2">Abahamya b'Umukwe (3 Groom Witnesses)</h4>
-          <div class="space-y-2">
-            <input type="text" id="groomWitness1" required placeholder="Umuhamya 1: Izina & Telefone" class="w-full p-2 border rounded-lg text-xs" />
-            <input type="text" id="groomWitness2" required placeholder="Umuhamya 2: Izina & Telefone" class="w-full p-2 border rounded-lg text-xs" />
-            <input type="text" id="groomWitness3" required placeholder="Umuhamya 3: Izina & Telefone" class="w-full p-2 border rounded-lg text-xs" />
+          <div class="space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input type="text" id="groomW1Name" required placeholder="Umuhamya 1: Izina Ryose" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="groomW1Phone" required placeholder="Umuhamya 1: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input type="text" id="groomW2Name" required placeholder="Umuhamya 2: Izina Ryose" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="groomW2Phone" required placeholder="Umuhamya 2: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input type="text" id="groomW3Name" required placeholder="Umuhamya 3: Izina Ryose" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="groomW3Phone" required placeholder="Umuhamya 3: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+            </div>
           </div>
         </div>
 
@@ -170,6 +198,25 @@
             </div>
           </div>
 
+          <!-- Baptism Info (Bride) -->
+          <div class="bg-indigo-50/50 p-4 border border-indigo-100 rounded-lg space-y-3">
+            <label class="block text-xs font-bold text-indigo-900 uppercase">Baptism Status (Warabatijwe?) *</label>
+            <div class="flex items-center gap-6 text-sm">
+              <label class="flex items-center gap-2">
+                <input type="radio" name="brideBaptized" value="yes" required class="accent-indigo-700" />
+                <span>Yego (Yes)</span>
+              </label>
+              <label class="flex items-center gap-2">
+                <input type="radio" name="brideBaptized" value="no" class="accent-indigo-700" />
+                <span>Oya (No)</span>
+              </label>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Upload Baptism Certificate (Manura icyahombwe cy'ububatizo)</label>
+              <input type="file" id="brideBaptismCert" accept="image/*,.pdf" class="w-full text-xs text-slate-600 border rounded-lg p-2 bg-white" />
+            </div>
+          </div>
+
           <!-- Bride Location -->
           <h4 class="text-xs font-bold text-slate-700 uppercase pt-2">Geographical Location (Aho Atuye)</h4>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -183,10 +230,19 @@
 
           <!-- Bride Witnesses -->
           <h4 class="text-xs font-bold text-slate-700 uppercase pt-2">Abahamya b'Umugeni (3 Bride Witnesses)</h4>
-          <div class="space-y-2">
-            <input type="text" id="brideWitness1" required placeholder="Umuhamya 1: Izina & Telefone" class="w-full p-2 border rounded-lg text-xs" />
-            <input type="text" id="brideWitness2" required placeholder="Umuhamya 2: Izina & Telefone" class="w-full p-2 border rounded-lg text-xs" />
-            <input type="text" id="brideWitness3" required placeholder="Umuhamya 3: Izina & Telefone" class="w-full p-2 border rounded-lg text-xs" />
+          <div class="space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input type="text" id="brideW1Name" required placeholder="Umuhamya 1: Izina Ryose" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="brideW1Phone" required placeholder="Umuhamya 1: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input type="text" id="brideW2Name" required placeholder="Umuhamya 2: Izina Ryose" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="brideW2Phone" required placeholder="Umuhamya 2: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input type="text" id="brideW3Name" required placeholder="Umuhamya 3: Izina Ryose" class="p-2 border rounded-lg text-xs" />
+              <input type="tel" id="brideW3Phone" required placeholder="Umuhamya 3: Telefone (078...)" class="p-2 border rounded-lg text-xs" />
+            </div>
           </div>
         </div>
 
@@ -206,6 +262,8 @@
   </footer>
 
   <script type="module">
+    import imageCompression from 'https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.mjs';
+
     // SUPABASE CONFIGURATION
     const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
     const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
@@ -227,12 +285,44 @@
     }
     loadParishes();
 
+    // Helper function to compress and upload files to Supabase storage
+    async function handleFileUpload(fileInputId, pathPrefix) {
+      const input = document.getElementById(fileInputId);
+      if (!input.files || input.files.length === 0) return null;
+
+      let file = input.files[0];
+
+      // Compress image if it's an image
+      if (file.type.startsWith('image/')) {
+        const options = { maxSizeMB: 0.3, maxWidthOrHeight: 1200, useWebWorker: true };
+        try {
+          file = await imageCompression(file, options);
+        } catch (e) {
+          console.warn("Compression failed, using original file:", e);
+        }
+      }
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${pathPrefix}_${Date.now()}.${fileExt}`;
+      const { data, error } = await supabase.storage.from('certificates').upload(fileName, file);
+
+      if (error) {
+        console.error("Storage Upload Error:", error);
+        return null;
+      }
+      return data.path;
+    }
+
     // Form Submission Handler
     document.getElementById('matrimonyForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
-      btn.textContent = "Iri koherezwa...";
+      btn.textContent = "Iri koherezwa (Uploading & Saving)...";
+
+      // Process certificate uploads
+      const groomCertUrl = await handleFileUpload('groomBaptismCert', 'groom_cert');
+      const brideCertUrl = await handleFileUpload('brideBaptismCert', 'bride_cert');
 
       const payload = {
         parish_id: document.getElementById('parishSelect').value,
@@ -246,6 +336,8 @@
         groom_email: document.getElementById('groomEmail').value,
         groom_education: document.getElementById('groomEducation').value,
         groom_job: document.getElementById('groomJob').value,
+        groom_is_baptized: document.querySelector('input[name="groomBaptized"]:checked')?.value === 'yes',
+        groom_baptism_cert_url: groomCertUrl,
         groom_address: {
           country: 'Rwanda',
           province: document.getElementById('groomProvince').value,
@@ -255,9 +347,9 @@
           village: document.getElementById('groomVillage').value
         },
         groom_witnesses: [
-          document.getElementById('groomWitness1').value,
-          document.getElementById('groomWitness2').value,
-          document.getElementById('groomWitness3').value
+          { name: document.getElementById('groomW1Name').value, phone: document.getElementById('groomW1Phone').value },
+          { name: document.getElementById('groomW2Name').value, phone: document.getElementById('groomW2Phone').value },
+          { name: document.getElementById('groomW3Name').value, phone: document.getElementById('groomW3Phone').value }
         ],
 
         // Bride
@@ -268,6 +360,8 @@
         bride_email: document.getElementById('brideEmail').value,
         bride_education: document.getElementById('brideEducation').value,
         bride_job: document.getElementById('brideJob').value,
+        bride_is_baptized: document.querySelector('input[name="brideBaptized"]:checked')?.value === 'yes',
+        bride_baptism_cert_url: brideCertUrl,
         bride_address: {
           country: 'Rwanda',
           province: document.getElementById('brideProvince').value,
@@ -277,9 +371,9 @@
           village: document.getElementById('brideVillage').value
         },
         bride_witnesses: [
-          document.getElementById('brideWitness1').value,
-          document.getElementById('brideWitness2').value,
-          document.getElementById('brideWitness3').value
+          { name: document.getElementById('brideW1Name').value, phone: document.getElementById('brideW1Phone').value },
+          { name: document.getElementById('brideW2Name').value, phone: document.getElementById('brideW2Phone').value },
+          { name: document.getElementById('brideW3Name').value, phone: document.getElementById('brideW3Phone').value }
         ]
       };
 
