@@ -68,7 +68,7 @@
           <p class="text-xs text-slate-600 mt-1">Kanda hano munsi niba uri umunyamuryango w'itorero ushaka kwiyandikisha cyangwa kuzuza imyirondoro yawe.</p>
         </div>
         <button type="button" onclick="openMemberModal()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2 flex-shrink-0">
-          <span>📝 Kwiyandikisha nk'Umunyamuryango (Register as Member)</span>
+          <span>📝 Kwiyandikisha nk'Umunyamuryango (Register as Member) - Yakomejwe</span>
         </button>
       </div>
 
@@ -459,55 +459,8 @@
       </div>
 
       <p class="text-[10px] text-slate-500 pt-2">
-        Technical Support: <span class="text-indigo-400">support@diocese.rw</span>
-      </p>
-
+        Technical Support: <span class="text-indigo-400">su</span>
     </div>
   </footer>
-
-  <!-- Application Script Integration -->
-  <script>
-    // Modal Management Functions
-    function openMemberModal() {
-      const modal = document.getElementById('memberModal');
-      if (modal) {
-        modal.classList.remove('hidden');
-      }
-    }
-
-    function closeMemberModal() {
-      const modal = document.getElementById('memberModal');
-      if (modal) {
-        modal.classList.add('hidden');
-      }
-    }
-
-    // Image Preview Helper
-    function previewImage(input, previewId, placeholderId) {
-      const preview = document.getElementById(previewId);
-      const placeholder = document.getElementById(placeholderId);
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          preview.src = e.target.result;
-          preview.classList.remove('hidden');
-          if (placeholder) placeholder.classList.add('hidden');
-        }
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    // Location dropdown handler stub
-    function handleLocationChange(prefix, level) {
-      // Add custom location cascade logic here if needed
-    }
-
-    // Member form submission handler stub
-    function handleMemberSubmit(event) {
-      event.preventDefault();
-      alert('Imyirondoro y\'umunyamuryango yabitse neza!');
-      closeMemberModal();
-    }
-  </script>
 </body>
 </html>
