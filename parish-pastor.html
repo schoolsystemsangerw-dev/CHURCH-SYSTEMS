@@ -224,8 +224,18 @@
       </div>
 
       <div class="p-6 space-y-4">
+        <!-- Action Buttons for Export/Print -->
+        <div class="flex flex-wrap gap-2 justify-end">
+          <button onclick="printOrExcelAllMembers()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+            <span>📥 Print / Excel All Members</span>
+          </button>
+          <button onclick="printOrExcelMarriedMembers()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+            <span>💍 Print / Excel Abarasezeranye (Barashakanye)</span>
+          </button>
+        </div>
+
         <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse text-xs">
+          <table class="w-full text-left border-collapse text-xs" id="directoryTable">
             <thead class="bg-slate-100 text-slate-600 uppercase font-semibold border-b border-slate-200">
               <tr>
                 <th class="p-3">Full Name</th>
@@ -488,16 +498,16 @@
       });
     }
 
-    function renderMembersTable() {
+    function renderMembersTable(membersToRender = registeredMembers) {
       const tbody = document.getElementById('membersTableBody');
       tbody.innerHTML = '';
 
-      if (registeredMembers.length === 0) {
+      if (membersToRender.length === 0) {
         tbody.innerHTML = `<tr><td colspan="7" class="text-center p-6 text-slate-400">No registered members found.</td></tr>`;
         return;
       }
 
-      registeredMembers.forEach(m => {
+      membersToRender.forEach(m => {
         tbody.innerHTML += `
           <tr class="hover:bg-slate-50 border-b border-slate-100">
             <td class="p-3 font-bold text-indigo-950">${m.name}</td>
@@ -512,17 +522,49 @@
       });
     }
 
+    // Function to print or export all members to Excel
+    function printOrExcelAllMembers() {
+      let tableHTML = document.getElementById("directoryTable").outerHTML;
+      let win = window.open('', '', 'height=700,width=900');
+      win.document.write('<html><head><title>All Church Members Directory</title>');
+      win.document.write('<style>table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 12px; } th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; } th { background-color: #f1f5f9; }</style>');
+      win.document.write('</head><body>');
+      win.document.write('<h2>EAR Rwanda - Mukama Parish: All Church Members Directory</h2>');
+      win.document.write(tableHTML);
+      win.document.write('</body></html>');
+      win.document.print();
+    }
+
+    // Function to print or export only married/wasezeranye members (barashakanye)
+    function printOrExcelMarriedMembers() {
+      const marriedMembers = registeredMembers.filter(m => m.wasezeranye === true);
+      let html = `<html><head><title>Abarasezeranye (Barashakanye) Members</title>`;
+      html += `<style>table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 12px; } th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; } th { background-color: #f1f5f9; }</style>`;
+      html += `</head><body>`;
+      html += `<h2>EAR Rwanda - Mukama Parish: Abarasezeranye (Barashakanye) Directory</h2>`;
+      html += `<table><thead><tr style="background:#f1f5f9"><th>Full Name</th><th>National ID</th><th>Phone Number</th><th>Kanisa (Local Church)</th><th style="text-align:center">Yarabatijwe</th><th style="text-align:center">Watebwe Amaboko</th><th style="text-align:center">Wasezeranye</th></tr></thead><tbody>`;
+      
+      marriedMembers.forEach(m => {
+        html += `<tr><td>${m.name}</td><td>${m.nid}</td><td>${m.phone}</td><td>${m.kanisa}</td><td style="text-align:center">${m.baptised ? '✅' : '❌'}</td><td style="text-align:center">${m.watebweAmaboko ? '✅' : '❌'}</td><td style="text-align:center">✅</td></tr>`;
+      });
+
+      html += `</tbody></table></body></html>`;
+      let win = window.open('', '', 'height=700,width=900');
+      win.document.write(html);
+      win.document.print();
+    }
+
     function filterApplications() {
       const query = document.getElementById('searchInput').value.toLowerCase();
       const status = document.getElementById('statusFilter').value;
 
       const filtered = applications.filter(app => {
         const matchesQuery = app.groom.name.toLowerCase().includes(query) ||
-                             app.bride.name.toLowerCase().includes(query) ||
-                             app.groom.nid.includes(query) ||
-                             app.bride.nid.includes(query) ||
-                             app.groom.phone.includes(query) ||
-                             app.bride.phone.includes(query);
+                           app.bride.name.toLowerCase().includes(query) ||
+                           app.groom.nid.includes(query) ||
+                           app.bride.nid.includes(query) ||
+                           app.groom.phone.includes(query) ||
+                           app.bride.phone.includes(query);
 
         const matchesStatus = status === 'ALL' || app.status === status;
 
@@ -594,7 +636,7 @@
           <!-- GROOM BOX -->
           <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 space-y-3">
             <h4 class="font-black text-indigo-950 text-xs uppercase tracking-wider border-b border-indigo-200 pb-2">
-              🤵 Groom Information (UmukENYEYERAZI)
+              🤵 Groom Information (Umukenyereza)
             </h4>
             <div class="space-y-1.5 text-xs text-slate-700">
               <p><strong>Full Name:</strong> ${app.groom.name}</p>
@@ -647,29 +689,24 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             ${app.witnesses.map((w, index) => `
               <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
-                <p class="text-[10px] font-bold text-indigo-900 uppercase">Umuhamya ${index + 1}</p>
-                <p class="text-xs font-bold text-slate-800">${w.name}</p>
-                <p class="text-[11px] font-mono text-emerald-700 font-semibold">${w.phone}</p>
+                <p class="text-[10px] font-bold text-indigo-900 uppercase">Witness #${index + 1}</p>
+                <p class="font-bold text-slate-800 mt-1">${w.name}</p>
+                <p class="text-xs font-mono text-emerald-700 font-bold mt-0.5">${w.phone}</p>
               </div>
             `).join('')}
           </div>
         </div>
 
-        <!-- ATTACHED DOCUMENTS / UPLOADS -->
+        <!-- UPLOADS SECTION -->
         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
           <h4 class="font-black text-slate-800 text-xs uppercase tracking-wider border-b border-slate-300 pb-2">
-            📂 Uploaded Certificates & Verification Attachments
+            📁 Attached Verification Documents
           </h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            ${app.uploads.map(u => `
-              <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-                <div>
-                  <p class="text-xs font-bold text-slate-800">${u.title}</p>
-                  <p class="text-[10px] text-slate-400 font-mono">${u.file}</p>
-                </div>
-                <button onclick="alert('Downloading/Opening ${u.file}')" class="px-3 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-bold text-[10px] rounded-lg border border-indigo-200 transition">
-                  📄 View Document
-                </button>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            ${app.uploads.map(up => `
+              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200">
+                <span class="font-medium text-slate-700">${up.title}</span>
+                <span class="text-[11px] font-mono text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded font-bold">${up.file}</span>
               </div>
             `).join('')}
           </div>
@@ -686,20 +723,20 @@
 
     function handleStatusSelect(newStatus) {
       if (!selectedAppId) return;
-      
       const app = applications.find(a => a.id === selectedAppId);
       if (app) {
         app.status = newStatus;
+        updateStats();
         filterApplications();
-        alert(`Application ${app.id} status updated to ${newStatus}!`);
+        alert(`Application ${app.id} status successfully updated to ${newStatus}`);
       }
     }
 
-    // Initialize application state on load
-    window.addEventListener('DOMContentLoaded', () => {
+    // Initialize Page Stats and Table on Load
+    window.onload = function() {
+      updateStats();
       filterApplications();
-    });
+    };
   </script>
-
 </body>
 </html>
