@@ -38,6 +38,7 @@
           DIOCESE OF GAHINI - MUKAMA PARISH
         </h2>
         <p class="text-xs sm:text-sm text-indigo-200 font-medium mt-1">Parish Pastor Executive Dashboard</p>
+        <p class="text-xs sm:text-sm font-bold text-amber-400 mt-1 tracking-wider uppercase">REV. THEONESTY KARYANGO</p>
       </div>
 
       <!-- EAR Rwanda Logo -->
@@ -642,101 +643,6 @@
               <p><strong>Full Name:</strong> ${app.groom.name}</p>
               <p><strong>NID Number:</strong> <span class="font-mono bg-indigo-100 px-1.5 py-0.5 rounded text-indigo-900 font-bold">${app.groom.nid}</span></p>
               <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-emerald-700">${app.groom.phone}</span></p>
-              
-              <div class="pt-2">
-                <p class="font-bold text-slate-800 uppercase text-[10px] tracking-wide text-indigo-900">Geographical Location:</p>
-                <div class="bg-white p-2.5 rounded-xl border border-slate-200 mt-1 space-y-1 text-[11px]">
-                  <p><strong>Province:</strong> ${app.groom.province}</p>
-                  <p><strong>District:</strong> ${app.groom.district}</p>
-                  <p><strong>Sector:</strong> ${app.groom.sector}</p>
-                  <p><strong>Cell:</strong> ${app.groom.cell}</p>
-                  <p><strong>Village:</strong> ${app.groom.village}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- BRIDE BOX -->
-          <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-100 space-y-3">
-            <h4 class="font-black text-amber-950 text-xs uppercase tracking-wider border-b border-amber-200 pb-2">
-              👰 Bride Information (Umugeni)
-            </h4>
-            <div class="space-y-1.5 text-xs text-slate-700">
-              <p><strong>Full Name:</strong> ${app.bride.name}</p>
-              <p><strong>NID Number:</strong> <span class="font-mono bg-amber-100 px-1.5 py-0.5 rounded text-amber-900 font-bold">${app.bride.nid}</span></p>
-              <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-emerald-700">${app.bride.phone}</span></p>
-              
-              <div class="pt-2">
-                <p class="font-bold text-slate-800 uppercase text-[10px] tracking-wide text-amber-900">Geographical Location:</p>
-                <div class="bg-white p-2.5 rounded-xl border border-slate-200 mt-1 space-y-1 text-[11px]">
-                  <p><strong>Province:</strong> ${app.bride.province}</p>
-                  <p><strong>District:</strong> ${app.bride.district}</p>
-                  <p><strong>Sector:</strong> ${app.bride.sector}</p>
-                  <p><strong>Cell:</strong> ${app.bride.cell}</p>
-                  <p><strong>Village:</strong> ${app.bride.village}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- ABAHAMYA BAKURU 3 SECTION -->
-        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-          <h4 class="font-black text-slate-800 text-xs uppercase tracking-wider border-b border-slate-300 pb-2">
-            👥 Abahamya Bakuru (3 Witnesses & Phone Numbers)
-          </h4>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            ${app.witnesses.map((w, index) => `
-              <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
-                <p class="text-[10px] font-bold text-indigo-900 uppercase">Witness #${index + 1}</p>
-                <p class="font-bold text-slate-800 mt-1">${w.name}</p>
-                <p class="text-xs font-mono text-emerald-700 font-bold mt-0.5">${w.phone}</p>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-
-        <!-- UPLOADS SECTION -->
-        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-          <h4 class="font-black text-slate-800 text-xs uppercase tracking-wider border-b border-slate-300 pb-2">
-            📁 Attached Verification Documents
-          </h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            ${app.uploads.map(up => `
-              <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200">
-                <span class="font-medium text-slate-700">${up.title}</span>
-                <span class="text-[11px] font-mono text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded font-bold">${up.file}</span>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
-
-      document.getElementById('applicationModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('applicationModal').classList.add('hidden');
-      selectedAppId = null;
-    }
-
-    function handleStatusSelect(newStatus) {
-      if (!selectedAppId) return;
-      const app = applications.find(a => a.id === selectedAppId);
-      if (app) {
-        app.status = newStatus;
-        updateStats();
-        filterApplications();
-        alert(`Application ${app.id} status successfully updated to ${newStatus}`);
-      }
-    }
-
-    // Initialize Page Stats and Table on Load
-    window.onload = function() {
-      updateStats();
-      filterApplications();
-    };
   </script>
 </body>
 </html>
