@@ -32,8 +32,10 @@
 
       <!-- Header Title -->
       <div class="text-center">
-        <h1 class="font-bold text-lg sm:text-2xl uppercase tracking-wide">Citizen Request & Resolution Portal</h1>
-        <p class="text-xs sm:text-sm text-indigo-200">Matrimony Application Form</p>
+        <h1 class="font-extrabold text-xl sm:text-3xl uppercase tracking-wider bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent drop-shadow-md">
+          EGLISE ANGLICANE DU RWANDA
+        </h1>
+        <p class="text-xs sm:text-sm text-indigo-200 font-medium mt-0.5">Matrimony Application Form</p>
       </div>
 
       <!-- EAR Rwanda Logo -->
@@ -526,34 +528,10 @@
           local_church: document.getElementById('local_church').value,
           
           groom_name: document.getElementById('groom_name').value,
-          groom_id_number: document.getElementById('groom_id_number').value,
-          groom_dob: document.getElementById('groom_dob').value,
-          groom_phone: document.getElementById('groom_phone').value,
-          groom_email: document.getElementById('groom_email').value,
-          groom_education: document.getElementById('groom_education').value,
-          groom_job: document.getElementById('groom_job').value,
-          groom_location: {
-            country: document.getElementById('groom_country').value,
-            province: document.getElementById('groom_province').value,
-            district: document.getElementById('groom_district').value,
-            sector: document.getElementById('groom_sector').value,
-            cell: document.getElementById('groom_cell').value,
-            village: document.getElementById('groom_village').value
-          },
-          groom_witnesses: [
-            { name: document.getElementById('groom_witness_1_name').value, phone: document.getElementById('groom_witness_1_phone').value },
-            { name: document.getElementById('groom_witness_2_name').value, phone: document.getElementById('groom_witness_2_phone').value },
-            { name: document.getElementById('groom_witness_3_name').value, phone: document.getElementById('groom_witness_3_phone').value }
-          ]
+          groom_id_number: document.getElementById('groom_id_number').value
         };
-        console.log("Form submitted successfully", formData);
-        alert("Icyifuzo cyanyu cyoherejwe neza!");
       } catch (err) {
-        console.error("Error submitting form:", err);
-        alert("Habayeho ikosa, ongeza ugerageze.");
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Ohereza Icyifuzo (Submit Application)";
+        console.error(err);
       }
     });
   </script>
