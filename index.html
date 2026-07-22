@@ -373,8 +373,11 @@
       </div>
 
       <!-- SUBMIT BUTTON -->
-      <div class="pt-6 border-t border-slate-200 flex justify-end">
-        <button type="submit" id="submitBtn" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold px-8 py-3 rounded-xl shadow-lg hover:shadow-indigo-200 transition text-sm">
+      <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <button type="button" id="showMembersBtn" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition text-sm flex items-center justify-center gap-2">
+          <span>👥 Show Members of This Church</span>
+        </button>
+        <button type="submit" id="submitBtn" class="w-full sm:w-auto bg-indigo-700 hover:bg-indigo-800 text-white font-bold px-8 py-3 rounded-xl shadow-lg hover:shadow-indigo-200 transition text-sm">
           Ohereza Icyifuzo (Submit Application)
         </button>
       </div>
@@ -412,7 +415,11 @@
       </div>
 
       <p class="text-[10px] text-slate-500 pt-2">
-        Technical Support: <a href="mailto:support@diocese.rw" class="text-indigo-400 underline">support@diocese.rw</a>
+        Technical Support: <span class="text-indigo-400">support@diocese.rw</span>
+      </p>
+
+      <p class="text-[10px] text-slate-400">
+        Support Email: schoolsystems.ange.rw@gmail.com
       </p>
 
     </div>
@@ -488,107 +495,6 @@
           if(!input.id.includes('email') && !input.id.includes('file')) input.setAttribute('required', 'true');
         });
       }
-    }
-
-    // RWANDA GEOGRAPHICAL LOCATION DATA STRUCTURE
-    const rwandaLocations = {
-      "Kigali City": {
-        "Nyarugenge": {
-          "Nyamirambo": {
-            "Rwezamenyo": ["Nyakabanda I", "Nyakabanda II"],
-            "Kigarama": ["Miduha", "Kizito"]
-          }
-        },
-        "Gasabo": {
-          "Kacyiru": {
-            "Kamatamu": ["Amahoro", "Kabuhutu"],
-            "Kibaza": ["Ubumwe", "Rugando"]
-          }
-        },
-        "Kicukiro": {
-          "Niboye": {
-            "Gatare": ["Gatare I", "Gatare II"],
-            "Niboye": ["Niboye I", "Niboye II"]
-          }
-        }
-      },
-      "Northern Province": {
-        "Musanze": {
-          "Muhoza": {
-            "Ruhengeri": ["Kigombe", "Mpenge"],
-            "Cyivugiza": ["Kabaya", "Rurembo"]
-          }
-        }
-      },
-      "Southern Province": {
-        "Huye": {
-          "Ngoma": {
-            "Matyazo": ["Kaburemera", "Buhiba"]
-          }
-        }
-      },
-      "Eastern Province": {
-        "Rwamagana": {
-          "Kigabiro": {
-            "Nyagasenyi": ["Sibagire", "Ubumwe"]
-          }
-        }
-      },
-      "Western Province": {
-        "Rubavu": {
-          "Gisenyi": {
-            "Mazingira": ["Mizinga", "Ndebo"]
-          }
-        }
-      }
-    };
-
-    // POPULATE PROVINCES ON LOAD
-    window.addEventListener('DOMContentLoaded', () => {
-      populateDropdown('groom_province', Object.keys(rwandaLocations));
-      populateDropdown('bride_province', Object.keys(rwandaLocations));
-    });
-
-    function populateDropdown(elementId, items) {
-      const select = document.getElementById(elementId);
-      select.innerHTML = `<option value="">Hitamo ${elementId.split('_')[1].toUpperCase()}</option>`;
-      items.forEach(item => {
-        const option = document.createElement('option');
-        option.value = item;
-        option.textContent = item;
-        select.appendChild(option);
-      });
-    }
-
-    function handleLocationChange(person, level) {
-      const prov = document.getElementById(`${person}_province`).value;
-      const dist = document.getElementById(`${person}_district`).value;
-      const sec = document.getElementById(`${person}_sector`).value;
-      const cell = document.getElementById(`${person}_cell`).value;
-
-      if (level === 'province') {
-        const districts = prov ? Object.keys(rwandaLocations[prov] || {}) : [];
-        populateDropdown(`${person}_district`, districts);
-        resetDropdowns(person, ['sector', 'cell', 'village']);
-      } else if (level === 'district') {
-        const sectors = (prov && dist) ? Object.keys(rwandaLocations[prov][dist] || {}) : [];
-        populateDropdown(`${person}_sector`, sectors);
-        resetDropdowns(person, ['cell', 'village']);
-      } else if (level === 'sector') {
-        const cells = (prov && dist && sec) ? Object.keys(rwandaLocations[prov][dist][sec] || {}) : [];
-        populateDropdown(`${person}_cell`, cells);
-        resetDropdowns(person, ['village']);
-      } else if (level === 'cell') {
-        const villages = (prov && dist && sec && cell) ? (rwandaLocations[prov][dist][sec][cell] || []) : [];
-        populateDropdown(`${person}_village`, villages);
-      }
-    }
-
-    function resetDropdowns(person, levels) {
-      levels.forEach(lvl => {
-        const select = document.getElementById(`${person}_${lvl}`);
-        select.innerHTML = `<option value="">Hitamo ${lvl.toUpperCase()}</option>`;
-      });
     }
   </script>
 </body>
