@@ -100,6 +100,47 @@
           </div>
         </div>
 
+        <!-- Groom Geographical Location (Aho Atuye) -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
+          <h3 class="font-bold text-xs text-indigo-900 uppercase">Aho Umukwe Atuye (Groom's Geographical Residence)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Igihugu (Country) *</label>
+              <input type="text" id="groom_country" value="Rwanda" readonly class="w-full p-2 bg-slate-200 border rounded text-xs font-semibold text-slate-600" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Intara / Umujyi (Province) *</label>
+              <select id="groom_province" required onchange="handleLocationChange('groom', 'province')" class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Intara</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Akarere (District) *</label>
+              <select id="groom_district" required onchange="handleLocationChange('groom', 'district')" class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Akarere</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Umurenge (Sector) *</label>
+              <select id="groom_sector" required onchange="handleLocationChange('groom', 'sector')" class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Umurenge</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Akagari (Cell) *</label>
+              <select id="groom_cell" required onchange="handleLocationChange('groom', 'cell')" class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Akagari</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Umudugudu (Village) *</label>
+              <select id="groom_village" required class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Umudugudu</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
         <!-- Groom Witnesses -->
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
           <h3 class="font-bold text-xs text-indigo-900 uppercase">Abahamya b'Umukwe (Groom's Witnesses & Phone Numbers)</h3>
@@ -170,6 +211,47 @@
           <div class="sm:col-span-2">
             <label class="block text-xs font-semibold text-slate-700 mb-1">Current Job / Profession (Umwuga/Akazi) *</label>
             <input type="text" id="bride_job" required placeholder="Urugero: Umwarimu, Umuhinzi..." class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+          </div>
+        </div>
+
+        <!-- Bride Geographical Location (Aho Atuye) -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
+          <h3 class="font-bold text-xs text-indigo-900 uppercase">Aho Umugeni Atuye (Bride's Geographical Residence)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Igihugu (Country) *</label>
+              <input type="text" id="bride_country" value="Rwanda" readonly class="w-full p-2 bg-slate-200 border rounded text-xs font-semibold text-slate-600" />
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Intara / Umujyi (Province) *</label>
+              <select id="bride_province" required onchange="handleLocationChange('bride', 'province')" class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Intara</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Akarere (District) *</label>
+              <select id="bride_district" required onchange="handleLocationChange('bride', 'district')" class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Akarere</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Umurenge (Sector) *</label>
+              <select id="bride_sector" required onchange="handleLocationChange('bride', 'sector')" class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Umurenge</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Akagari (Cell) *</label>
+              <select id="bride_cell" required onchange="handleLocationChange('bride', 'cell')" class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Akagari</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Umudugudu (Village) *</label>
+              <select id="bride_village" required class="w-full p-2 border rounded text-xs bg-white">
+                <option value="">Hitamo Umudugudu</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -248,6 +330,107 @@
     const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // RWANDA GEOGRAPHICAL LOCATION DATA DUMMY STRUCTURE (DYNAMICALLY LINKED)
+    const rwandaLocations = {
+      "Kigali City": {
+        "Nyarugenge": {
+          "Nyamirambo": {
+            "Rwezamenyo": ["Nyakabanda I", "Nyakabanda II"],
+            "Kigarama": ["Miduha", "Kizito"]
+          }
+        },
+        "Gasabo": {
+          "Kacyiru": {
+            "Kamatamu": ["Amahoro", "Kabuhutu"],
+            "Kibaza": ["Ubumwe", "Rugando"]
+          }
+        },
+        "Kicukiro": {
+          "Niboye": {
+            "Gatare": ["Gatare I", "Gatare II"],
+            "Niboye": ["Niboye I", "Niboye II"]
+          }
+        }
+      },
+      "Northern Province": {
+        "Musanze": {
+          "Muhoza": {
+            "Ruhengeri": ["Kigombe", "Mpenge"],
+            "Cyivugiza": ["Kabaya", "Rurembo"]
+          }
+        }
+      },
+      "Southern Province": {
+        "Huye": {
+          "Ngoma": {
+            "Matyazo": ["Kaburemera", "Buhiba"]
+          }
+        }
+      },
+      "Eastern Province": {
+        "Rwamagana": {
+          "Kigabiro": {
+            "Nyagasenyi": ["Sibagire", "Ubumwe"]
+          }
+        }
+      },
+      "Western Province": {
+        "Rubavu": {
+          "Gisenyi": {
+            "Mazingira": ["Mizinga", "Ndebo"]
+          }
+        }
+      }
+    };
+
+    // POPULATE PROVINCES ON LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+      populateDropdown('groom_province', Object.keys(rwandaLocations));
+      populateDropdown('bride_province', Object.keys(rwandaLocations));
+    });
+
+    function populateDropdown(elementId, items) {
+      const select = document.getElementById(elementId);
+      select.innerHTML = `<option value="">Hitamo ${elementId.split('_')[1].toUpperCase()}</option>`;
+      items.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item;
+        option.textContent = item;
+        select.appendChild(option);
+      });
+    }
+
+    function handleLocationChange(person, level) {
+      const prov = document.getElementById(`${person}_province`).value;
+      const dist = document.getElementById(`${person}_district`).value;
+      const sec = document.getElementById(`${person}_sector`).value;
+      const cell = document.getElementById(`${person}_cell`).value;
+
+      if (level === 'province') {
+        const districts = prov ? Object.keys(rwandaLocations[prov] || {}) : [];
+        populateDropdown(`${person}_district`, districts);
+        resetDropdowns(person, ['sector', 'cell', 'village']);
+      } else if (level === 'district') {
+        const sectors = (prov && dist) ? Object.keys(rwandaLocations[prov][dist] || {}) : [];
+        populateDropdown(`${person}_sector`, sectors);
+        resetDropdowns(person, ['cell', 'village']);
+      } else if (level === 'sector') {
+        const cells = (prov && dist && sec) ? Object.keys(rwandaLocations[prov][dist][sec] || {}) : [];
+        populateDropdown(`${person}_cell`, cells);
+        resetDropdowns(person, ['village']);
+      } else if (level === 'cell') {
+        const villages = (prov && dist && sec && cell) ? rwandaLocations[prov][dist][sec][cell] || [] : [];
+        populateDropdown(`${person}_village`, villages);
+      }
+    }
+
+    function resetDropdowns(person, levels) {
+      levels.forEach(lvl => {
+        const select = document.getElementById(`${person}_${lvl}`);
+        select.innerHTML = `<option value="">Hitamo ${lvl.toUpperCase()}</option>`;
+      });
+    }
+
     document.getElementById('matrimonyForm').addEventListener('submit', async function (e) {
       e.preventDefault();
       const submitBtn = document.getElementById('submitBtn');
@@ -267,6 +450,14 @@
           groom_email: document.getElementById('groom_email').value,
           groom_education: document.getElementById('groom_education').value,
           groom_job: document.getElementById('groom_job').value,
+          groom_location: {
+            country: document.getElementById('groom_country').value,
+            province: document.getElementById('groom_province').value,
+            district: document.getElementById('groom_district').value,
+            sector: document.getElementById('groom_sector').value,
+            cell: document.getElementById(`${person}_cell` ? 'groom_cell' : 'groom_cell').value,
+            village: document.getElementById('groom_village').value
+          },
           groom_witnesses: [
             { name: document.getElementById('groom_witness_1_name').value, phone: document.getElementById('groom_witness_1_phone').value },
             { name: document.getElementById('groom_witness_2_name').value, phone: document.getElementById('groom_witness_2_phone').value },
@@ -280,6 +471,14 @@
           bride_email: document.getElementById('bride_email').value,
           bride_education: document.getElementById('bride_education').value,
           bride_job: document.getElementById('bride_job').value,
+          bride_location: {
+            country: document.getElementById('bride_country').value,
+            province: document.getElementById('bride_province').value,
+            district: document.getElementById('bride_district').value,
+            sector: document.getElementById('bride_sector').value,
+            cell: document.getElementById('bride_cell').value,
+            village: document.getElementById('bride_village').value
+          },
           bride_witnesses: [
             { name: document.getElementById('bride_witness_1_name').value, phone: document.getElementById('bride_witness_1_phone').value },
             { name: document.getElementById('bride_witness_2_name').value, phone: document.getElementById('bride_witness_2_phone').value },
