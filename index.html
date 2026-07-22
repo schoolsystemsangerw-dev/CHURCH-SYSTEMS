@@ -68,7 +68,7 @@
           <p class="text-xs text-slate-600 mt-1">Kanda hano munsi niba uri umunyamuryango w'itorero ushaka kwiyandikisha cyangwa kuzuza imyirondoro yawe.</p>
         </div>
         <button type="button" onclick="openMemberModal()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2 flex-shrink-0">
-          <span>📝 Kwiyandikisha nk'Umunyamuryango (Register as Member / Yashyakanye)</span>
+          <span>📝 Kwiyandikisha nk'Umunyamuryango (Register as Member)</span>
         </button>
       </div>
 
@@ -401,7 +401,7 @@
           <input type="text" id="member_ikanisa" required placeholder="Andika izina ry'ikanisa usengeramo" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500" />
         </div>
 
-        <!-- Checkboxes for Baptism & Confirmation Status -->
+        <!-- Checkboxes for Baptism, Confirmation & Matrimony Status -->
         <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100 space-y-3">
           <label class="block text-xs font-bold text-emerald-950 uppercase mb-2">Amakuru y'Umubatizo n'Gukomezwa (Church Sacraments)</label>
           
@@ -412,7 +412,12 @@
 
           <div class="flex items-center gap-3">
             <input type="checkbox" id="member_yakomejwe" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500" />
-            <label for="member_yakomejwe" class="text-xs font-medium text-slate-700 cursor-pointer">Yakomejwe (Confirmed)</label>
+            <label for="member_yakomejwe" class="text-xs font-medium text-slate-700 cursor-pointer">Yakomejwe (Confirmed / Yatebwe imikono)</label>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="member_yarashakanye" class="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500" />
+            <label for="member_yarashakanye" class="text-xs font-medium text-slate-700 cursor-pointer">Yarashakanye (Married)</label>
           </div>
         </div>
 
@@ -458,28 +463,9 @@
         </p>
       </div>
 
-      <p class="text-[10px] text-slate-500 pt-2">
-        Tech Powered by Superior Engineering Solutions
-      </p>
+      <p class="text-[10px] text-slate-500 pt-4">&copy; 2026 EGLISE ANGLICANE DU RWANDA - All Rights Reserved.</p>
     </div>
   </footer>
 
-  <!-- Script block to handle modal interactivity -->
-  <script>
-    function openMemberModal() {
-      document.getElementById('memberModal').classList.remove('hidden');
-    }
-
-    function closeMemberModal() {
-      document.getElementById('memberModal').classList.add('hidden');
-    }
-
-    function handleMemberSubmit(event) {
-      event.preventDefault();
-      // Add your Supabase or form submission handler here
-      alert("Member registration submitted successfully!");
-      closeMemberModal();
-    }
-  </script>
 </body>
 </html>
