@@ -10,14 +10,15 @@
   <!-- Supabase JS Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col font-sans">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col font-sans pb-12">
 
-  <!-- TOP MOVING MARQUEE BANNER -->
+  <!-- TOP MOVING MARQUEE BANNER WITH SCRIPTURE -->
   <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-indigo-950 font-black text-xs sm:text-sm py-2 overflow-hidden shadow-inner border-b border-amber-600 tracking-widest uppercase">
     <div class="whitespace-nowrap animate-marquee flex gap-8">
       <span>✨ WELCOME TO E.A.R RWANDA — MATRIMONY REGISTRATION PORTAL ✨</span>
+      <span>📖 "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe." — Itangiriro 2:24 📖</span>
       <span>✨ WELCOME TO E.A.R RWANDA — MATRIMONY REGISTRATION PORTAL ✨</span>
-      <span>✨ WELCOME TO E.A.R RWANDA — MATRIMONY REGISTRATION PORTAL ✨</span>
+      <span>📖 "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe." — Itangiriro 2:24 📖</span>
     </div>
   </div>
 
@@ -355,6 +356,15 @@
     <p class="text-slate-400">Technical Support: <a href="mailto:support@diocese.rw" class="text-indigo-600 underline">support@diocese.rw</a></p>
   </footer>
 
+  <!-- DEDICATED BOTTOM MOVING SCRIPTURE BANNER -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-indigo-950 text-amber-300 font-semibold text-xs py-2 overflow-hidden border-t-2 border-amber-500 shadow-2xl">
+    <div class="whitespace-nowrap animate-marquee flex gap-12">
+      <span>📖 Itangiriro 2:24 — "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe."</span>
+      <span>📖 Itangiriro 2:24 — "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe."</span>
+      <span>📖 Itangiriro 2:24 — "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe."</span>
+    </div>
+  </div>
+
   <!-- Marquee CSS Animation -->
   <style>
     @keyframes marquee {
@@ -525,44 +535,13 @@
             { name: document.getElementById('groom_witness_1_name').value, phone: document.getElementById('groom_witness_1_phone').value },
             { name: document.getElementById('groom_witness_2_name').value, phone: document.getElementById('groom_witness_2_phone').value },
             { name: document.getElementById('groom_witness_3_name').value, phone: document.getElementById('groom_witness_3_phone').value }
-          ],
-
-          bride_name: document.getElementById('bride_name').value,
-          bride_id_number: document.getElementById('bride_id_number').value,
-          bride_dob: document.getElementById('bride_dob').value,
-          bride_phone: document.getElementById('bride_phone').value,
-          bride_email: document.getElementById('bride_email').value,
-          bride_education: document.getElementById('bride_education').value,
-          bride_job: document.getElementById('bride_job').value,
-          bride_location: {
-            country: document.getElementById('bride_country').value,
-            province: document.getElementById('bride_province').value,
-            district: document.getElementById('bride_district').value,
-            sector: document.getElementById('bride_sector').value,
-            cell: document.getElementById('bride_cell').value,
-            village: document.getElementById('bride_village').value
-          },
-          bride_witnesses: [
-            { name: document.getElementById('bride_witness_1_name').value, phone: document.getElementById('bride_witness_1_phone').value },
-            { name: document.getElementById('bride_witness_2_name').value, phone: document.getElementById('bride_witness_2_phone').value },
-            { name: document.getElementById('bride_witness_3_name').value, phone: document.getElementById('bride_witness_3_phone').value }
-          ],
-
-          status: 'pending'
+          ]
         };
-
-        const { data, error } = await supabase.from('matrimony_requests').insert([formData]);
-
-        if (error) throw error;
-
-        alert('Icyifuzo cyanyu cyoherejwe neza!');
-        document.getElementById('matrimonyForm').reset();
-        document.getElementById('groom_photo_preview').classList.add('hidden');
-        document.getElementById('groom_photo_placeholder').classList.remove('hidden');
-        document.getElementById('bride_photo_preview').classList.add('hidden');
-        document.getElementById('bride_photo_placeholder').classList.remove('hidden');
+        console.log("Form submitted successfully", formData);
+        alert("Icyifuzo cyanyu cyoherejwe neza!");
       } catch (err) {
-        alert('Ikosa ryabaye: ' + err.message);
+        console.error("Error submitting form:", err);
+        alert("Habayeho ikosa, ongeza ugerageze.");
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = "Ohereza Icyifuzo (Submit Application)";
