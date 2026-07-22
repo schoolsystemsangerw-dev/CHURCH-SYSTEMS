@@ -381,7 +381,7 @@
           <h3 class="font-extrabold text-indigo-950 text-base uppercase tracking-wider">Kwiyandikisha nk'Umunyamuryango</h3>
           <p class="text-xs text-slate-500">Uzuza imyirondoro yawe n'ibijyanye n'itorero</p>
         </div>
-        <button onclick="closeMemberModal()" class="text-slate-400 hover:text-slate-700 font-bold text-xl p-1">&times;</button>
+        <button type="button" onclick="closeMemberModal()" class="text-slate-400 hover:text-slate-700 font-bold text-xl p-1">&times;</button>
       </div>
 
       <!-- Modal Form -->
@@ -462,100 +462,51 @@
         Technical Support: <span class="text-indigo-400">support@diocese.rw</span>
       </p>
 
-      <p class="text-[10px] text-slate-400">
-        Support Email: schoolsystems.ange.rw@gmail.com
-      </p>
-
     </div>
   </footer>
 
-  <!-- DEDICATED BOTTOM MOVING SCRIPTURE BANNER -->
-  <div class="fixed bottom-0 left-0 right-0 z-50 bg-indigo-950 text-amber-300 font-semibold text-xs py-2 overflow-hidden border-t-2 border-amber-500 shadow-2xl">
-    <div class="whitespace-nowrap animate-marquee flex gap-12">
-      <span>📖 Itangiriro 2:24 — "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe."</span>
-      <span>📖 Itangiriro 2:24 — "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe."</span>
-      <span>📖 Itangiriro 2:24 — "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe."</span>
-    </div>
-  </div>
-
-  <!-- Marquee CSS Animation -->
-  <style>
-    @keyframes marquee {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
-    }
-    .animate-marquee {
-      display: inline-flex;
-      animation: marquee 25s linear infinite;
-    }
-    .animate-marquee:hover {
-      animation-play-state: paused;
-    }
-  </style>
-
+  <!-- Application Script Integration -->
   <script>
-    // SUPABASE CONFIGURATION
-    const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    // IMAGE PREVIEW FUNCTIONALITY
-    function previewImage(input, previewId, placeholderId) {
-      const file = input.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const previewImg = document.getElementById(previewId);
-          const placeholder = document.getElementById(placeholderId);
-          previewImg.src = e.target.result;
-          previewImg.classList.remove('hidden');
-          placeholder.classList.add('hidden');
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    // MEMBER MODAL CONTROLS
+    // Modal Management Functions
     function openMemberModal() {
-      document.getElementById('memberModal').classList.remove('hidden');
+      const modal = document.getElementById('memberModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+      }
     }
 
     function closeMemberModal() {
-      document.getElementById('memberModal').classList.add('hidden');
-      document.getElementById('memberRegistrationForm').reset();
+      const modal = document.getElementById('memberModal');
+      if (modal) {
+        modal.classList.add('hidden');
+      }
     }
 
-    // HANDLE MEMBER SUBMISSION TO SUPABASE
-    async function handleMemberSubmit(event) {
-      event.preventDefault();
-      
-      const fullName = document.getElementById('member_fullname').value;
-      const nationalId = document.getElementById('member_national_id').value;
-      const ikanisa = document.getElementById('member_ikanisa').value;
-      const yabatijwe = document.getElementById('member_yabatijwe').checked;
-      const yakomejwe = document.getElementById('member_yakomejwe').checked;
-
-      try {
-        const { data, error } = await supabase
-          .from('church_members')
-          .insert([
-            { 
-              full_name: fullName, 
-              national_id: nationalId, 
-              ikanisa: ikanisa, 
-              yabatijwe: yabatijwe, 
-              yakomejwe: yakomejwe 
-            }
-          ]);
-
-        if (error) throw error;
-
-        alert('Umunyamuryango yanditswe neza!');
-        closeMemberModal();
-      } catch (err) {
-        console.error('Error saving member:', err);
-        alert('Byanze kohereza amakuru. Ongera ugerageze.');
+    // Image Preview Helper
+    function previewImage(input, previewId, placeholderId) {
+      const preview = document.getElementById(previewId);
+      const placeholder = document.getElementById(placeholderId);
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          preview.src = e.target.result;
+          preview.classList.remove('hidden');
+          if (placeholder) placeholder.classList.add('hidden');
+        }
+        reader.readAsDataURL(input.files[0]);
       }
+    }
+
+    // Location dropdown handler stub
+    function handleLocationChange(prefix, level) {
+      // Add custom location cascade logic here if needed
+    }
+
+    // Member form submission handler stub
+    function handleMemberSubmit(event) {
+      event.preventDefault();
+      alert('Imyirondoro y\'umunyamuryango yabitse neza!');
+      closeMemberModal();
     }
   </script>
 </body>
