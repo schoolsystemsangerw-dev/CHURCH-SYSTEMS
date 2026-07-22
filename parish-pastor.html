@@ -82,31 +82,39 @@
         </div>
       </div>
 
-      <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-rose-500 flex justify-between items-center">
+      <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-blue-500 flex justify-between items-center">
         <div>
-          <p class="text-xs font-semibold text-slate-500 uppercase">Returned / Rejected</p>
-          <p id="stat-returned" class="text-2xl font-black text-rose-600 mt-1">0</p>
+          <p class="text-xs font-semibold text-slate-500 uppercase">Registered Members</p>
+          <p id="stat-members" class="text-2xl font-black text-blue-600 mt-1">0</p>
         </div>
-        <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
         </div>
       </div>
     </div>
 
-    <!-- FILTER & SEARCH CONTROL BAR -->
+    <!-- FILTER, SEARCH & REGISTER CONTROL BAR -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
       <div class="relative w-full md:w-96">
         <input type="text" id="searchInput" placeholder="Search by groom, bride, NID or phone..." onkeyup="filterApplications()" class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
         <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       </div>
 
-      <div class="flex gap-2 w-full md:w-auto">
-        <select id="statusFilter" onchange="filterApplications()" class="w-full md:w-auto p-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-700 outline-none border-amber-300 focus:ring-2 focus:ring-amber-500">
+      <div class="flex flex-wrap gap-2 w-full md:w-auto justify-end">
+        <select id="statusFilter" onchange="filterApplications()" class="p-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-700 outline-none border-amber-300 focus:ring-2 focus:ring-amber-500">
           <option value="ALL">All Statuses</option>
           <option value="PENDING" selected>Pending Review</option>
           <option value="RETURNED">Returned</option>
           <option value="APPROVED">Approved</option>
         </select>
+
+        <button onclick="openRegisterMemberModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+          <span>➕ Register New Member</span>
+        </button>
+
+        <button onclick="openMembersListModal()" class="px-4 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+          <span>📋 View Members Directory</span>
+        </button>
       </div>
     </div>
 
@@ -137,6 +145,110 @@
     </div>
 
   </main>
+
+  <!-- REGISTER NEW CHURCH MEMBER MODAL -->
+  <div id="registerMemberModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
+      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
+        <div>
+          <h3 class="font-bold text-sm uppercase text-amber-300">Register New Church Member</h3>
+          <p class="text-[11px] text-indigo-200">Enter candidate credentials & sacraments status</p>
+        </div>
+        <button onclick="closeRegisterMemberModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1">✕</button>
+      </div>
+
+      <form id="memberRegisterForm" onsubmit="handleRegisterMember(event)" class="p-6 space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Full Name (Izina Ryose)</label>
+          <input type="text" id="memberName" required placeholder="e.g. MUGABO Patrick" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">National ID (Indangamuntu)</label>
+            <input type="text" id="memberNid" maxlength="16" required placeholder="1199..." class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-mono" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Phone Number (Telefone)</label>
+            <input type="text" id="memberPhone" required placeholder="078..." class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-mono" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Local Church (Kanisa / Paruwasi)</label>
+          <select id="memberKanisa" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
+            <option value="Mukama Local Church">Mukama Local Church</option>
+            <option value="Rukomo Local Church">Rukomo Local Church</option>
+            <option value="Gishora Local Church">Gishora Local Church</option>
+            <option value="Kageyo Local Church">Kageyo Local Church</option>
+          </select>
+        </div>
+
+        <div class="pt-2">
+          <p class="font-bold text-indigo-950 uppercase mb-2">Sacramental Status (Abox to tick)</p>
+          <div class="space-y-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
+              <input type="checkbox" id="checkBaptised" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
+              <span>Yarabatijwe (Baptised)</span>
+            </label>
+
+            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
+              <input type="checkbox" id="checkWatebweAmaboko" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
+              <span>Watebwe amaboko (Baptised in full water immersion / Confirmed)</span>
+            </label>
+
+            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
+              <input type="checkbox" id="checkWasezeranye" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
+              <span>Wasezeranye (Holy Matrimony Married)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex justify-end gap-2">
+          <button type="button" onclick="closeRegisterMemberModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white font-bold rounded-xl transition">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow">Save Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- VIEW MEMBERS DIRECTORY MODAL -->
+  <div id="membersListModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
+      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
+        <div>
+          <h3 class="font-bold text-sm uppercase text-amber-300">Registered Church Members Directory</h3>
+          <p class="text-[11px] text-indigo-200">View complete registry, credentials, and sacrament statuses</p>
+        </div>
+        <button onclick="closeMembersListModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1">✕</button>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead class="bg-slate-100 text-slate-600 uppercase font-semibold border-b border-slate-200">
+              <tr>
+                <th class="p-3">Full Name</th>
+                <th class="p-3">National ID</th>
+                <th class="p-3">Phone Number</th>
+                <th class="p-3">Kanisa (Local Church)</th>
+                <th class="p-3 text-center">Yarabatijwe</th>
+                <th class="p-3 text-center">Watebwe Amaboko</th>
+                <th class="p-3 text-center">Wasezeranye</th>
+              </tr>
+            </thead>
+            <tbody id="membersTableBody" class="divide-y divide-slate-100">
+              <!-- Dynamic members list renders here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-100 border-t border-slate-200 flex justify-end">
+        <button onclick="closeMembersListModal()" class="px-5 py-2 bg-slate-700 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition">Close</button>
+      </div>
+    </div>
+  </div>
 
   <!-- APPLICATION DETAILS & APPROVAL MODAL -->
   <div id="applicationModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
@@ -223,6 +335,30 @@
   </style>
 
   <script>
+    // Church Registered Members Initial Dataset
+    let registeredMembers = [
+      {
+        id: "MEM-001",
+        name: "NSENGIYUMVA Eric",
+        nid: "1199180054321098",
+        phone: "0788334455",
+        kanisa: "Mukama Local Church",
+        baptised: true,
+        watebweAmaboko: true,
+        wasezeranye: false
+      },
+      {
+        id: "MEM-002",
+        name: "MUKESHIMANA Josiane",
+        nid: "1199480076543210",
+        phone: "0788778899",
+        kanisa: "Rukomo Local Church",
+        baptised: true,
+        watebweAmaboko: true,
+        wasezeranye: true
+      }
+    ];
+
     // Matrimony Applications Data with Locations, Witnesses & File Uploads
     let applications = [
       {
@@ -312,6 +448,7 @@
       document.getElementById('stat-approved').textContent = approved;
       document.getElementById('stat-returned').textContent = returned;
       document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-members').textContent = registeredMembers.length;
     }
 
     function renderTable(data) {
@@ -351,6 +488,30 @@
       });
     }
 
+    function renderMembersTable() {
+      const tbody = document.getElementById('membersTableBody');
+      tbody.innerHTML = '';
+
+      if (registeredMembers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center p-6 text-slate-400">No registered members found.</td></tr>`;
+        return;
+      }
+
+      registeredMembers.forEach(m => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-slate-50 border-b border-slate-100">
+            <td class="p-3 font-bold text-indigo-950">${m.name}</td>
+            <td class="p-3 font-mono text-slate-600">${m.nid}</td>
+            <td class="p-3 font-mono font-bold text-emerald-700">${m.phone}</td>
+            <td class="p-3 font-medium text-slate-700">${m.kanisa}</td>
+            <td class="p-3 text-center">${m.baptised ? '✅' : '❌'}</td>
+            <td class="p-3 text-center">${m.watebweAmaboko ? '✅' : '❌'}</td>
+            <td class="p-3 text-center">${m.wasezeranye ? '✅' : '❌'}</td>
+          </tr>
+        `;
+      });
+    }
+
     function filterApplications() {
       const query = document.getElementById('searchInput').value.toLowerCase();
       const status = document.getElementById('statusFilter').value;
@@ -370,6 +531,51 @@
 
       renderTable(filtered);
       updateStats();
+    }
+
+    function openRegisterMemberModal() {
+      document.getElementById('registerMemberModal').classList.remove('hidden');
+    }
+
+    function closeRegisterMemberModal() {
+      document.getElementById('registerMemberModal').classList.add('hidden');
+      document.getElementById('memberRegisterForm').reset();
+    }
+
+    function openMembersListModal() {
+      renderMembersTable();
+      document.getElementById('membersListModal').classList.remove('hidden');
+    }
+
+    function closeMembersListModal() {
+      document.getElementById('membersListModal').classList.add('hidden');
+    }
+
+    function handleRegisterMember(e) {
+      e.preventDefault();
+      const name = document.getElementById('memberName').value.trim();
+      const nid = document.getElementById('memberNid').value.trim();
+      const phone = document.getElementById('memberPhone').value.trim();
+      const kanisa = document.getElementById('memberKanisa').value;
+      const baptised = document.getElementById('checkBaptised').checked;
+      const watebweAmaboko = document.getElementById('checkWatebweAmaboko').checked;
+      const wasezeranye = document.getElementById('checkWasezeranye').checked;
+
+      const newMember = {
+        id: `MEM-00${registeredMembers.length + 1}`,
+        name,
+        nid,
+        phone,
+        kanisa,
+        baptised,
+        watebweAmaboko,
+        wasezeranye
+      };
+
+      registeredMembers.push(newMember);
+      updateStats();
+      closeRegisterMemberModal();
+      alert(`Church member "${name}" registered successfully!`);
     }
 
     function viewDetails(id) {
