@@ -72,6 +72,16 @@
         </div>
       </div>
 
+      <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-rose-500 flex justify-between items-center">
+        <div>
+          <p class="text-xs font-semibold text-slate-500 uppercase">Returned Requests</p>
+          <p id="stat-returned" class="text-2xl font-black text-rose-600 mt-1">0</p>
+        </div>
+        <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </div>
+      </div>
+
       <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-indigo-500 flex justify-between items-center">
         <div>
           <p class="text-xs font-semibold text-slate-500 uppercase">Total Applications</p>
@@ -79,16 +89,6 @@
         </div>
         <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-        </div>
-      </div>
-
-      <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-blue-500 flex justify-between items-center">
-        <div>
-          <p class="text-xs font-semibold text-slate-500 uppercase">Registered Members</p>
-          <p id="stat-members" class="text-2xl font-black text-blue-600 mt-1">0</p>
-        </div>
-        <div class="p-3 bg-blue-50 text-blue-600 rounded-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@
         </button>
 
         <button onclick="openMembersListModal()" class="px-4 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
-          <span>📋 View Members Directory</span>
+          <span>📋 View Members Directory (<span id="stat-members">0</span>)</span>
         </button>
       </div>
     </div>
@@ -648,27 +648,27 @@
             ${app.witnesses.map((w, index) => `
               <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
                 <p class="text-[10px] font-bold text-indigo-900 uppercase">Umuhamya ${index + 1}</p>
-                <p class="text-xs font-bold text-slate-800 mt-0.5">${w.name}</p>
-                <p class="text-[11px] font-mono font-semibold text-emerald-700 mt-1">📞 ${w.phone}</p>
+                <p class="text-xs font-bold text-slate-800">${w.name}</p>
+                <p class="text-[11px] font-mono text-emerald-700 font-semibold">${w.phone}</p>
               </div>
             `).join('')}
           </div>
         </div>
 
-        <!-- UPLOADED DOCUMENTS SECTION -->
+        <!-- ATTACHED DOCUMENTS / UPLOADS -->
         <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
           <h4 class="font-black text-slate-800 text-xs uppercase tracking-wider border-b border-slate-300 pb-2">
-            📂 Uploaded Attachments & Proof Documents
+            📂 Uploaded Certificates & Verification Attachments
           </h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             ${app.uploads.map(u => `
-              <div class="bg-white p-3 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-indigo-400 transition">
+              <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
                 <div>
                   <p class="text-xs font-bold text-slate-800">${u.title}</p>
-                  <p class="text-[10px] text-slate-400 font-mono truncate mt-0.5">${u.file}</p>
+                  <p class="text-[10px] text-slate-400 font-mono">${u.file}</p>
                 </div>
-                <button onclick="alert('Opening ${u.file}...')" class="mt-2 text-[10px] font-bold bg-indigo-50 text-indigo-900 hover:bg-indigo-900 hover:text-white py-1 px-2 rounded-lg transition text-center">
-                  View Upload 📄
+                <button onclick="alert('Downloading/Opening ${u.file}')" class="px-3 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-bold text-[10px] rounded-lg border border-indigo-200 transition">
+                  📄 View Document
                 </button>
               </div>
             `).join('')}
@@ -681,21 +681,25 @@
 
     function closeModal() {
       document.getElementById('applicationModal').classList.add('hidden');
+      selectedAppId = null;
     }
 
     function handleStatusSelect(newStatus) {
       if (!selectedAppId) return;
+      
       const app = applications.find(a => a.id === selectedAppId);
       if (app) {
         app.status = newStatus;
         filterApplications();
+        alert(`Application ${app.id} status updated to ${newStatus}!`);
       }
     }
 
-    // Initial Render
+    // Initialize application state on load
     window.addEventListener('DOMContentLoaded', () => {
       filterApplications();
     });
   </script>
+
 </body>
 </html>
