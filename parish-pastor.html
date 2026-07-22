@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +55,7 @@
       <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-amber-500 flex justify-between items-center">
         <div>
           <p class="text-xs font-semibold text-slate-500 uppercase">Pending Review</p>
-          <p id="stat-pending" class="text-2xl font-black text-amber-600 mt-1">5</p>
+          <p id="stat-pending" class="text-2xl font-black text-amber-600 mt-1">0</p>
         </div>
         <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -66,7 +65,7 @@
       <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-emerald-500 flex justify-between items-center">
         <div>
           <p class="text-xs font-semibold text-slate-500 uppercase">Approved Matrimonies</p>
-          <p id="stat-approved" class="text-2xl font-black text-emerald-600 mt-1">28</p>
+          <p id="stat-approved" class="text-2xl font-black text-emerald-600 mt-1">0</p>
         </div>
         <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -76,7 +75,7 @@
       <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-indigo-500 flex justify-between items-center">
         <div>
           <p class="text-xs font-semibold text-slate-500 uppercase">Total Applications</p>
-          <p id="stat-total" class="text-2xl font-black text-indigo-900 mt-1">35</p>
+          <p id="stat-total" class="text-2xl font-black text-indigo-900 mt-1">0</p>
         </div>
         <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
@@ -86,7 +85,7 @@
       <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-rose-500 flex justify-between items-center">
         <div>
           <p class="text-xs font-semibold text-slate-500 uppercase">Returned / Rejected</p>
-          <p id="stat-rejected" class="text-2xl font-black text-rose-600 mt-1">2</p>
+          <p id="stat-returned" class="text-2xl font-black text-rose-600 mt-1">0</p>
         </div>
         <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -97,16 +96,16 @@
     <!-- FILTER & SEARCH CONTROL BAR -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
       <div class="relative w-full md:w-96">
-        <input type="text" id="searchInput" placeholder="Search by groom, bride, or ID number..." onkeyup="filterApplications()" class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
+        <input type="text" id="searchInput" placeholder="Search by groom, bride, NID or phone..." onkeyup="filterApplications()" class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
         <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       </div>
 
       <div class="flex gap-2 w-full md:w-auto">
-        <select id="statusFilter" onchange="filterApplications()" class="w-full md:w-auto p-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-medium text-slate-700 outline-none">
+        <select id="statusFilter" onchange="filterApplications()" class="w-full md:w-auto p-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-700 outline-none border-amber-300 focus:ring-2 focus:ring-amber-500">
           <option value="ALL">All Statuses</option>
           <option value="PENDING" selected>Pending Review</option>
+          <option value="RETURNED">Returned</option>
           <option value="APPROVED">Approved</option>
-          <option value="REJECTED">Rejected</option>
         </select>
       </div>
     </div>
@@ -141,25 +140,43 @@
 
   <!-- APPLICATION DETAILS & APPROVAL MODAL -->
   <div id="applicationModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto border border-slate-200">
-      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-10">
-        <h3 class="font-bold text-sm uppercase">Matrimony Application Details</h3>
-        <button onclick="closeModal()" class="text-indigo-200 hover:text-white font-bold">✕</button>
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
+        <div>
+          <h3 class="font-bold text-sm uppercase text-amber-300" id="modalRefTitle">Matrimony Application Details</h3>
+          <p class="text-[11px] text-indigo-200">Review complete candidate records, locations, witnesses & uploads</p>
+        </div>
+        <button onclick="closeModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1">✕</button>
       </div>
       
-      <div id="modalContent" class="p-6 space-y-6">
-        <!-- Rendered dynamically -->
+      <!-- Modal Body -->
+      <div id="modalContent" class="p-6 space-y-6 flex-grow">
+        <!-- Dynamic Content Rendered Here -->
       </div>
 
-      <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-3 sticky bottom-0">
-        <button onclick="updateStatus('REJECTED')" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-xl text-xs transition">Reject / Return</button>
-        <button onclick="updateStatus('APPROVED')" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition">Approve Application</button>
+      <!-- Modal Footer with Dropdown Action Button -->
+      <div class="p-4 bg-slate-100 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 sticky bottom-0 z-20">
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <label for="statusDropdown" class="text-xs font-bold text-slate-700 uppercase">Change Application Status:</label>
+          <select id="statusDropdown" onchange="handleStatusSelect(this.value)" class="bg-white border-2 border-indigo-900 rounded-xl px-3 py-2 text-xs font-bold text-indigo-950 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm">
+            <option value="PENDING">🟡 PENDING</option>
+            <option value="RETURNED">🔴 RETURNED</option>
+            <option value="APPROVED">🟢 APPROVED</option>
+          </select>
+        </div>
+
+        <div class="flex gap-2 w-full sm:w-auto justify-end">
+          <button onclick="closeModal()" class="px-5 py-2 bg-slate-600 hover:bg-slate-700 text-white font-bold rounded-xl text-xs transition">Close</button>
+        </div>
       </div>
+
     </div>
   </div>
 
   <!-- Footer -->
-  <footer class="bg-indigo-950 text-white border-t-4 border-amber-500 py-10 px-4 text-center text-xs">
+  <footer class="bg-indigo-950 text-white border-t-4 border-amber-500 py-10 px-4 text-center text-xs mt-auto">
     <div class="max-w-4xl mx-auto space-y-4">
       
       <p class="text-sm sm:text-base font-semibold text-amber-300 leading-relaxed max-w-2xl mx-auto">
@@ -206,35 +223,96 @@
   </style>
 
   <script>
-    // Sample Matrimony Applications
+    // Matrimony Applications Data with Locations, Witnesses & File Uploads
     let applications = [
       {
         id: "MAT-2026-001",
-        groom_name: "MUGISHA Jean Paul",
-        groom_phone: "0788123456",
-        groom_id: "1199580012345678",
-        bride_name: "UWASE Clarisse",
-        bride_phone: "0788654321",
-        bride_id: "1199780098765432",
-        local_church: "Mukama Local Church",
         status: "PENDING",
-        date: "2026-07-20"
+        date: "2026-07-20",
+        local_church: "Mukama Local Church",
+        groom: {
+          name: "MUGISHA Jean Paul",
+          phone: "0788123456",
+          nid: "1199580012345678",
+          province: "Eastern Province",
+          district: "Gatsibo",
+          sector: "Mukama",
+          cell: "Kageyo",
+          village: "Rwimbogo"
+        },
+        bride: {
+          name: "UWASE Clarisse",
+          phone: "0788654321",
+          nid: "1199780098765432",
+          province: "Eastern Province",
+          district: "Gatsibo",
+          sector: "Mukama",
+          cell: "Gishora",
+          village: "Nyagasozi"
+        },
+        witnesses: [
+          { name: "HABIMANA Emmanuel", phone: "0788990011" },
+          { name: "MUKAKAMANZI Beatrice", phone: "0788223344" },
+          { name: "NIZEYIMANA Claude", phone: "0788556677" }
+        ],
+        uploads: [
+          { title: "Groom NID Copy", file: "nid_groom_mugisha.pdf" },
+          { title: "Bride NID Copy", file: "nid_bride_uwase.pdf" },
+          { title: "Celibacy Certificate", file: "celibacy_attestation.pdf" },
+          { title: "Local Church Recommendation", file: "church_letter.pdf" }
+        ]
       },
       {
         id: "MAT-2026-002",
-        groom_name: "KWIZERA Eric",
-        groom_phone: "0783112233",
-        groom_id: "1199380033221144",
-        bride_name: "INGABIRE Marie",
-        bride_phone: "0783445566",
-        bride_id: "1199680066554433",
-        local_church: "Rukomo Local Church",
         status: "APPROVED",
-        date: "2026-07-18"
+        date: "2026-07-18",
+        local_church: "Rukomo Local Church",
+        groom: {
+          name: "KWIZERA Eric",
+          phone: "0783112233",
+          nid: "1199380033221144",
+          province: "Eastern Province",
+          district: "Gatsibo",
+          sector: "Rukomo",
+          cell: "Kiziguro",
+          village: "Kaborogota"
+        },
+        bride: {
+          name: "INGABIRE Marie",
+          phone: "0783445566",
+          nid: "1199680066554433",
+          province: "Eastern Province",
+          district: "Gatsibo",
+          sector: "Rukomo",
+          cell: "Rwesero",
+          village: "Gihinga"
+        },
+        witnesses: [
+          { name: "RUTAGENGWA Alphonse", phone: "0781112244" },
+          { name: "UWIMANA Chantal", phone: "0785556688" },
+          { name: "KAYITARE Patrick", phone: "0789990022" }
+        ],
+        uploads: [
+          { title: "Groom NID Copy", file: "kwizera_nid.pdf" },
+          { title: "Bride NID Copy", file: "ingabire_nid.pdf" },
+          { title: "Baptism Certificates", file: "baptism_docs.pdf" }
+        ]
       }
     ];
 
     let selectedAppId = null;
+
+    function updateStats() {
+      const pending = applications.filter(a => a.status === 'PENDING').length;
+      const approved = applications.filter(a => a.status === 'APPROVED').length;
+      const returned = applications.filter(a => a.status === 'RETURNED').length;
+      const total = applications.length;
+
+      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('stat-approved').textContent = approved;
+      document.getElementById('stat-returned').textContent = returned;
+      document.getElementById('stat-total').textContent = total;
+    }
 
     function renderTable(data) {
       const tbody = document.getElementById('applicationsTableBody');
@@ -248,25 +326,25 @@
       data.forEach(app => {
         let statusBadge = app.status === 'APPROVED' 
           ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded-full">APPROVED</span>`
-          : app.status === 'REJECTED'
-          ? `<span class="px-2.5 py-1 bg-rose-100 text-rose-800 font-bold text-[10px] rounded-full">REJECTED</span>`
+          : app.status === 'RETURNED'
+          ? `<span class="px-2.5 py-1 bg-rose-100 text-rose-800 font-bold text-[10px] rounded-full">RETURNED</span>`
           : `<span class="px-2.5 py-1 bg-amber-100 text-amber-800 font-bold text-[10px] rounded-full">PENDING</span>`;
 
         tbody.innerHTML += `
           <tr class="hover:bg-slate-50 transition border-b border-slate-100">
             <td class="p-3.5 font-bold text-indigo-950">${app.id}</td>
             <td class="p-3.5">
-              <div class="font-bold text-slate-800">${app.groom_name}</div>
-              <div class="text-[11px] text-slate-500 font-mono">${app.groom_phone}</div>
+              <div class="font-bold text-slate-800">${app.groom.name}</div>
+              <div class="text-[11px] text-slate-500 font-mono">${app.groom.phone}</div>
             </td>
             <td class="p-3.5">
-              <div class="font-bold text-slate-800">${app.bride_name}</div>
-              <div class="text-[11px] text-slate-500 font-mono">${app.bride_phone}</div>
+              <div class="font-bold text-slate-800">${app.bride.name}</div>
+              <div class="text-[11px] text-slate-500 font-mono">${app.bride.phone}</div>
             </td>
             <td class="p-3.5 text-slate-600 font-medium">${app.local_church}</td>
             <td class="p-3.5">${statusBadge}</td>
             <td class="p-3.5 text-center">
-              <button onclick="viewDetails('${app.id}')" class="px-3 py-1.5 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded-lg text-[11px] transition">Review</button>
+              <button onclick="viewDetails('${app.id}')" class="px-3 py-1.5 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded-lg text-[11px] transition shadow">Review</button>
             </td>
           </tr>
         `;
@@ -278,10 +356,12 @@
       const status = document.getElementById('statusFilter').value;
 
       const filtered = applications.filter(app => {
-        const matchesQuery = app.groom_name.toLowerCase().includes(query) ||
-                             app.bride_name.toLowerCase().includes(query) ||
-                             app.groom_id.includes(query) ||
-                             app.bride_id.includes(query);
+        const matchesQuery = app.groom.name.toLowerCase().includes(query) ||
+                             app.bride.name.toLowerCase().includes(query) ||
+                             app.groom.nid.includes(query) ||
+                             app.bride.nid.includes(query) ||
+                             app.groom.phone.includes(query) ||
+                             app.bride.phone.includes(query);
 
         const matchesStatus = status === 'ALL' || app.status === status;
 
@@ -289,6 +369,7 @@
       });
 
       renderTable(filtered);
+      updateStats();
     }
 
     function viewDetails(id) {
@@ -296,25 +377,96 @@
       const app = applications.find(a => a.id === id);
       if (!app) return;
 
+      document.getElementById('modalRefTitle').textContent = `Application Review: ${app.id}`;
+      document.getElementById('statusDropdown').value = app.status;
+
       const content = document.getElementById('modalContent');
       content.innerHTML = `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
-          <div>
-            <h4 class="font-bold text-indigo-950 text-xs uppercase mb-2">Groom Information</h4>
-            <p class="text-xs"><strong>Name:</strong> ${app.groom_name}</p>
-            <p class="text-xs"><strong>NID:</strong> ${app.groom_id}</p>
-            <p class="text-xs"><strong>Phone:</strong> ${app.groom_phone}</p>
+        <!-- GROOM & BRIDE GEOGRAPHICAL & PERSONAL DATA -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- GROOM BOX -->
+          <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 space-y-3">
+            <h4 class="font-black text-indigo-950 text-xs uppercase tracking-wider border-b border-indigo-200 pb-2">
+              🤵 Groom Information (UmukENYEYERAZI)
+            </h4>
+            <div class="space-y-1.5 text-xs text-slate-700">
+              <p><strong>Full Name:</strong> ${app.groom.name}</p>
+              <p><strong>NID Number:</strong> <span class="font-mono bg-indigo-100 px-1.5 py-0.5 rounded text-indigo-900 font-bold">${app.groom.nid}</span></p>
+              <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-emerald-700">${app.groom.phone}</span></p>
+              
+              <div class="pt-2">
+                <p class="font-bold text-slate-800 uppercase text-[10px] tracking-wide text-indigo-900">Geographical Location:</p>
+                <div class="bg-white p-2.5 rounded-xl border border-slate-200 mt-1 space-y-1 text-[11px]">
+                  <p><strong>Province:</strong> ${app.groom.province}</p>
+                  <p><strong>District:</strong> ${app.groom.district}</p>
+                  <p><strong>Sector:</strong> ${app.groom.sector}</p>
+                  <p><strong>Cell:</strong> ${app.groom.cell}</p>
+                  <p><strong>Village:</strong> ${app.groom.village}</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <h4 class="font-bold text-indigo-950 text-xs uppercase mb-2">Bride Information</h4>
-            <p class="text-xs"><strong>Name:</strong> ${app.bride_name}</p>
-            <p class="text-xs"><strong>NID:</strong> ${app.bride_id}</p>
-            <p class="text-xs"><strong>Phone:</strong> ${app.bride_phone}</p>
+
+          <!-- BRIDE BOX -->
+          <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-100 space-y-3">
+            <h4 class="font-black text-amber-950 text-xs uppercase tracking-wider border-b border-amber-200 pb-2">
+              👰 Bride Information (Umugeni)
+            </h4>
+            <div class="space-y-1.5 text-xs text-slate-700">
+              <p><strong>Full Name:</strong> ${app.bride.name}</p>
+              <p><strong>NID Number:</strong> <span class="font-mono bg-amber-100 px-1.5 py-0.5 rounded text-amber-900 font-bold">${app.bride.nid}</span></p>
+              <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-emerald-700">${app.bride.phone}</span></p>
+              
+              <div class="pt-2">
+                <p class="font-bold text-slate-800 uppercase text-[10px] tracking-wide text-amber-900">Geographical Location:</p>
+                <div class="bg-white p-2.5 rounded-xl border border-slate-200 mt-1 space-y-1 text-[11px]">
+                  <p><strong>Province:</strong> ${app.bride.province}</p>
+                  <p><strong>District:</strong> ${app.bride.district}</p>
+                  <p><strong>Sector:</strong> ${app.bride.sector}</p>
+                  <p><strong>Cell:</strong> ${app.bride.cell}</p>
+                  <p><strong>Village:</strong> ${app.bride.village}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ABAHAMYA BAKURU 3 SECTION -->
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+          <h4 class="font-black text-slate-800 text-xs uppercase tracking-wider border-b border-slate-300 pb-2">
+            👥 Abahamya Bakuru (3 Witnesses & Phone Numbers)
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            ${app.witnesses.map((w, index) => `
+              <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm">
+                <p class="text-[10px] font-bold text-indigo-900 uppercase">Umuhamya ${index + 1}</p>
+                <p class="text-xs font-bold text-slate-800 mt-0.5">${w.name}</p>
+                <p class="text-[11px] font-mono font-semibold text-emerald-700 mt-1">📞 ${w.phone}</p>
+              </div>
+            `).join('')}
           </div>
         </div>
-        <div class="text-xs text-slate-600">
-          <p><strong>Church:</strong> ${app.local_church}</p>
-          <p><strong>Submission Date:</strong> ${app.date}</p>
+
+        <!-- UPLOADED DOCUMENTS SECTION -->
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+          <h4 class="font-black text-slate-800 text-xs uppercase tracking-wider border-b border-slate-300 pb-2">
+            📂 Uploaded Attachments & Proof Documents
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            ${app.uploads.map(u => `
+              <div class="bg-white p-3 rounded-xl border border-slate-200 flex flex-col justify-between hover:border-indigo-400 transition">
+                <div>
+                  <p class="text-xs font-bold text-slate-800">${u.title}</p>
+                  <p class="text-[10px] text-slate-400 font-mono truncate mt-0.5">${u.file}</p>
+                </div>
+                <button onclick="alert('Opening ${u.file}...')" class="mt-2 text-[10px] font-bold bg-indigo-50 text-indigo-900 hover:bg-indigo-900 hover:text-white py-1 px-2 rounded-lg transition text-center">
+                  View Upload 📄
+                </button>
+              </div>
+            `).join('')}
+          </div>
         </div>
       `;
 
@@ -325,13 +477,12 @@
       document.getElementById('applicationModal').classList.add('hidden');
     }
 
-    function updateStatus(newStatus) {
+    function handleStatusSelect(newStatus) {
       if (!selectedAppId) return;
       const app = applications.find(a => a.id === selectedAppId);
       if (app) {
         app.status = newStatus;
         filterApplications();
-        closeModal();
       }
     }
 
