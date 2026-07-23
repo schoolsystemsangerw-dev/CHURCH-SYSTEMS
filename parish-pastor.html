@@ -227,11 +227,11 @@
       <div class="p-6 space-y-4">
         <!-- Action Buttons for Export/Print -->
         <div class="flex flex-wrap gap-2 justify-end">
-          <button onclick="printOrExcelAllMembers()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
-            <span>📥 Print / Excel All Members</span>
+          <button onclick="exportOrPrintAllMembers()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
+            <span>📥 Export Excel / Print All Members</span>
           </button>
-          <button onclick="printOrExcelMarriedMembers()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
-            <span>💍 Print / Excel Abarasezeranye (Barashakanye)</span>
+          <button onclick="exportOrPrintMarriedMembers()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
+            <span>💍 Export Excel / Print Abarasezeranye</span>
           </button>
         </div>
 
@@ -523,25 +523,28 @@
       });
     }
 
-    function printOrExcelAllMembers() {
-      let tableHTML = document.getElementById("directoryTable").outerHTML;
+    function exportOrPrintAllMembers() {
       let win = window.open('', '', 'height=700,width=900');
       win.document.write('<html><head><title>All Church Members Directory</title>');
-      win.document.write('<style>table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 12px; } th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; } th { background-color: #f1f5f9; }</style>');
+      win.document.write('<style>body { font-family: sans-serif; padding: 20px; } table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 15px; } th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; } th { background-color: #f1f5f9; color: #1e293b; }</style>');
       win.document.write('</head><body>');
-      win.document.write('<h2>EAR Rwanda - Mukama Parish: All Church Members Directory</h2>');
-      win.document.write(tableHTML);
+      win.document.write('<h2 style="color: #1e1b4b; text-transform: uppercase;">EAR Rwanda - Mukama Parish</h2>');
+      win.document.write('<h3>Complete Parish Members Directory</h3>');
+      win.document.write(document.getElementById("directoryTable").outerHTML);
       win.document.write('</body></html>');
-      win.document.print();
+      win.document.close();
+      win.focus();
+      setTimeout(() => { win.print(); }, 500);
     }
 
-    function printOrExcelMarriedMembers() {
+    function exportOrPrintMarriedMembers() {
       const marriedMembers = registeredMembers.filter(m => m.wasezeranye === true);
-      let html = `<html><head><title>Abarasezeranye (Barashakanye) Members</title>`;
-      html += `<style>table { width: 100%; border-collapse: collapse; font-family: sans-serif; font-size: 12px; } th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; } th { background-color: #f1f5f9; }</style>`;
+      let html = `<html><head><title>Abarasezeranye Members Directory</title>`;
+      html += `<style>body { font-family: sans-serif; padding: 20px; } table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 15px; } th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; } th { background-color: #f1f5f9; color: #1e293b; }</style>`;
       html += `</head><body>`;
-      html += `<h2>EAR Rwanda - Mukama Parish: Abarasezeranye (Barashakanye) Directory</h2>`;
-      html += `<table><thead><tr style="background:#f1f5f9"><th>Full Name</th><th>National ID</th><th>Phone Number</th><th>Kanisa (Local Church)</th><th style="text-align:center">Yarabatijwe</th><th style="text-align:center">Watebwe Amaboko</th><th style="text-align:center">Wasezeranye</th></tr></thead><tbody>`;
+      html += `<h2 style="color: #1e1b4b; text-transform: uppercase;">EAR Rwanda - Mukama Parish</h2>`;
+      html += `<h3>Abarasezeranye (Barashakanye) Members Directory</h3>`;
+      html += `<table><thead><tr><th>Full Name</th><th>National ID</th><th>Phone Number</th><th>Kanisa (Local Church)</th><th style="text-align:center">Yarabatijwe</th><th style="text-align:center">Watebwe Amaboko</th><th style="text-align:center">Wasezeranye</th></tr></thead><tbody>`;
       
       marriedMembers.forEach(m => {
         html += `<tr><td>${m.name}</td><td>${m.nid}</td><td>${m.phone}</td><td>${m.kanisa}</td><td style="text-align:center">${m.baptised ? '✅' : '❌'}</td><td style="text-align:center">${m.watebweAmaboko ? '✅' : '❌'}</td><td style="text-align:center">✅</td></tr>`;
@@ -550,7 +553,9 @@
       html += `</tbody></table></body></html>`;
       let win = window.open('', '', 'height=700,width=900');
       win.document.write(html);
-      win.document.print();
+      win.document.close();
+      win.focus();
+      setTimeout(() => { win.print(); }, 500);
     }
 
     function filterApplications() {
@@ -559,11 +564,11 @@
 
       const filtered = applications.filter(app => {
         const matchesQuery = app.groom.name.toLowerCase().includes(query) ||
-                           app.bride.name.toLowerCase().includes(query) ||
-                           app.groom.nid.includes(query) ||
-                           app.bride.nid.includes(query) ||
-                           app.groom.phone.includes(query) ||
-                           app.bride.phone.includes(query);
+                             app.bride.name.toLowerCase().includes(query) ||
+                             app.groom.nid.includes(query) ||
+                             app.bride.nid.includes(query) ||
+                             app.groom.phone.includes(query) ||
+                             app.bride.phone.includes(query);
 
         const matchesStatus = status === 'ALL' || app.status === status;
 
@@ -619,79 +624,10 @@
       alert(`Church member "${name}" registered successfully!`);
     }
 
-    function viewDetails(id) {
-      selectedAppId = id;
-      const app = applications.find(a => a.id === id);
-      if (!app) return;
-
-      document.getElementById('modalRefTitle').textContent = `Application Review: ${app.id}`;
-      document.getElementById('statusDropdown').value = app.status;
-
-      const content = document.getElementById('modalContent');
-      content.innerHTML = `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 space-y-3">
-            <h4 class="font-black text-indigo-950 text-xs uppercase tracking-wider border-b border-indigo-200 pb-2">
-              🤵 Groom Information
-            </h4>
-            <div class="space-y-1.5 text-xs text-slate-700">
-              <p><strong>Full Name:</strong> ${app.groom.name}</p>
-              <p><strong>NID Number:</strong> <span class="font-mono bg-indigo-100 px-1.5 py-0.5 rounded text-indigo-900 font-bold">${app.groom.nid}</span></p>
-              <p><strong>Phone Number:</strong> <span class="font-mono bg-emerald-100 px-1.5 py-0.5 rounded text-emerald-900 font-bold">${app.groom.phone}</span></p>
-              <p><strong>Location:</strong> Province: ${app.groom.province}, District: ${app.groom.district}, Sector: ${app.groom.sector}, Cell: ${app.groom.cell}, Village: ${app.groom.village}</p>
-            </div>
-          </div>
-
-          <div class="bg-rose-50/50 p-4 rounded-2xl border border-rose-100 space-y-3">
-            <h4 class="font-black text-rose-950 text-xs uppercase tracking-wider border-b border-rose-200 pb-2">
-              👰 Bride Information
-            </h4>
-            <div class="space-y-1.5 text-xs text-slate-700">
-              <p><strong>Full Name:</strong> ${app.bride.name}</p>
-              <p><strong>NID Number:</strong> <span class="font-mono bg-rose-100 px-1.5 py-0.5 rounded text-rose-900 font-bold">${app.bride.nid}</span></p>
-              <p><strong>Phone Number:</strong> <span class="font-mono bg-emerald-100 px-1.5 py-0.5 rounded text-emerald-900 font-bold">${app.bride.phone}</span></p>
-              <p><strong>Location:</strong> Province: ${app.bride.province}, District: ${app.bride.district}, Sector: ${app.bride.sector}, Cell: ${app.bride.cell}, Village: ${app.bride.village}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
-          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider">Witnesses (Abahamya)</h4>
-          <ul class="list-disc list-inside text-xs text-slate-700 space-y-1">
-            ${app.witnesses.map(w => `<li><strong>${w.name}</strong> - Phone: <span class="font-mono text-emerald-700">${w.phone}</span></li>`).join('')}
-          </ul>
-        </div>
-
-        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
-          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider">Uploaded Documents / Files</h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            ${app.uploads.map(u => `<div class="p-2.5 bg-white border border-slate-200 rounded-xl flex items-center justify-between text-xs"><span>📄 ${u.title}</span><span class="text-indigo-600 font-bold font-mono">${u.file}</span></div>`).join('')}
-          </div>
-        </div>
-      `;
-
-      document.getElementById('applicationModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('applicationModal').classList.add('hidden');
-      selectedAppId = null;
-    }
-
-    function handleStatusSelect(newStatus) {
-      if (!selectedAppId) return;
-      const app = applications.find(a => a.id === selectedAppId);
-      if (app) {
-        app.status = newStatus;
-        filterApplications();
-        updateStats();
-        alert(`Application ${app.id} status successfully updated to ${newStatus}!`);
-      }
-    }
-
-    // Initialize stats and application table on page load
+    // Initial load setup
     window.onload = function() {
       filterApplications();
+      updateStats();
     };
   </script>
 </body>
