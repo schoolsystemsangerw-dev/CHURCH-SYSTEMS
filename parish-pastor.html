@@ -109,11 +109,11 @@
           <option value="APPROVED">Approved</option>
         </select>
 
-        <button onclick="openRegisterMemberModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+        <button onclick="openRegisterMemberModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
           <span>➕ Register New Member</span>
         </button>
 
-        <button onclick="openMembersListModal()" class="px-4 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+        <button onclick="openMembersListModal()" class="px-4 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
           <span>📋 View Members Directory (<span id="stat-members">0</span>)</span>
         </button>
       </div>
@@ -155,7 +155,7 @@
           <h3 class="font-bold text-sm uppercase text-amber-300">Register New Church Member</h3>
           <p class="text-[11px] text-indigo-200">Enter candidate credentials & sacraments status</p>
         </div>
-        <button onclick="closeRegisterMemberModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1">✕</button>
+        <button onclick="closeRegisterMemberModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
       </div>
 
       <form id="memberRegisterForm" onsubmit="handleRegisterMember(event)" class="p-6 space-y-4 text-xs">
@@ -186,7 +186,7 @@
         </div>
 
         <div class="pt-2">
-          <p class="font-bold text-indigo-950 uppercase mb-2">Sacramental Status (Abox to tick)</p>
+          <p class="font-bold text-indigo-950 uppercase mb-2">Sacramental Status (Boxes to tick)</p>
           <div class="space-y-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
             <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
               <input type="checkbox" id="checkBaptised" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
@@ -206,8 +206,8 @@
         </div>
 
         <div class="pt-4 border-t border-slate-200 flex justify-end gap-2">
-          <button type="button" onclick="closeRegisterMemberModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white font-bold rounded-xl transition">Cancel</button>
-          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow">Save Member</button>
+          <button type="button" onclick="closeRegisterMemberModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white font-bold rounded-xl transition cursor-pointer">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow cursor-pointer">Save Member</button>
         </div>
       </form>
     </div>
@@ -221,16 +221,16 @@
           <h3 class="font-bold text-sm uppercase text-amber-300">Registered Church Members Directory</h3>
           <p class="text-[11px] text-indigo-200">View complete registry, credentials, and sacrament statuses</p>
         </div>
-        <button onclick="closeMembersListModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1">✕</button>
+        <button onclick="closeMembersListModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
       </div>
 
       <div class="p-6 space-y-4">
         <!-- Action Buttons for Export/Print -->
         <div class="flex flex-wrap gap-2 justify-end">
-          <button onclick="printOrExcelAllMembers()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+          <button onclick="printOrExcelAllMembers()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
             <span>📥 Print / Excel All Members</span>
           </button>
-          <button onclick="printOrExcelMarriedMembers()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition">
+          <button onclick="printOrExcelMarriedMembers()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
             <span>💍 Print / Excel Abarasezeranye (Barashakanye)</span>
           </button>
         </div>
@@ -256,7 +256,7 @@
       </div>
 
       <div class="p-4 bg-slate-100 border-t border-slate-200 flex justify-end">
-        <button onclick="closeMembersListModal()" class="px-5 py-2 bg-slate-700 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition">Close</button>
+        <button onclick="closeMembersListModal()" class="px-5 py-2 bg-slate-700 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition cursor-pointer">Close</button>
       </div>
     </div>
   </div>
@@ -271,7 +271,7 @@
           <h3 class="font-bold text-sm uppercase text-amber-300" id="modalRefTitle">Matrimony Application Details</h3>
           <p class="text-[11px] text-indigo-200">Review complete candidate records, locations, witnesses & uploads</p>
         </div>
-        <button onclick="closeModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1">✕</button>
+        <button onclick="closeModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
       </div>
       
       <!-- Modal Body -->
@@ -291,7 +291,7 @@
         </div>
 
         <div class="flex gap-2 w-full sm:w-auto justify-end">
-          <button onclick="closeModal()" class="px-5 py-2 bg-slate-600 hover:bg-slate-700 text-white font-bold rounded-xl text-xs transition">Close</button>
+          <button onclick="closeModal()" class="px-5 py-2 bg-slate-600 hover:bg-slate-700 text-white font-bold rounded-xl text-xs transition cursor-pointer">Close</button>
         </div>
       </div>
 
@@ -492,7 +492,7 @@
             <td class="p-3.5 text-slate-600 font-medium">${app.local_church}</td>
             <td class="p-3.5">${statusBadge}</td>
             <td class="p-3.5 text-center">
-              <button onclick="viewDetails('${app.id}')" class="px-3 py-1.5 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded-lg text-[11px] transition shadow">Review</button>
+              <button onclick="viewDetails('${app.id}')" class="px-3 py-1.5 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded-lg text-[11px] transition shadow cursor-pointer">Review</button>
             </td>
           </tr>
         `;
@@ -523,7 +523,6 @@
       });
     }
 
-    // Function to print or export all members to Excel
     function printOrExcelAllMembers() {
       let tableHTML = document.getElementById("directoryTable").outerHTML;
       let win = window.open('', '', 'height=700,width=900');
@@ -536,7 +535,6 @@
       win.document.print();
     }
 
-    // Function to print or export only married/wasezeranye members (barashakanye)
     function printOrExcelMarriedMembers() {
       const marriedMembers = registeredMembers.filter(m => m.wasezeranye === true);
       let html = `<html><head><title>Abarasezeranye (Barashakanye) Members</title>`;
@@ -631,18 +629,70 @@
 
       const content = document.getElementById('modalContent');
       content.innerHTML = `
-        <!-- GROOM & BRIDE GEOGRAPHICAL & PERSONAL DATA -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          <!-- GROOM BOX -->
           <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 space-y-3">
             <h4 class="font-black text-indigo-950 text-xs uppercase tracking-wider border-b border-indigo-200 pb-2">
-              🤵 Groom Information (Umukenyereza)
+              🤵 Groom Information
             </h4>
             <div class="space-y-1.5 text-xs text-slate-700">
               <p><strong>Full Name:</strong> ${app.groom.name}</p>
               <p><strong>NID Number:</strong> <span class="font-mono bg-indigo-100 px-1.5 py-0.5 rounded text-indigo-900 font-bold">${app.groom.nid}</span></p>
-              <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-emerald-700">${app.groom.phone}</span></p>
+              <p><strong>Phone Number:</strong> <span class="font-mono bg-emerald-100 px-1.5 py-0.5 rounded text-emerald-900 font-bold">${app.groom.phone}</span></p>
+              <p><strong>Location:</strong> Province: ${app.groom.province}, District: ${app.groom.district}, Sector: ${app.groom.sector}, Cell: ${app.groom.cell}, Village: ${app.groom.village}</p>
+            </div>
+          </div>
+
+          <div class="bg-rose-50/50 p-4 rounded-2xl border border-rose-100 space-y-3">
+            <h4 class="font-black text-rose-950 text-xs uppercase tracking-wider border-b border-rose-200 pb-2">
+              👰 Bride Information
+            </h4>
+            <div class="space-y-1.5 text-xs text-slate-700">
+              <p><strong>Full Name:</strong> ${app.bride.name}</p>
+              <p><strong>NID Number:</strong> <span class="font-mono bg-rose-100 px-1.5 py-0.5 rounded text-rose-900 font-bold">${app.bride.nid}</span></p>
+              <p><strong>Phone Number:</strong> <span class="font-mono bg-emerald-100 px-1.5 py-0.5 rounded text-emerald-900 font-bold">${app.bride.phone}</span></p>
+              <p><strong>Location:</strong> Province: ${app.bride.province}, District: ${app.bride.district}, Sector: ${app.bride.sector}, Cell: ${app.bride.cell}, Village: ${app.bride.village}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider">Witnesses (Abahamya)</h4>
+          <ul class="list-disc list-inside text-xs text-slate-700 space-y-1">
+            ${app.witnesses.map(w => `<li><strong>${w.name}</strong> - Phone: <span class="font-mono text-emerald-700">${w.phone}</span></li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+          <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider">Uploaded Documents / Files</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            ${app.uploads.map(u => `<div class="p-2.5 bg-white border border-slate-200 rounded-xl flex items-center justify-between text-xs"><span>📄 ${u.title}</span><span class="text-indigo-600 font-bold font-mono">${u.file}</span></div>`).join('')}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('applicationModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('applicationModal').classList.add('hidden');
+      selectedAppId = null;
+    }
+
+    function handleStatusSelect(newStatus) {
+      if (!selectedAppId) return;
+      const app = applications.find(a => a.id === selectedAppId);
+      if (app) {
+        app.status = newStatus;
+        filterApplications();
+        updateStats();
+        alert(`Application ${app.id} status successfully updated to ${newStatus}!`);
+      }
+    }
+
+    // Initialize stats and application table on page load
+    window.onload = function() {
+      filterApplications();
+    };
   </script>
 </body>
 </html>
