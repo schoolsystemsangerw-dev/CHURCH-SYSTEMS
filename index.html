@@ -1,69 +1,65 @@
-const matrimonyData = {
-        reference_code: refCode,
-        diocese: document.getElementById('diocese').value.trim(),
-        archdeaconry: document.getElementById('archdeaconry').value.trim(),
-        parish_name: document.getElementById('parish_name').value.trim(),
-        local_church: document.getElementById('local_church').value.trim(),
-        
-        // Groom Information
-        groom_name: document.getElementById('groom_name').value.trim(),
-        groom_id_number: document.getElementById('groom_id_number').value.trim(),
-        groom_dob: document.getElementById('groom_dob').value,
-        groom_phone: document.getElementById('groom_phone').value.trim(),
-        groom_email: document.getElementById('groom_email').value.trim(),
-        groom_education: document.getElementById('groom_education').value.trim(),
-        groom_job: document.getElementById('groom_job').value.trim(),
-        groom_province: document.getElementById('groom_province').value.trim(),
-        groom_district: document.getElementById('groom_district').value.trim(),
-        groom_sector: document.getElementById('groom_sector').value.trim(),
-        groom_cell: document.getElementById('groom_cell').value.trim(),
-        groom_village: document.getElementById('groom_village').value.trim(),
-        groom_witness_1_name: document.getElementById('groom_witness_1_name').value.trim(),
-        groom_witness_1_phone: document.getElementById('groom_witness_1_phone').value.trim(),
-        groom_witness_2_name: document.getElementById('groom_witness_2_name').value.trim(),
-        groom_witness_2_phone: document.getElementById('groom_witness_2_phone').value.trim(),
-        groom_witness_3_name: document.getElementById('groom_witness_3_name').value.trim(),
-        groom_witness_3_phone: document.getElementById('groom_witness_3_phone').value.trim(),
+document.getElementById('matrimonyForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const refCode = 'MAT-' + Math.floor(100000 + Math.random() * 900000);
+  
+  const matrimonyData = { 
+    reference_code: refCode, 
+    diocese: document.getElementById('diocese').value.trim(), 
+    archdeaconry: document.getElementById('archdeaconry').value.trim(), 
+    parish_name: document.getElementById('parish_name').value.trim(), 
+    local_church: document.getElementById('local_church').value.trim(), 
+    groom_name: document.getElementById('groom_name').value.trim(), 
+    groom_id_number: document.getElementById('groom_id_number').value.trim(), 
+    groom_dob: document.getElementById('groom_dob').value.trim(),
+    groom_phone: document.getElementById('groom_phone').value.trim(), 
+    groom_email: document.getElementById('groom_email').value.trim(), 
+    groom_education: document.getElementById('groom_education').value.trim(), 
+    groom_job: document.getElementById('groom_job').value.trim(), 
+    groom_province: document.getElementById('groom_province').value.trim(),
+    groom_district: document.getElementById('groom_district').value.trim(), 
+    groom_sector: document.getElementById('groom_sector').value.trim(), 
+    groom_cell: document.getElementById('groom_cell').value.trim(), 
+    groom_village: document.getElementById('groom_village').value.trim(), 
+    groom_witness_1_name: document.getElementById('groom_witness_1_name').value.trim(), 
+    groom_witness_1_phone: document.getElementById('groom_witness_1_phone').value.trim(), 
+    groom_witness_2_name: document.getElementById('groom_witness_2_name').value.trim(), 
+    groom_witness_2_phone: document.getElementById('groom_witness_2_phone').value.trim(), 
+    groom_witness_3_name: document.getElementById('groom_witness_3_name').value.trim(), 
+    groom_witness_3_phone: document.getElementById('groom_witness_3_phone').value.trim(), 
+    bride_name: document.getElementById('bride_name').value.trim(), 
+    bride_id_number: document.getElementById('bride_id_number').value.trim(), 
+    bride_dob: document.getElementById('bride_dob').value.trim(), 
+    bride_phone: document.getElementById('bride_phone').value.trim(), 
+    bride_email: document.getElementById('bride_email').value.trim(), 
+    bride_education: document.getElementById('bride_education').value.trim(), 
+    bride_job: document.getElementById('bride_job').value.trim(), 
+    bride_province: document.getElementById('bride_province').value.trim(), 
+    bride_district: document.getElementById('bride_district').value.trim(), 
+    bride_sector: document.getElementById('bride_sector').value.trim(), 
+    bride_cell: document.getElementById('bride_cell').value.trim(), 
+    bride_village: document.getElementById('bride_village').value.trim(), 
+    bride_witness_1_name: document.getElementById('bride_witness_1_name').value.trim(), 
+    bride_witness_1_phone: document.getElementById('bride_witness_1_phone').value.trim(), 
+    bride_witness_2_name: document.getElementById('bride_witness_2_name').value.trim(), 
+    bride_witness_2_phone: document.getElementById('bride_witness_2_phone').value.trim(), 
+    bride_witness_3_name: document.getElementById('bride_witness_3_name').value.trim(), 
+    bride_witness_3_phone: document.getElementById('bride_witness_3_phone').value.trim() 
+  };
 
-        // Bride Information
-        bride_name: document.getElementById('bride_name').value.trim(),
-        bride_id_number: document.getElementById('bride_id_number').value.trim(),
-        bride_dob: document.getElementById('bride_dob').value,
-        bride_phone: document.getElementById('bride_phone').value.trim(),
-        bride_email: document.getElementById('bride_email').value.trim(),
-        bride_education: document.getElementById('bride_education').value.trim(),
-        bride_job: document.getElementById('bride_job').value.trim(),
-        bride_province: document.getElementById('bride_province').value.trim(),
-        bride_district: document.getElementById('bride_district').value.trim(),
-        bride_sector: document.getElementById('bride_sector').value.trim(),
-        bride_cell: document.getElementById('bride_cell').value.trim(),
-        bride_village: document.getElementById('bride_village').value.trim(),
-        bride_witness_1_name: document.getElementById('bride_witness_1_name').value.trim(),
-        bride_witness_1_phone: document.getElementById('bride_witness_1_phone').value.trim(),
-        bride_witness_2_name: document.getElementById('bride_witness_2_name').value.trim(),
-        bride_witness_2_phone: document.getElementById('bride_witness_2_phone').value.trim(),
-        bride_witness_3_name: document.getElementById('bride_witness_3_name').value.trim(),
-        bride_witness_3_phone: document.getElementById('bride_witness_3_phone').value.trim()
-      };
-
-      try {
-        const { error } = await supabaseClient
-          .from('matrimony_applications')
-          .insert([matrimonyData]);
-
-        if (error) throw error;
-
-        alert(`Matrimony application successfully submitted! Your Reference Code is: ${refCode}`);
-        document.getElementById('matrimonyForm').reset();
-        document.getElementById('groom_photo_preview').classList.add('hidden');
-        document.getElementById('groom_photo_placeholder').classList.remove('hidden');
-        document.getElementById('bride_photo_preview').classList.add('hidden');
-        document.getElementById('bride_photo_placeholder').classList.remove('hidden');
-      } catch (err) {
-        console.error('Error submitting matrimony application:', err.message);
-        alert('Failed to submit application: ' + err.message);
-      }
-    }
-  </script>
-</body>
-</html>
+  try { 
+    const { error } = await supabaseClient.from('matrimony_applications').insert([matrimonyData]); 
+    if (error) throw error; 
+    
+    alert(`Matrimony application successfully submitted! Your Reference Code is: ${refCode}`);
+    
+    document.getElementById('matrimonyForm').reset(); 
+    document.getElementById('groom_photo_preview').classList.add('hidden');
+    document.getElementById('groom_photo_placeholder').classList.remove('hidden');
+    document.getElementById('bride_photo_preview').classList.add('hidden');
+    document.getElementById('bride_photo_placeholder').classList.remove('hidden'); 
+  } catch (err) { 
+    console.error('Error submitting matrimony application:', err.message); 
+    alert('Failed to submit application: ' + err.message); 
+  }
+});
