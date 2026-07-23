@@ -194,7 +194,7 @@
 
   <!-- VIEW MEMBERS LIST MODAL -->
   <div id="membersListModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
       <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
         <div>
           <h3 class="font-bold text-sm uppercase text-amber-300">Registered Church Members Database</h3>
@@ -217,12 +217,35 @@
               <th class="p-3 text-center">Baptised</th>
               <th class="p-3 text-center">Confirmed</th>
               <th class="p-3 text-center">Married</th>
+              <th class="p-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody id="membersTableBody" class="divide-y divide-slate-100">
             <!-- Dynamic Member Rows -->
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW MEMBER FULL DESCRIPTION MODAL -->
+  <div id="memberDetailsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
+      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
+        <div>
+          <h3 class="font-bold text-sm uppercase text-amber-300">Church Member Profile Details</h3>
+          <p class="text-[11px] text-indigo-200">Full sacramental and personal description</p>
+        </div>
+        <button type="button" onclick="closeMemberDetailsModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
+      </div>
+
+      <div id="memberDetailsContent" class="p-6 space-y-4 text-xs text-slate-700">
+        <!-- Dynamic member details populated here -->
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-2">
+        <button type="button" onclick="printSingleMemberReport()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold rounded-xl text-xs transition cursor-pointer">🖨️ Print Profile</button>
+        <button type="button" onclick="closeMemberDetailsModal()" class="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white font-bold rounded-xl text-xs transition cursor-pointer">Close</button>
       </div>
     </div>
   </div>
@@ -280,6 +303,7 @@
 
     let applications = [];
     let registeredMembers = [];
+    let currentSelectedMember = null;
 
     async function fetchApplications() {
       try {
@@ -429,7 +453,7 @@
       tbody.innerHTML = '';
 
       if (registeredMembers.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400 font-medium">No registered church members found.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400 font-medium">No registered church members found.</td></tr>`;
         return;
       }
 
@@ -443,9 +467,113 @@
             <td class="p-3 text-center">${m.baptised ? '✅' : '❌'}</td>
             <td class="p-3 text-center">${m.watebweAmaboko ? '✅' : '❌'}</td>
             <td class="p-3 text-center">${m.wasezeranye ? '✅' : '❌'}</td>
+            <td class="p-3 text-center">
+              <button onclick="viewMemberDetails('${m.id}')" class="px-2.5 py-1.5 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded-lg text-[10px] transition shadow cursor-pointer">👁️ View Full Details</button>
+            </td>
           </tr>
         `;
       });
+    }
+
+    function viewMemberDetails(memberId) {
+      const member = registeredMembers.find(m => m.id === memberId);
+      if (!member) return;
+
+      currentSelectedMember = member;
+
+      const detailsContainer = document.getElementById('memberDetailsContent');
+      detailsContainer.innerHTML = `
+        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 flex flex-col gap-1">
+          <span class="text-[10px] font-bold text-indigo-600 uppercase">Member ID Reference</span>
+          <h4 class="text-base font-black font-mono text-indigo-950">${member.id}</h4>
+        </div>
+
+        <div class="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase">Full Name (Izina Ryose)</p>
+            <p class="text-sm font-extrabold text-slate-800">${member.name}</p>
+          </div>
+          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-200">
+            <div>
+              <p class="text-[10px] font-bold text-slate-400 uppercase">National ID</p>
+              <p class="font-mono text-xs font-bold text-slate-700">${member.nid || 'N/A'}</p>
+            </div>
+            <div>
+              <p class="text-[10px] font-bold text-slate-400 uppercase">Phone Number</p>
+              <p class="font-mono text-xs font-bold text-indigo-600">${member.phone || 'N/A'}</p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-slate-200">
+            <p class="text-[10px] font-bold text-slate-400 uppercase">Local Church (Kanisa)</p>
+            <p class="text-xs font-bold text-slate-700">${member.kanisa || 'Mukama Local Church'}</p>
+          </div>
+        </div>
+
+        <div>
+          <p class="font-bold text-indigo-950 uppercase mb-2 text-xs">Sacramental Status Details</p>
+          <div class="space-y-2 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div class="flex justify-between items-center py-1 border-b border-slate-200">
+              <span class="font-medium text-slate-700">Yarabatijwe (Baptised)</span>
+              <span class="font-bold text-sm">${member.baptised ? '✅ Yes' : '❌ No'}</span>
+            </div>
+            <div class="flex justify-between items-center py-1 border-b border-slate-200">
+              <span class="font-medium text-slate-700">Watebwe amaboko (Confirmed)</span>
+              <span class="font-bold text-sm">${member.watebweAmaboko ? '✅ Yes' : '❌ No'}</span>
+            </div>
+            <div class="flex justify-between items-center py-1">
+              <span class="font-medium text-slate-700">Wasezeranye (Holy Matrimony Married)</span>
+              <span class="font-bold text-sm">${member.wasezeranye ? '✅ Yes' : '❌ No'}</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('memberDetailsModal').classList.remove('hidden');
+    }
+
+    function closeMemberDetailsModal() {
+      document.getElementById('memberDetailsModal').classList.add('hidden');
+    }
+
+    function printSingleMemberReport() {
+      if (!currentSelectedMember) return;
+      let m = currentSelectedMember;
+
+      let html = `<!DOCTYPE html>
+      <html>
+      <head>
+        <title>Church Member Profile - ${m.name}</title>
+        <style>
+          body { font-family: sans-serif; padding: 30px; color: #333; }
+          h2 { text-align: center; color: #1e1b4b; text-transform: uppercase; margin-bottom: 5px; }
+          p.subtitle { text-align: center; font-size: 12px; color: #666; margin-bottom: 25px; }
+          .card { border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; max-width: 600px; margin: 0 auto; }
+          .row { margin-bottom: 12px; display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
+          .label { font-size: 10px; font-weight: bold; color: #64748b; text-transform: uppercase; }
+          .val { font-size: 14px; font-weight: bold; color: #1e293b; }
+        </style>
+      </head>
+      <body>
+        <h2>EAR Rwanda - Mukama Parish</h2>
+        <p class="subtitle">Official Church Member Full Profile Description</p>
+        <div class="card">
+          <div class="row"><span class="label">Member ID</span><span class="val">${m.id}</span></div>
+          <div class="row"><span class="label">Full Name</span><span class="val">${m.name}</span></div>
+          <div class="row"><span class="label">National ID</span><span class="val">${m.nid}</span></div>
+          <div class="row"><span class="label">Phone Number</span><span class="val">${m.phone}</span></div>
+          <div class="row"><span class="label">Local Church</span><span class="val">${m.kanisa}</span></div>
+          <div class="row"><span class="label">Yarabatijwe (Baptised)</span><span class="val">${m.baptised ? 'Yes (Baptised)' : 'No'}</span></div>
+          <div class="row"><span class="label">Watebwe Amaboko (Confirmed)</span><span class="val">${m.watebweAmaboko ? 'Yes (Confirmed)' : 'No'}</span></div>
+          <div class="row"><span class="label">Wasezeranye (Married)</span><span class="val">${m.wasezeranye ? 'Yes (Holy Matrimony)' : 'No'}</span></div>
+        </div>
+      </body>
+      </html>`;
+
+      let win = window.open('', '', 'height=700,width=800');
+      win.document.write(html);
+      win.document.close();
+      win.focus();
+      setTimeout(() => { win.print(); }, 500);
     }
 
     function printMembersReport() {
