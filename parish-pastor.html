@@ -1,17 +1,425 @@
-<th style="text-align: center;">Yarabatijwe</th>
-    <th style="text-align: center;">Watebwe Amaboko</th>
-    <th style="text-align: center;">Wasezeranye</th>
-    </tr></thead><tbody>`;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parish Pastor Dashboard | EAR Rwanda</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col font-sans pb-12">
 
-      marriedMembers.forEach(m => {
+  <!-- TOP MOVING MARQUEE BANNER -->
+  <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-indigo-950 font-black text-xs sm:text-sm py-2 overflow-hidden shadow-inner border-b border-amber-600 tracking-widest uppercase">
+    <div class="whitespace-nowrap animate-marquee flex gap-8">
+      <span>✨ MUKAMA PARISH — PASTOR MANAGEMENT DASHBOARD ✨</span>
+      <span>📖 "NIYO MPAMVU UMUGABO AZASIGA SE NA NYINA AKAGUMANA N'UMUGORE WE, BOMBI BAKABA UMUBIRI UMWE." — Matayo 19:5 📖</span>
+      <span>✨ MUKAMA PARISH — PASTOR MANAGEMENT DASHBOARD ✨</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-indigo-950 text-white shadow-lg border-b-4 border-indigo-700 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
+      <div class="flex items-center justify-center flex-shrink-0">
+        <img src="log-diocese.png" alt="Diocese Logo" class="h-20 sm:h-28 md:h-32 w-auto object-contain max-w-[120px] sm:max-w-[160px]" />
+      </div>
+
+      <div class="text-center flex-grow px-2">
+        <h1 class="font-extrabold text-lg sm:text-2xl md:text-3xl uppercase tracking-wider bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent drop-shadow-md">
+          EGLISE ANGLICANE DU RWANDA
+        </h1>
+        <h2 class="font-bold text-xs sm:text-sm md:text-base uppercase tracking-wide text-amber-300 mt-1">
+          DIOCESE OF GAHINI - MUKAMA PARISH PASTOR DASHBOARD
+        </h2>
+        <p class="text-xs sm:text-sm text-indigo-200 font-medium mt-1">Review & Management Portal</p>
+      </div>
+
+      <div class="flex items-center justify-center flex-shrink-0">
+        <img src="logo-rwanda.png" alt="EAR Rwanda Logo" class="h-20 sm:h-28 md:h-32 w-auto object-contain max-w-[120px] sm:max-w-[160px]" />
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Container -->
+  <main class="flex-grow p-4 sm:p-6 max-w-7xl mx-auto w-full space-y-6">
+
+    <!-- Quick Stats & Actions -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+        <div>
+          <p class="text-[11px] font-bold text-slate-400 uppercase">Total Applications</p>
+          <h3 id="statTotal" class="text-2xl font-black text-indigo-950 mt-1">0</h3>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-lg">📁</div>
+      </div>
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+        <div>
+          <p class="text-[11px] font-bold text-slate-400 uppercase">Pending Review</p>
+          <h3 id="statPending" class="text-2xl font-black text-amber-600 mt-1">0</h3>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-lg">⏳</div>
+      </div>
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+        <div>
+          <p class="text-[11px] font-bold text-slate-400 uppercase">Approved</p>
+          <h3 id="statApproved" class="text-2xl font-black text-emerald-600 mt-1">0</h3>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-lg">✅</div>
+      </div>
+      <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+        <div>
+          <p class="text-[11px] font-bold text-slate-400 uppercase">Registered Members</p>
+          <h3 id="statMembers" class="text-2xl font-black text-teal-600 mt-1">0</h3>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center font-bold text-lg">👥</div>
+      </div>
+    </div>
+
+    <!-- Actions Control Bar -->
+    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+        <input type="text" id="searchInput" oninput="filterApplications()" placeholder="Search by name, phone, church, ID..." class="p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs w-full sm:w-80 outline-none focus:ring-2 focus:ring-indigo-500 font-medium" />
+        <select id="statusFilter" onchange="filterApplications()" class="p-2.5 bg-slate-50 border border-slate-300 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500 font-medium">
+          <option value="ALL">All Statuses</option>
+          <option value="PENDING">Pending</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
+        </select>
+      </div>
+
+      <div class="flex items-center gap-2 w-full md:w-auto justify-end">
+        <button type="button" onclick="openMembersListModal()" class="px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl text-xs transition shadow cursor-pointer flex items-center gap-1.5">
+          <span>👥 View Church Members</span>
+        </button>
+        <button type="button" onclick="openRegisterMemberModal()" class="px-4 py-2.5 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded-xl text-xs transition shadow cursor-pointer flex items-center gap-1.5">
+          <span>➕ Register New Member</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Applications Table Section -->
+    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center border-b border-indigo-900">
+        <div>
+          <h3 class="font-bold text-sm uppercase text-amber-300">Submitted Matrimony Applications</h3>
+          <p class="text-[11px] text-indigo-200">Manage, review, approve or print applicant details</p>
+        </div>
+        <span class="text-xs font-mono bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full">Pastor View</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 font-bold uppercase text-[10px]">
+              <th class="p-3">ID / Date</th>
+              <th class="p-3">Local Church</th>
+              <th class="p-3">Groom Info</th>
+              <th class="p-3">Bride Info</th>
+              <th class="p-3">Witnesses</th>
+              <th class="p-3 text-center">Status</th>
+              <th class="p-3 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="applicationsTableBody" class="divide-y divide-slate-100">
+            <!-- Dynamic Rows Injected Here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- REGISTER MEMBER MODAL -->
+  <div id="registerMemberModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
+      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
+        <div>
+          <h3 class="font-bold text-sm uppercase text-amber-300">Register Church Member</h3>
+          <p class="text-[11px] text-indigo-200">Add member credentials into parish system</p>
+        </div>
+        <button type="button" onclick="closeRegisterMemberModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
+      </div>
+
+      <form id="memberRegisterForm" onsubmit="handleRegisterMember(event)" class="p-6 space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Full Name (Izina Ryose) *</label>
+          <input type="text" id="memberName" required placeholder="e.g. MUGABO Patrick" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">National ID (Indangamuntu) *</label>
+            <input type="text" id="memberNid" maxlength="16" required placeholder="1199..." class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-mono" />
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 uppercase mb-1">Phone Number *</label>
+            <input type="text" id="memberPhone" required placeholder="078..." class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-mono" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 uppercase mb-1">Local Church (Kanisa) *</label>
+          <input type="text" id="memberKanisa" required placeholder="e.g. Mukama Local Church" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
+        </div>
+
+        <div class="pt-2">
+          <p class="font-bold text-indigo-950 uppercase mb-2">Sacramental Status</p>
+          <div class="space-y-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
+              <input type="checkbox" id="checkBaptised" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
+              <span>Yarabatijwe (Baptised)</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
+              <input type="checkbox" id="checkWatebweAmaboko" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
+              <span>Watebwe amaboko (Confirmed)</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
+              <input type="checkbox" id="checkWasezeranye" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
+              <span>Wasezeranye (Holy Matrimony Married)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200 flex justify-end gap-2">
+          <button type="button" onclick="closeRegisterMemberModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white font-bold rounded-xl transition cursor-pointer">Cancel</button>
+          <button type="submit" class="px-5 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded-xl transition shadow cursor-pointer">Save Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- VIEW MEMBERS LIST MODAL -->
+  <div id="membersListModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
+      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
+        <div>
+          <h3 class="font-bold text-sm uppercase text-amber-300">Registered Church Members Database</h3>
+          <p class="text-[11px] text-indigo-200">Complete records of registered church members and sacraments</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="printMembersReport()" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold rounded-lg text-xs transition cursor-pointer">🖨️ Print Report</button>
+          <button type="button" onclick="closeMembersListModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
+        </div>
+      </div>
+
+      <div class="p-6 overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 font-bold uppercase text-[10px]">
+              <th class="p-3">Member ID</th>
+              <th class="p-3">Full Name</th>
+              <th class="p-3">NID / Phone</th>
+              <th class="p-3">Local Church</th>
+              <th class="p-3 text-center">Baptised</th>
+              <th class="p-3 text-center">Confirmed</th>
+              <th class="p-3 text-center">Married</th>
+            </tr>
+          </thead>
+          <tbody id="membersTableBody" class="divide-y divide-slate-100">
+            <!-- Dynamic Member Rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-indigo-950 text-white border-t-4 border-amber-500 py-10 px-4 text-center text-xs mt-auto">
+    <div class="max-w-4xl mx-auto space-y-4">
+      <p class="text-sm sm:text-base font-semibold text-amber-300 leading-relaxed max-w-2xl mx-auto">
+        Empowering organizations with modern, reliable, and scalable digital solutions tailored to transform your daily operations.
+      </p>
+
+      <p class="font-bold text-slate-200 tracking-wide">hindura imibereho yawe uyumunsi</p>
+
+      <hr class="border-indigo-800 w-1/2 mx-auto my-4" />
+
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-widest text-indigo-300 font-bold">
+          IT Architecture & System Design
+        </p>
+        <p class="text-slate-300 text-xs">
+          Engineered for excellence in Church Management Systems, School Management Systems, & Enterprise Portals.
+        </p>
+        <p class="text-amber-400 font-medium pt-1">
+          Looking for custom software engineering or system architecture? 
+          <a href="mailto:schoolsystems.ange.rw@gmail.com" class="underline font-bold text-white hover:text-amber-300 transition">
+            Contact Us: schoolsystems.ange.rw@gmail.com
+          </a>
+        </p>
+      </div>
+
+      <p class="text-[10px] text-slate-500 pt-2">
+        Technical Support: <span class="text-indigo-400 font-mono">support@diocese.rw</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Marquee CSS -->
+  <style>
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      display: inline-flex;
+      animation: marquee 25s linear infinite;
+    }
+  </style>
+
+  <!-- Dashboard JavaScript Logic -->
+  <script>
+    // Sample Initial Mock Data (Replace or sync with Supabase backend)
+    let applications = [
+      {
+        id: "EAR-2026-001",
+        date: "2026-07-20",
+        local_church: "Mukama Local Church",
+        status: "PENDING",
+        groom: { name: "MUGISHA Jean Paul", nid: "1199980012345678", phone: "0781234567" },
+        bride: { name: "UWASE Clarisse", nid: "1199990087654321", phone: "0789876543" },
+        witnesses: [
+          { name: "Nsanzimana Peter", phone: "0781111111" },
+          { name: "Mukamana Marie", phone: "0782222222" },
+          { name: "Habimana Jean", phone: "0783333333" }
+        ]
+      }
+    ];
+
+    let registeredMembers = [
+      { id: "MEM-001", name: "MUGABO Patrick", nid: "1199080011112222", phone: "0784444444", kanisa: "Mukama Local Church", baptised: true, watebweAmaboko: true, wasezeranye: false }
+    ];
+
+    function updateStats() {
+      document.getElementById('statTotal').innerText = applications.length;
+      document.getElementById('statPending').innerText = applications.filter(a => a.status === 'PENDING').length;
+      document.getElementById('statApproved').innerText = applications.filter(a => a.status === 'APPROVED').length;
+      document.getElementById('statMembers').innerText = registeredMembers.length;
+    }
+
+    function renderTable(dataToRender) {
+      const tbody = document.getElementById('applicationsTableBody');
+      tbody.innerHTML = '';
+
+      if (dataToRender.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400 font-medium">No matrimony applications found.</td></tr>`;
+        return;
+      }
+
+      dataToRender.forEach((app, idx) => {
+        let statusBadge = '';
+        if (app.status === 'PENDING') statusBadge = '<span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">Pending</span>';
+        else if (app.status === 'APPROVED') statusBadge = '<span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold">Approved</span>';
+        else statusBadge = '<span class="bg-rose-100 text-rose-800 px-2.5 py-1 rounded-full font-bold">Rejected</span>';
+
+        let witnessesHtml = app.witnesses.map((w, i) => `<span class="block text-[10px] text-slate-600">${i+1}. ${w.name} (${w.phone})</span>`).join('');
+
+        tbody.innerHTML += `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="p-3 font-mono font-bold text-indigo-950">${app.id}<br/><span class="text-[10px] text-slate-400 font-normal">${app.date}</span></td>
+            <td class="p-3 font-semibold text-slate-700">${app.local_church}</td>
+            <td class="p-3">
+              <span class="font-bold text-slate-800">${app.groom.name}</span><br/>
+              <span class="font-mono text-[10px] text-slate-500">NID: ${app.groom.nid}</span><br/>
+              <span class="font-mono text-[10px] text-indigo-600 font-bold">📞 ${app.groom.phone}</span>
+            </td>
+            <td class="p-3">
+              <span class="font-bold text-slate-800">${app.bride.name}</span><br/>
+              <span class="font-mono text-[10px] text-slate-500">NID: ${app.bride.nid}</span><br/>
+              <span class="font-mono text-[10px] text-indigo-600 font-bold">📞 ${app.bride.phone}</span>
+            </td>
+            <td class="p-3">${witnessesHtml}</td>
+            <td class="p-3 text-center">${statusBadge}</td>
+            <td class="p-3 text-center space-y-1">
+              <button onclick="updateAppStatus('${app.id}', 'APPROVED')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Approve</button>
+              <button onclick="updateAppStatus('${app.id}', 'REJECTED')" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Reject</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function updateAppStatus(id, newStatus) {
+      const app = applications.find(a => a.id === id);
+      if (app) {
+        app.status = newStatus;
+        updateStats();
+        filterApplications();
+        alert(`Application ${id} status updated to ${newStatus}`);
+      }
+    }
+
+    function renderMembersTable() {
+      const tbody = document.getElementById('membersTableBody');
+      tbody.innerHTML = '';
+
+      if (registeredMembers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400 font-medium">No registered church members found.</td></tr>`;
+        return;
+      }
+
+      registeredMembers.forEach(m => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="p-3 font-mono font-bold text-indigo-950">${m.id}</td>
+            <td class="p-3 font-bold text-slate-800">${m.name}</td>
+            <td class="p-3 font-mono text-slate-600">${m.nid}<br/><span class="text-indigo-600 font-bold">📞 ${m.phone}</span></td>
+            <td class="p-3 font-semibold text-slate-700">${m.kanisa}</td>
+            <td class="p-3 text-center">${m.baptised ? '✅' : '❌'}</td>
+            <td class="p-3 text-center">${m.watebweAmaboko ? '✅' : '❌'}</td>
+            <td class="p-3 text-center">${m.wasezeranye ? '✅' : '❌'}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function printMembersReport() {
+      let html = `<!DOCTYPE html>
+      <html>
+      <head>
+        <title>Registered Church Members Report</title>
+        <style>
+          body { font-family: sans-serif; padding: 20px; color: #333; }
+          h2 { text-align: center; color: #1e1b4b; text-transform: uppercase; margin-bottom: 5px; }
+          p.subtitle { text-align: center; font-size: 12px; color: #666; margin-bottom: 20px; }
+          table { width: 100%; border-collapse: collapse; font-size: 12px; }
+          th, td { border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; }
+          th { background-color: #f1f5f9; color: #1e293b; text-transform: uppercase; font-size: 10px; }
+          .text-center { text-align: center; }
+        </style>
+      </head>
+      <body>
+        <h2>EAR Rwanda - Mukama Parish</h2>
+        <p class="subtitle">Official Registered Church Members & Sacramental Status Report</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Member ID</th>
+              <th>Full Name</th>
+              <th>National ID</th>
+              <th>Phone Number</th>
+              <th>Local Church</th>
+              <th class="text-center">Yarabatijwe</th>
+              <th class="text-center">Watebwe Amaboko</th>
+              <th class="text-center">Wasezeranye</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
+      registeredMembers.forEach(m => {
         html += `<tr>
-          <td><strong>${m.name}</strong></td>
+          <td><strong>${m.id}</strong></td>
+          <td>${m.name}</td>
           <td>${m.nid}</td>
           <td>${m.phone}</td>
           <td>${m.kanisa}</td>
-          <td style="text-align: center;">${m.baptised ? '✅' : '❌'}</td>
-          <td style="text-align: center;">${m.watebweAmaboko ? '✅' : '❌'}</td>
-          <td style="text-align: center;">${m.wasezeranye ? '✅' : '❌'}</td>
+          <td class="text-center">${m.baptised ? '✅' : '❌'}</td>
+          <td class="text-center">${m.watebweAmaboko ? '✅' : '❌'}</td>
+          <td class="text-center">${m.wasezeranye ? '✅' : '❌'}</td>
         </tr>`;
       });
 
