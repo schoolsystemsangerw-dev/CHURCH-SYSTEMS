@@ -250,6 +250,28 @@
     </div>
   </div>
 
+  <!-- VIEW MATRIMONY APPLICATION DETAILS MODAL -->
+  <div id="matrimonyDetailsModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
+      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
+        <div>
+          <h3 class="font-bold text-sm uppercase text-amber-300">Matrimony Application Details</h3>
+          <p class="text-[11px] text-indigo-200">Complete applicant and witness details</p>
+        </div>
+        <button type="button" onclick="closeMatrimonyDetailsModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
+      </div>
+
+      <div id="matrimonyDetailsContent" class="p-6 space-y-4 text-xs text-slate-700">
+        <!-- Dynamic matrimony details populated here -->
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-end gap-2">
+        <button type="button" onclick="printMatrimonyReport()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-indigo-950 font-bold rounded-xl text-xs transition cursor-pointer">🖨️ Print Application</button>
+        <button type="button" onclick="closeMatrimonyDetailsModal()" class="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white font-bold rounded-xl text-xs transition cursor-pointer">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="bg-indigo-950 text-white border-t-4 border-amber-500 py-10 px-4 text-center text-xs mt-auto">
     <div class="max-w-4xl mx-auto space-y-4">
@@ -304,6 +326,7 @@
     let applications = [];
     let registeredMembers = [];
     let currentSelectedMember = null;
+    let currentSelectedApp = null;
 
     async function fetchApplications() {
       try {
@@ -370,6 +393,28 @@
       document.getElementById('statMembers').innerText = registeredMembers.length;
     }
 
+    function filterApplications() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const statusVal = document.getElementById('statusFilter').value;
+
+      const filtered = applications.filter(app => {
+        let matchesStatus = (statusVal === 'ALL' || app.status.toUpperCase() === statusVal);
+        let matchesQuery = 
+          app.id.toLowerCase().includes(query) ||
+          app.local_church.toLowerCase().includes(query) ||
+          (app.groom?.name && app.groom.name.toLowerCase().includes(query)) ||
+          (app.groom?.phone && app.groom.phone.toLowerCase().includes(query)) ||
+          (app.bride?.name && app.bride.name.toLowerCase().includes(query)) ||
+          (app.bride?.phone && app.bride.phone.toLowerCase().includes(query)) ||
+          (app.groom?.nid && app.groom.nid.toLowerCase().includes(query)) ||
+          (app.bride?.nid && app.bride.nid.toLowerCase().includes(query));
+
+        return matchesStatus && matchesQuery;
+      });
+
+      renderTable(filtered);
+    }
+
     function renderTable(dataToRender) {
       const tbody = document.getElementById('applicationsTableBody');
       tbody.innerHTML = '';
@@ -417,6 +462,7 @@
             <td class="p-3 text-center space-y-1">
               <button onclick="updateAppStatus('${app.id}', 'Approved')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Approve</button>
               <button onclick="updateAppStatus('${app.id}', 'Rejected')" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Reject</button>
+              <button onclick="viewMatrimonyDetails('${app.id}')" class="block w-full px-2 py-1 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded text-[10px] transition cursor-pointer mt-1">👁️ View</button>
             </td>
           </tr>
         `;
@@ -446,6 +492,167 @@
       } catch (err) {
         console.error('Error updating status:', err);
       }
+    }
+
+    function viewMatrimonyDetails(appId) {
+      const app = applications.find(a => a.id === appId);
+      if (!app) return;
+
+      currentSelectedApp = app;
+
+      let witnessesListHtml = Array.isArray(app.witnesses) && app.witnesses.length > 0
+        ? app.witnesses.map((w, i) => `<li class="py-1">${i+1}. <strong>${w.name}</strong> — Phone: <span class="font-mono text-indigo-600">${w.phone}</span></li>`).join('')
+        : '<p class="text-slate-400">No witnesses listed.</p>';
+
+      const detailsContainer = document.getElementById('matrimonyDetailsContent');
+      detailsContainer.innerHTML = `
+        <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 flex justify-between items-center">
+          <div>
+            <span class="text-[10px] font-bold text-indigo-600 uppercase">Application Reference</span>
+            <h4 class="text-base font-black font-mono text-indigo-950">${app.id}</h4>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Submission Date</span>
+            <p class="text-xs font-bold text-slate-700">${app.date}</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <p class="text-[10px] font-bold text-slate-400 uppercase">Local Church</p>
+          <p class="text-sm font-extrabold text-slate-800">${app.local_church}</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+            <p class="text-[10px] font-bold text-indigo-900 uppercase">Groom Information</p>
+            <p class="text-xs font-extrabold text-slate-800">${app.groom?.name || 'N/A'}</p>
+            <p class="font-mono text-[11px] text-slate-600">NID: ${app.groom?.nid || 'N/A'}</p>
+            <p class="font-mono text-[11px] text-indigo-600 font-bold">Phone: ${app.groom?.phone || 'N/A'}</p>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+            <p class="text-[10px] font-bold text-indigo-900 uppercase">Bride Information</p>
+            <p class="text-xs font-extrabold text-slate-800">${app.bride?.name || 'N/A'}</p>
+            <p class="font-mono text-[11px] text-slate-600">NID: ${app.bride?.nid || 'N/A'}</p>
+            <p class="font-mono text-[11px] text-indigo-600 font-bold">Phone: ${app.bride?.phone || 'N/A'}</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Witnesses</p>
+          <ul class="list-disc list-inside space-y-1 text-slate-700">
+            ${witnessesListHtml}
+          </ul>
+        </div>
+      `;
+
+      document.getElementById('matrimonyDetailsModal').classList.remove('hidden');
+    }
+
+    function closeMatrimonyDetailsModal() {
+      document.getElementById('matrimonyDetailsModal').classList.add('hidden');
+    }
+
+    function printMatrimonyReport() {
+      if (!currentSelectedApp) return;
+      let app = currentSelectedApp;
+
+      let witnessesPrintHtml = Array.isArray(app.witnesses) && app.witnesses.length > 0
+        ? app.witnesses.map((w, i) => `<div class="row"><span class="label">Witness ${i+1}</span><span class="val">${w.name} (${w.phone})</span></div>`).join('')
+        : '<div class="row"><span class="label">Witnesses</span><span class="val">None listed</span></div>';
+
+      let html = `<!DOCTYPE html>
+      <html>
+      <head>
+        <title>Matrimony Application - ${app.id}</title>
+        <style>
+          body { font-family: sans-serif; padding: 30px; color: #333; }
+          h2 { text-align: center; color: #1e1b4b; text-transform: uppercase; margin-bottom: 5px; }
+          p.subtitle { text-align: center; font-size: 12px; color: #666; margin-bottom: 25px; }
+          .card { border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; max-width: 600px; margin: 0 auto; }
+          .row { margin-bottom: 12px; display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; }
+          .label { font-size: 10px; font-weight: bold; color: #64748b; text-transform: uppercase; }
+          .val { font-size: 14px; font-weight: bold; color: #1e293b; }
+        </style>
+      </head>
+      <body>
+        <h2>EAR Rwanda - Mukama Parish</h2>
+        <p class="subtitle">Official Matrimony Application Details - Ref: ${app.id}</p>
+        <div class="card">
+          <div class="row"><span class="label">Application Reference</span><span class="val">${app.id}</span></div>
+          <div class="row"><span class="label">Submission Date</span><span class="val">${app.date}</span></div>
+          <div class="row"><span class="label">Local Church</span><span class="val">${app.local_church}</span></div>
+          <div class="row"><span class="label">Status</span><span class="val">${app.status}</span></div>
+          <div class="row"><span class="label">Groom Name</span><span class="val">${app.groom?.name || 'N/A'}</span></div>
+          <div class="row"><span class="label">Groom NID / Phone</span><span class="val">${app.groom?.nid || 'N/A'} / ${app.groom?.phone || 'N/A'}</span></div>
+          <div class="row"><span class="label">Bride Name</span><span class="val">${app.bride?.name || 'N/A'}</span></div>
+          <div class="row"><span class="label">Bride NID / Phone</span><span class="val">${app.bride?.nid || 'N/A'} / ${app.bride?.phone || 'N/A'}</span></div>
+          ${witnessesPrintHtml}
+        </div>
+      </body>
+      </html>`;
+
+      let win = window.open('', '', 'height=700,width=800');
+      win.document.write(html);
+      win.document.close();
+      win.focus();
+      setTimeout(() => { win.print(); }, 500);
+    }
+
+    function openRegisterMemberModal() {
+      document.getElementById('registerMemberModal').classList.remove('hidden');
+    }
+
+    function closeRegisterMemberModal() {
+      document.getElementById('registerMemberModal').classList.add('hidden');
+      document.getElementById('memberRegisterForm').reset();
+    }
+
+    async function handleRegisterMember(e) {
+      e.preventDefault();
+      const name = document.getElementById('memberName').value;
+      const nid = document.getElementById('memberNid').value;
+      const phone = document.getElementById('memberPhone').value;
+      const kanisa = document.getElementById('memberKanisa').value;
+      const baptised = document.getElementById('checkBaptised').checked;
+      const watebweAmaboko = document.getElementById('checkWatebweAmaboko').checked;
+      const wasezeranye = document.getElementById('checkWasezeranye').checked;
+
+      const newMemberObj = {
+        name,
+        nid,
+        phone,
+        kanisa,
+        baptised,
+        watebweAmaboko,
+        wasezeranye
+      };
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('members')
+          .insert([newMemberObj]);
+
+        if (error) {
+          alert('Failed to register member on Supabase.');
+          console.error(error);
+          return;
+        }
+
+        alert('Church member successfully registered!');
+        closeRegisterMemberModal();
+        fetchMembers();
+      } catch (err) {
+        console.error('Error saving member:', err);
+      }
+    }
+
+    function openMembersListModal() {
+      renderMembersTable();
+      document.getElementById('membersListModal').classList.remove('hidden');
+    }
+
+    function closeMembersListModal() {
+      document.getElementById('membersListModal').classList.add('hidden');
     }
 
     function renderMembersTable() {
@@ -631,102 +838,10 @@
       setTimeout(() => { win.print(); }, 500);
     }
 
-    function openRegisterMemberModal() {
-      document.getElementById('memberRegisterForm').reset();
-      document.getElementById('registerMemberModal').classList.remove('hidden');
-    }
-
-    function closeRegisterMemberModal() {
-      document.getElementById('registerMemberModal').classList.add('hidden');
-    }
-
-    function openMembersListModal() {
-      renderMembersTable();
-      document.getElementById('membersListModal').classList.remove('hidden');
-    }
-
-    function closeMembersListModal() {
-      document.getElementById('membersListModal').classList.add('hidden');
-    }
-
-    async function handleRegisterMember(event) {
-      event.preventDefault();
-      
-      const newMemberData = {
-        name: document.getElementById('memberName').value,
-        nid: document.getElementById('memberNid').value,
-        phone: document.getElementById('memberPhone').value,
-        kanisa: document.getElementById('memberKanisa').value,
-        baptised: document.getElementById('checkBaptised').checked,
-        watebweAmaboko: document.getElementById('checkWatebweAmaboko').checked,
-        wasezeranye: document.getElementById('checkWasezeranye').checked
-      };
-
-      const { error } = await supabaseClient
-        .from('members')
-        .insert([newMemberData]);
-
-      if (error) {
-        alert('Error saving member to Supabase database.');
-        console.error(error);
-        return;
-      }
-
-      alert(`Member ${newMemberData.name} successfully registered in the database!`);
-      closeRegisterMemberModal();
-      fetchMembers();
-    }
-
-    function filterApplications() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const statusVal = document.getElementById('statusFilter').value.toLowerCase();
-
-      const filtered = applications.filter(app => {
-        const appStatusLower = app.status ? app.status.toLowerCase() : '';
-        const matchStatus = statusVal === 'all' || appStatusLower === statusVal;
-        
-        const groomName = app.groom?.name || '';
-        const groomNid = app.groom?.nid || '';
-        const groomPhone = app.groom?.phone || '';
-        const brideName = app.bride?.name || '';
-        const brideNid = app.bride?.nid || '';
-        const bridePhone = app.bride?.phone || '';
-
-        const matchQuery = 
-          app.id.toLowerCase().includes(query) ||
-          app.local_church.toLowerCase().includes(query) ||
-          groomName.toLowerCase().includes(query) ||
-          groomNid.includes(query) ||
-          groomPhone.includes(query) ||
-          brideName.toLowerCase().includes(query) ||
-          brideNid.includes(query) ||
-          bridePhone.includes(query);
-
-        return matchStatus && matchQuery;
-      });
-
-      renderTable(filtered);
-    }
-
-    // Initialize Dashboard and set up real-time sync on load
-    window.onload = function() {
+    // Initial Fetch on Load
+    window.onload = () => {
       fetchApplications();
       fetchMembers();
-
-      // Listen for real-time changes in Supabase
-      supabaseClient
-        .channel('public:matrimony_applications')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'matrimony_applications' }, payload => {
-          fetchApplications();
-        })
-        .subscribe();
-
-      supabaseClient
-        .channel('public:members')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'members' }, payload => {
-          fetchMembers();
-        })
-        .subscribe();
     };
   </script>
 </body>
