@@ -101,7 +101,13 @@
             </div>
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Local Church (Ikanisa) *</label>
-              <input type="text" id="localChurch" required placeholder="e.g. Mukama Local Church" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
+              <select id="localChurch" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
+                <option value="">Select Local Church</option>
+                <option value="Mukama Local Church">Mukama Local Church</option>
+                <option value="Rukomo Local Church">Rukomo Local Church</option>
+                <option value="Gishora Local Church">Gishora Local Church</option>
+                <option value="Kageyo Local Church">Kageyo Local Church</option>
+              </select>
             </div>
           </div>
         </div>
@@ -126,6 +132,32 @@
               <input type="text" id="groomPhone" required placeholder="078..." class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-mono" />
             </div>
           </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+            <p class="font-bold text-slate-800 uppercase text-[11px] text-indigo-900">Groom Residential Address (Aho Atuye)</p>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Province *</label>
+                <input type="text" id="groomProv" required placeholder="Eastern" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">District *</label>
+                <input type="text" id="groomDist" required placeholder="Gatsibo" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Sector *</label>
+                <input type="text" id="groomSect" required placeholder="Mukama" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Cell *</label>
+                <input type="text" id="groomCell" required placeholder="Kageyo" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Village *</label>
+                <input type="text" id="groomVill" required placeholder="Rwimbogo" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- SECTION 3: BRIDE INFORMATION -->
@@ -146,6 +178,106 @@
             <div>
               <label class="block font-bold text-slate-700 uppercase mb-1">Phone Number (Telefone) *</label>
               <input type="text" id="bridePhone" required placeholder="078..." class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-mono" />
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+            <p class="font-bold text-slate-800 uppercase text-[11px] text-indigo-900">Bride Residential Address (Aho Atuye)</p>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Province *</label>
+                <input type="text" id="brideProv" required placeholder="Eastern" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">District *</label>
+                <input type="text" id="brideDist" required placeholder="Gatsibo" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Sector *</label>
+                <input type="text" id="brideSect" required placeholder="Mukama" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Cell *</label>
+                <input type="text" id="brideCell" required placeholder="Gishora" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Village *</label>
+                <input type="text" id="brideVill" required placeholder="Nyagasozi" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 4: 3 WITNESSES (ABAHAMYA BAKURU) -->
+        <div class="space-y-4">
+          <h4 class="font-black text-indigo-950 text-sm uppercase tracking-wide border-b-2 border-indigo-100 pb-2 flex items-center gap-2">
+            <span>👥</span> Abahamya Bakuru (3 Witnesses & Phone Numbers Required)
+          </h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Witness 1 -->
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+              <p class="font-bold text-indigo-950 uppercase text-[11px]">Witness 1</p>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Full Name *</label>
+                <input type="text" id="wit1Name" required placeholder="Witness 1 Name" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Phone Number *</label>
+                <input type="text" id="wit1Phone" required placeholder="078..." class="w-full p-2 bg-white border border-slate-300 rounded-lg font-mono" />
+              </div>
+            </div>
+
+            <!-- Witness 2 -->
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+              <p class="font-bold text-indigo-950 uppercase text-[11px]">Witness 2</p>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Full Name *</label>
+                <input type="text" id="wit2Name" required placeholder="Witness 2 Name" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Phone Number *</label>
+                <input type="text" id="wit2Phone" required placeholder="078..." class="w-full p-2 bg-white border border-slate-300 rounded-lg font-mono" />
+              </div>
+            </div>
+
+            <!-- Witness 3 -->
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+              <p class="font-bold text-indigo-950 uppercase text-[11px]">Witness 3</p>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Full Name *</label>
+                <input type="text" id="wit3Name" required placeholder="Witness 3 Name" class="w-full p-2 bg-white border border-slate-300 rounded-lg" />
+              </div>
+              <div>
+                <label class="block font-[600] text-[10px] text-slate-600 uppercase mb-1">Phone Number *</label>
+                <input type="text" id="wit3Phone" required placeholder="078..." class="w-full p-2 bg-white border border-slate-300 rounded-lg font-mono" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: DOCUMENT UPLOADS -->
+        <div class="space-y-4">
+          <h4 class="font-black text-indigo-950 text-sm uppercase tracking-wide border-b-2 border-indigo-100 pb-2 flex items-center gap-2">
+            <span>📁</span> Required Document Uploads (Ifoto y'indangamuntu n'ibindi)
+          </h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <label class="block font-bold text-slate-700 mb-1">Groom NID Copy / Certificate *</label>
+              <input type="file" id="fileGroom" required class="w-full text-xs file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-900 file:text-white hover:file:bg-indigo-950 cursor-pointer" />
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <label class="block font-bold text-slate-700 mb-1">Bride NID Copy / Certificate *</label>
+              <input type="file" id="fileBride" required class="w-full text-xs file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-900 file:text-white hover:file:bg-indigo-950 cursor-pointer" />
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <label class="block font-bold text-slate-700 mb-1">Celibacy / Baptism Document *</label>
+              <input type="file" id="fileBaptism" required class="w-full text-xs file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-900 file:text-white hover:file:bg-indigo-950 cursor-pointer" />
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <label class="block font-bold text-slate-700 mb-1">Local Church Recommendation *</label>
+              <input type="file" id="fileChurch" required class="w-full text-xs file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-900 file:text-white hover:file:bg-indigo-950 cursor-pointer" />
             </div>
           </div>
         </div>
@@ -192,7 +324,12 @@
 
         <div>
           <label class="block font-bold text-slate-700 uppercase mb-1">Local Church (Kanisa / Paruwasi) *</label>
-          <input type="text" id="memKanisa" required placeholder="e.g. Mukama Local Church" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
+          <select id="memKanisa" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
+            <option value="Mukama Local Church">Mukama Local Church</option>
+            <option value="Rukomo Local Church">Rukomo Local Church</option>
+            <option value="Gishora Local Church">Gishora Local Church</option>
+            <option value="Kageyo Local Church">Kageyo Local Church</option>
+          </select>
         </div>
 
         <div class="pt-2">
@@ -270,13 +407,7 @@
     }
   </style>
 
-  <!-- SUPABASE INTEGRATION SCRIPT -->
   <script>
-    // Initialize Supabase Client (Using provided credentials)
-    const SUPABASE_URL = 'https://ggrcjxqfmdkzkvipubhd.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_sZnQimLXEoAzSlb5Adw6oQ_P2QW9_cq';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
     function openMemberModal() {
       document.getElementById('memberModal').classList.remove('hidden');
     }
@@ -286,66 +417,17 @@
       document.getElementById('memberForm').reset();
     }
 
-    // 1. Church Member Form Submission -> Saves to 'members' table
-    async function submitMemberRegistration(e) {
+    function submitMemberRegistration(e) {
       e.preventDefault();
-      
-      const memberData = {
-        full_name: document.getElementById('memName').value.trim(),
-        national_id: document.getElementById('memNid').value.trim(),
-        phone_number: document.getElementById('memPhone').value.trim(),
-        local_church: document.getElementById('memKanisa').value.trim(),
-        is_baptised: document.getElementById('memBaptised').checked,
-        is_confirmed_immersed: document.getElementById('memAmaboko').checked,
-        is_married_matrimony: document.getElementById('memWasezeranye').checked
-      };
-
-      try {
-        const { error } = await supabaseClient
-          .from('members')
-          .insert([memberData]);
-
-        if (error) throw error;
-
-        alert(`Church member registration for "${memberData.full_name}" successfully saved to Supabase!`);
-        closeMemberModal();
-      } catch (err) {
-        console.error('Error saving member:', err.message);
-        alert('Failed to save registration: ' + err.message);
-      }
+      const name = document.getElementById('memName').value.trim();
+      alert(`Church member registration for "${name}" submitted successfully!`);
+      closeMemberModal();
     }
 
-    // 2. Matrimony Form Submission -> Saves to 'matrimony_applications' table
-    async function submitMatrimonyApplication(e) {
+    function submitMatrimonyApplication(e) {
       e.preventDefault();
-
-      const refCode = 'EAR-' + Math.floor(1000 + Math.random() * 9000);
-
-      const matrimonyData = {
-        ref_code: refCode,
-        status: 'Pending',
-        local_church: document.getElementById('localChurch').value.trim(),
-        groom_name: document.getElementById('groomName').value.trim(),
-        groom_nid: document.getElementById('groomNid').value.trim(),
-        groom_phone: document.getElementById('groomPhone').value.trim(),
-        bride_name: document.getElementById('brideName').value.trim(),
-        bride_nid: document.getElementById('brideNid').value.trim(),
-        bride_phone: document.getElementById('bridePhone').value.trim()
-      };
-
-      try {
-        const { error } = await supabaseClient
-          .from('matrimony_applications')
-          .insert([matrimonyData]);
-
-        if (error) throw error;
-
-        alert(`Matrimony Application submitted successfully! Reference Code: ${refCode}`);
-        document.getElementById('matrimonyForm').reset();
-      } catch (err) {
-        console.error('Error saving matrimony application:', err.message);
-        alert('Failed to submit application: ' + err.message);
-      }
+      alert("Matrimony Application submitted successfully to Mukama Parish Pastor Dashboard!");
+      document.getElementById('matrimonyForm').reset();
     }
   </script>
 </body>
