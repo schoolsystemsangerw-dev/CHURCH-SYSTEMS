@@ -271,28 +271,74 @@
     }
   </style>
 
-  <!-- Dashboard JavaScript Logic -->
+  <!-- Dashboard JavaScript Logic Connected to Supabase -->
   <script>
-    // Sample Initial Mock Data (Replace or sync with Supabase backend)
-    let applications = [
-      {
-        id: "EAR-2026-001",
-        date: "2026-07-20",
-        local_church: "Mukama Local Church",
-        status: "PENDING",
-        groom: { name: "MUGISHA Jean Paul", nid: "1199980012345678", phone: "0781234567" },
-        bride: { name: "UWASE Clarisse", nid: "1199990087654321", phone: "0789876543" },
-        witnesses: [
-          { name: "Nsanzimana Peter", phone: "0781111111" },
-          { name: "Mukamana Marie", phone: "0782222222" },
-          { name: "Habimana Jean", phone: "0783333333" }
-        ]
-      }
-    ];
+    // Initialize Supabase Client
+    const SUPABASE_URL = 'https://sZnQimLXEoAzSlb5Adw6oQ.supabase.co'; // Update with your valid project URL if needed
+    const SUPABASE_ANON_KEY = 'sb_publishable_sZnQimLXEoAzSlb5Adw6oQ_P2QW9_cq';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    let registeredMembers = [
-      { id: "MEM-001", name: "MUGABO Patrick", nid: "1199080011112222", phone: "0784444444", kanisa: "Mukama Local Church", baptised: true, watebweAmaboko: true, wasezeranye: false }
-    ];
+    let applications = [];
+    let registeredMembers = [];
+
+    async function fetchApplications() {
+      try {
+        const { data, error } = await supabaseClient
+          .from('applications') // Make sure this matches your Supabase table name
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error('Error fetching applications:', error);
+          return;
+        }
+
+        if (data) {
+          applications = data.map(item => ({
+            id: item.id || item.application_id || 'EAR-2026-00X',
+            date: item.date || item.created_at?.split('T')[0] || '2026-07-23',
+            local_church: item.local_church || item.church || 'Mukama Local Church',
+            status: item.status || 'PENDING',
+            groom: item.groom || { name: item.groom_name, nid: item.groom_nid, phone: item.groom_phone },
+            bride: item.bride || { name: item.bride_name, nid: item.bride_nid, phone: item.bride_phone },
+            witnesses: item.witnesses || []
+          }));
+        }
+        updateStats();
+        filterApplications();
+      } catch (err) {
+        console.error('Unexpected error fetching applications:', err);
+      }
+    }
+
+    async function fetchMembers() {
+      try {
+        const { data, error } = await supabaseClient
+          .from('members') // Make sure this matches your Supabase table name for members
+          .select('*');
+
+        if (error) {
+          console.error('Error fetching members:', error);
+          return;
+        }
+
+        if (data) {
+          registeredMembers = data.map((m, index) => ({
+            id: m.id || `MEM-00${index + 1}`,
+            name: m.name || m.full_name,
+            nid: m.nid || m.national_id,
+            phone: m.phone,
+            kanisa: m.kanisa || m.local_church,
+            baptised: !!m.baptised,
+            watebweAmaboko: !!(m.watebweAmaboko || m.confirmed),
+            wasezeranye: !!(m.wasezeranye || m.married)
+          }));
+        }
+        updateStats();
+      } catch (err) {
+        console.error('Unexpected error fetching members:', err);
+      }
+    }
 
     function updateStats() {
       document.getElementById('statTotal').innerText = applications.length;
@@ -310,27 +356,37 @@
         return;
       }
 
-      dataToRender.forEach((app, idx) => {
+      dataToRender.forEach((app) => {
         let statusBadge = '';
         if (app.status === 'PENDING') statusBadge = '<span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">Pending</span>';
         else if (app.status === 'APPROVED') statusBadge = '<span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold">Approved</span>';
         else statusBadge = '<span class="bg-rose-100 text-rose-800 px-2.5 py-1 rounded-full font-bold">Rejected</span>';
 
-        let witnessesHtml = app.witnesses.map((w, i) => `<span class="block text-[10px] text-slate-600">${i+1}. ${w.name} (${w.phone})</span>`).join('');
+        let witnessesHtml = Array.isArray(app.witnesses) 
+          ? app.witnesses.map((w, i) => `<span class="block text-[10px] text-slate-600">${i+1}. ${w.name} (${w.phone})</span>`).join('')
+          : '<span class="text-[10px] text-slate-400">No witnesses listed</span>';
+
+        let groomName = app.groom?.name || 'N/A';
+        let groomNid = app.groom?.nid || 'N/A';
+        let groomPhone = app.groom?.phone || 'N/A';
+
+        let brideName = app.bride?.name || 'N/A';
+        let brideNid = app.bride?.nid || 'N/A';
+        let bridePhone = app.bride?.phone || 'N/A';
 
         tbody.innerHTML += `
           <tr class="hover:bg-slate-50/80 transition">
             <td class="p-3 font-mono font-bold text-indigo-950">${app.id}<br/><span class="text-[10px] text-slate-400 font-normal">${app.date}</span></td>
             <td class="p-3 font-semibold text-slate-700">${app.local_church}</td>
             <td class="p-3">
-              <span class="font-bold text-slate-800">${app.groom.name}</span><br/>
-              <span class="font-mono text-[10px] text-slate-500">NID: ${app.groom.nid}</span><br/>
-              <span class="font-mono text-[10px] text-indigo-600 font-bold">📞 ${app.groom.phone}</span>
+              <span class="font-bold text-slate-800">${groomName}</span><br/>
+              <span class="font-mono text-[10px] text-slate-500">NID: ${groomNid}</span><br/>
+              <span class="font-mono text-[10px] text-indigo-600 font-bold">📞 ${groomPhone}</span>
             </td>
             <td class="p-3">
-              <span class="font-bold text-slate-800">${app.bride.name}</span><br/>
-              <span class="font-mono text-[10px] text-slate-500">NID: ${app.bride.nid}</span><br/>
-              <span class="font-mono text-[10px] text-indigo-600 font-bold">📞 ${app.bride.phone}</span>
+              <span class="font-bold text-slate-800">${brideName}</span><br/>
+              <span class="font-mono text-[10px] text-slate-500">NID: ${brideNid}</span><br/>
+              <span class="font-mono text-[10px] text-indigo-600 font-bold">📞 ${bridePhone}</span>
             </td>
             <td class="p-3">${witnessesHtml}</td>
             <td class="p-3 text-center">${statusBadge}</td>
@@ -343,13 +399,28 @@
       });
     }
 
-    function updateAppStatus(id, newStatus) {
-      const app = applications.find(a => a.id === id);
-      if (app) {
-        app.status = newStatus;
-        updateStats();
-        filterApplications();
-        alert(`Application ${id} status updated to ${newStatus}`);
+    async function updateAppStatus(id, newStatus) {
+      try {
+        const { error } = await supabaseClient
+          .from('applications')
+          .update({ status: newStatus })
+          .eq('id', id);
+
+        if (error) {
+          alert('Failed to update application status on Supabase.');
+          console.error(error);
+          return;
+        }
+
+        const app = applications.find(a => a.id === id);
+        if (app) {
+          app.status = newStatus;
+          updateStats();
+          filterApplications();
+          alert(`Application ${id} status updated to ${newStatus}`);
+        }
+      } catch (err) {
+        console.error('Error updating status:', err);
       }
     }
 
@@ -450,11 +521,10 @@
       document.getElementById('membersListModal').classList.add('hidden');
     }
 
-    function handleRegisterMember(event) {
+    async function handleRegisterMember(event) {
       event.preventDefault();
       
-      const newMember = {
-        id: `MEM-00${registeredMembers.length + 1}`,
+      const newMemberData = {
         name: document.getElementById('memberName').value,
         nid: document.getElementById('memberNid').value,
         phone: document.getElementById('memberPhone').value,
@@ -464,10 +534,19 @@
         wasezeranye: document.getElementById('checkWasezeranye').checked
       };
 
-      registeredMembers.push(newMember);
-      updateStats();
+      const { error } = await supabaseClient
+        .from('members')
+        .insert([newMemberData]);
+
+      if (error) {
+        alert('Error saving member to Supabase database.');
+        console.error(error);
+        return;
+      }
+
+      alert(`Member ${newMemberData.name} successfully registered in the database!`);
       closeRegisterMemberModal();
-      alert(`Member ${newMember.name} successfully registered in the database!`);
+      fetchMembers();
     }
 
     function filterApplications() {
@@ -476,15 +555,22 @@
 
       const filtered = applications.filter(app => {
         const matchStatus = statusVal === 'ALL' || app.status === statusVal;
+        const groomName = app.groom?.name || '';
+        const groomNid = app.groom?.nid || '';
+        const groomPhone = app.groom?.phone || '';
+        const brideName = app.bride?.name || '';
+        const brideNid = app.bride?.nid || '';
+        const bridePhone = app.bride?.phone || '';
+
         const matchQuery = 
           app.id.toLowerCase().includes(query) ||
           app.local_church.toLowerCase().includes(query) ||
-          app.groom.name.toLowerCase().includes(query) ||
-          app.groom.nid.includes(query) ||
-          app.groom.phone.includes(query) ||
-          app.bride.name.toLowerCase().includes(query) ||
-          app.bride.nid.includes(query) ||
-          app.bride.phone.includes(query);
+          groomName.toLowerCase().includes(query) ||
+          groomNid.includes(query) ||
+          groomPhone.includes(query) ||
+          brideName.toLowerCase().includes(query) ||
+          brideNid.includes(query) ||
+          bridePhone.includes(query);
 
         return matchStatus && matchQuery;
       });
@@ -492,10 +578,25 @@
       renderTable(filtered);
     }
 
-    // Initialize Dashboard on load
+    // Initialize Dashboard and set up real-time sync on load
     window.onload = function() {
-      updateStats();
-      filterApplications();
+      fetchApplications();
+      fetchMembers();
+
+      // Listen for real-time changes in Supabase
+      supabaseClient
+        .channel('public:applications')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'applications' }, payload => {
+          fetchApplications();
+        })
+        .subscribe();
+
+      supabaseClient
+        .channel('public:members')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'members' }, payload => {
+          fetchMembers();
+        })
+        .subscribe();
     };
   </script>
 </body>
