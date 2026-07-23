@@ -138,7 +138,8 @@
             groom: item.groom || { name: item.groom_name, nid: item.groom_nid, phone: item.groom_phone },
             bride: item.bride || { name: item.bride_name, nid: item.bride_nid, phone: item.bride_phone },
             witnesses: item.witnesses || [],
-            sender_photo_url: item.sender_photo_url || '',
+            sender_photo_url: item.sender_photo_url || item.groom_photo_url || item.groom_photo || '',
+            bride_photo_url: item.bride_photo_url || item.bride_photo || '',
             phone_number: item.phone_number || '',
             geo_location: item.geo_location || '',
             dob_sender: item.dob_sender || '',
@@ -302,13 +303,16 @@
         ? app.witnesses.map((w, i) => `<li class="py-1">${i+1}. <strong>${w.name}</strong> — Phone: <span class="font-mono text-indigo-600">${w.phone}</span></li>`).join('')
         : '<p class="text-slate-400">No witnesses listed.</p>';
 
-      let photoHtml = app.sender_photo_url 
-        ? `<div class="mb-4 text-center"><img src="${app.sender_photo_url}" alt="Applicant Photo" class="h-28 w-28 object-cover rounded-full mx-auto border-2 border-indigo-900 shadow" /></div>` 
-        : '';
+      let groomPhotoHtml = app.sender_photo_url 
+        ? `<div class="mb-3 text-center"><img src="${app.sender_photo_url}" alt="Groom Photo" class="h-24 w-24 object-cover rounded-full mx-auto border-2 border-indigo-900 shadow" /><span class="text-[10px] font-bold text-slate-500 mt-1 block">Groom Photo</span></div>` 
+        : `<div class="mb-3 text-center"><div class="h-24 w-24 bg-slate-200 rounded-full mx-auto flex items-center justify-center text-slate-400 text-[10px]">No Photo</div><span class="text-[10px] font-bold text-slate-500 mt-1 block">Groom Photo</span></div>`;
+
+      let bridePhotoHtml = app.bride_photo_url 
+        ? `<div class="mb-3 text-center"><img src="${app.bride_photo_url}" alt="Bride Photo" class="h-24 w-24 object-cover rounded-full mx-auto border-2 border-indigo-900 shadow" /><span class="text-[10px] font-bold text-slate-500 mt-1 block">Bride Photo</span></div>` 
+        : `<div class="mb-3 text-center"><div class="h-24 w-24 bg-slate-200 rounded-full mx-auto flex items-center justify-center text-slate-400 text-[10px]">No Photo</div><span class="text-[10px] font-bold text-slate-500 mt-1 block">Bride Photo</span></div>`;
 
       const detailsContainer = document.getElementById('matrimonyDetailsContent');
       detailsContainer.innerHTML = `
-        ${photoHtml}
         <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 flex justify-between items-center">
           <div>
             <span class="text-[10px] font-bold text-indigo-600 uppercase">Application Reference</span>
@@ -333,6 +337,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+            ${groomPhotoHtml}
             <p class="text-[10px] font-bold text-indigo-900 uppercase">Groom Information</p>
             <p class="text-xs font-extrabold text-slate-800">${app.groom?.name || 'N/A'}</p>
             <p class="font-mono text-[11px] text-slate-600">NID: ${app.groom?.nid || 'N/A'}</p>
@@ -340,6 +345,7 @@
             <p class="font-mono text-[11px] text-slate-500">DOB: ${app.dob_sender || 'N/A'}</p>
           </div>
           <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+            ${bridePhotoHtml}
             <p class="text-[10px] font-bold text-indigo-900 uppercase">Bride Information</p>
             <p class="text-xs font-extrabold text-slate-800">${app.bride?.name || 'N/A'}</p>
             <p class="font-mono text-[11px] text-slate-600">NID: ${app.bride?.nid || 'N/A'}</p>
