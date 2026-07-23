@@ -1,628 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parish Pastor Dashboard | EAR Rwanda</title>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Supabase JS Client -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col font-sans pb-12">
+<th style="text-align: center;">Yarabatijwe</th>
+    <th style="text-align: center;">Watebwe Amaboko</th>
+    <th style="text-align: center;">Wasezeranye</th>
+    </tr></thead><tbody>`;
 
-  <!-- TOP MOVING MARQUEE BANNER WITH WELCOME MESSAGE -->
-  <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-indigo-950 font-black text-xs sm:text-sm py-2 overflow-hidden shadow-inner border-b border-amber-600 tracking-widest uppercase">
-    <div class="whitespace-nowrap animate-marquee flex gap-8">
-      <span>✨ PARISH PASTOR MANAGEMENT & APPROVAL PORTAL ✨</span>
-      <span>📖 "Mungere intama z'Imana mwaragijwe, mutazitegekwa n'agahato ahubwo mubikora mubwirizwa n'umutima ukunze." — 1 Petero 5:2 📖</span>
-      <span>✨ PARISH PASTOR MANAGEMENT & APPROVAL PORTAL ✨</span>
-    </div>
-  </div>
-
-  <!-- Header -->
-  <header class="bg-indigo-950 text-white shadow-lg border-b-4 border-indigo-700 py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-4">
-      <!-- Diocese Logo -->
-      <div class="flex items-center justify-center flex-shrink-0">
-        <img src="log-diocese.png" alt="Diocese Logo" class="h-20 sm:h-28 md:h-32 w-auto object-contain max-w-[120px] sm:max-w-[160px]" />
-      </div>
-
-      <!-- Header Title -->
-      <div class="text-center flex-grow px-2">
-        <h1 class="font-extrabold text-lg sm:text-2xl md:text-3xl uppercase tracking-wider bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent drop-shadow-md">
-          EGLISE ANGLICANE DU RWANDA
-        </h1>
-        <h2 class="font-bold text-xs sm:text-sm md:text-base uppercase tracking-wide text-amber-300 mt-1">
-          DIOCESE OF GAHINI - MUKAMA PARISH
-        </h2>
-        <p class="text-xs sm:text-sm text-indigo-200 font-medium mt-1">Parish Pastor Executive Dashboard</p>
-        <p class="text-xs sm:text-sm font-bold text-amber-400 mt-1 tracking-wider uppercase">REV. THEONESTY KARYANGO</p>
-      </div>
-
-      <!-- EAR Rwanda Logo -->
-      <div class="flex items-center justify-center flex-shrink-0">
-        <img src="logo-rwanda.png" alt="EAR Rwanda Logo" class="h-20 sm:h-28 md:h-32 w-auto object-contain max-w-[120px] sm:max-w-[160px]" />
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Container -->
-  <main class="flex-grow p-4 sm:p-6 max-w-7xl mx-auto w-full space-y-6">
-
-    <!-- DASHBOARD STATS OVERVIEW -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-amber-500 flex justify-between items-center">
-        <div>
-          <p class="text-xs font-semibold text-slate-500 uppercase">Pending Review</p>
-          <p id="stat-pending" class="text-2xl font-black text-amber-600 mt-1">0</p>
-        </div>
-        <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        </div>
-      </div>
-
-      <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-emerald-500 flex justify-between items-center">
-        <div>
-          <p class="text-xs font-semibold text-slate-500 uppercase">Approved Matrimonies</p>
-          <p id="stat-approved" class="text-2xl font-black text-emerald-600 mt-1">0</p>
-        </div>
-        <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-        </div>
-      </div>
-
-      <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-rose-500 flex justify-between items-center">
-        <div>
-          <p class="text-xs font-semibold text-slate-500 uppercase">Returned Requests</p>
-          <p id="stat-returned" class="text-2xl font-black text-rose-600 mt-1">0</p>
-        </div>
-        <div class="p-3 bg-rose-50 text-rose-600 rounded-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </div>
-      </div>
-
-      <div class="bg-white p-5 rounded-2xl shadow-md border-l-4 border-indigo-500 flex justify-between items-center">
-        <div>
-          <p class="text-xs font-semibold text-slate-500 uppercase">Total Applications</p>
-          <p id="stat-total" class="text-2xl font-black text-indigo-900 mt-1">0</p>
-        </div>
-        <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-        </div>
-      </div>
-    </div>
-
-    <!-- FILTER, SEARCH & REGISTER CONTROL BAR -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col md:flex-row gap-4 justify-between items-center">
-      <div class="relative w-full md:w-96">
-        <input type="text" id="searchInput" placeholder="Search by groom, bride, NID or phone..." onkeyup="filterApplications()" class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
-        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-      </div>
-
-      <div class="flex flex-wrap gap-2 w-full md:w-auto justify-end">
-        <select id="statusFilter" onchange="filterApplications()" class="p-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold text-slate-700 outline-none border-amber-300 focus:ring-2 focus:ring-amber-500">
-          <option value="ALL">All Statuses</option>
-          <option value="PENDING" selected>Pending Review</option>
-          <option value="RETURNED">Returned</option>
-          <option value="APPROVED">Approved</option>
-        </select>
-
-        <button onclick="openRegisterMemberModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
-          <span>➕ Register New Member</span>
-        </button>
-
-        <button onclick="openMembersListModal()" class="px-4 py-2 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
-          <span>📋 View Members Directory (<span id="stat-members">0</span>)</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- APPLICATIONS TABLE -->
-    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-      <div class="p-4 bg-indigo-950 text-white flex justify-between items-center border-b border-indigo-900">
-        <h3 class="font-bold text-sm tracking-wide uppercase">Matrimony Application Requests</h3>
-        <span class="text-xs text-indigo-200">Pastor Action Required</span>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-xs">
-          <thead class="bg-slate-100 text-slate-600 uppercase font-semibold border-b border-slate-200">
-            <tr>
-              <th class="p-3.5">Ref No</th>
-              <th class="p-3.5">Groom Information</th>
-              <th class="p-3.5">Bride Information</th>
-              <th class="p-3.5">Local Church</th>
-              <th class="p-3.5">Status</th>
-              <th class="p-3.5 text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody id="applicationsTableBody" class="divide-y divide-slate-100 text-slate-700">
-            <!-- Dynamic rows will render here -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- REGISTER NEW CHURCH MEMBER MODAL -->
-  <div id="registerMemberModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
-      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
-        <div>
-          <h3 class="font-bold text-sm uppercase text-amber-300">Register New Church Member</h3>
-          <p class="text-[11px] text-indigo-200">Enter candidate credentials & sacraments status</p>
-        </div>
-        <button onclick="closeRegisterMemberModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
-      </div>
-
-      <form id="memberRegisterForm" onsubmit="handleRegisterMember(event)" class="p-6 space-y-4 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 uppercase mb-1">Full Name (Izina Ryose)</label>
-          <input type="text" id="memberName" required placeholder="e.g. MUGABO Patrick" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">National ID (Indangamuntu)</label>
-            <input type="text" id="memberNid" maxlength="16" required placeholder="1199..." class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-mono" />
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 uppercase mb-1">Phone Number (Telefone)</label>
-            <input type="text" id="memberPhone" required placeholder="078..." class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-mono" />
-          </div>
-        </div>
-
-        <div>
-          <label class="block font-bold text-slate-700 uppercase mb-1">Local Church (Kanisa / Paruwasi)</label>
-          <select id="memberKanisa" required class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
-            <option value="Mukama Local Church">Mukama Local Church</option>
-            <option value="Rukomo Local Church">Rukomo Local Church</option>
-            <option value="Gishora Local Church">Gishora Local Church</option>
-            <option value="Kageyo Local Church">Kageyo Local Church</option>
-          </select>
-        </div>
-
-        <div class="pt-2">
-          <p class="font-bold text-indigo-950 uppercase mb-2">Sacramental Status (Boxes to tick)</p>
-          <div class="space-y-2 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
-              <input type="checkbox" id="checkBaptised" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
-              <span>Yarabatijwe (Baptised)</span>
-            </label>
-
-            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
-              <input type="checkbox" id="checkWatebweAmaboko" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
-              <span>Watebwe amaboko (Baptised in full water immersion / Confirmed)</span>
-            </label>
-
-            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-slate-700">
-              <input type="checkbox" id="checkWasezeranye" class="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500" />
-              <span>Wasezeranye (Holy Matrimony Married)</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="pt-4 border-t border-slate-200 flex justify-end gap-2">
-          <button type="button" onclick="closeRegisterMemberModal()" class="px-4 py-2 bg-slate-500 hover:bg-slate-600 text-white font-bold rounded-xl transition cursor-pointer">Cancel</button>
-          <button type="submit" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition shadow cursor-pointer">Save Member</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- VIEW MEMBERS DIRECTORY MODAL -->
-  <div id="membersListModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
-      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
-        <div>
-          <h3 class="font-bold text-sm uppercase text-amber-300">Registered Church Members Directory</h3>
-          <p class="text-[11px] text-indigo-200">View complete registry, credentials, and sacrament statuses</p>
-        </div>
-        <button onclick="closeMembersListModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
-      </div>
-
-      <div class="p-6 space-y-4">
-        <!-- Action Buttons for Export/Print -->
-        <div class="flex flex-wrap gap-2 justify-end">
-          <button onclick="exportOrPrintAllMembers()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
-            <span>📥 Export Excel / Print All Members</span>
-          </button>
-          <button onclick="exportOrPrintMarriedMembers()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
-            <span>💍 Export Excel / Print Abarasezeranye</span>
-          </button>
-        </div>
-
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse text-xs" id="directoryTable">
-            <thead class="bg-slate-100 text-slate-600 uppercase font-semibold border-b border-slate-200">
-              <tr>
-                <th class="p-3">Full Name</th>
-                <th class="p-3">National ID</th>
-                <th class="p-3">Phone Number</th>
-                <th class="p-3">Kanisa (Local Church)</th>
-                <th class="p-3 text-center">Yarabatijwe</th>
-                <th class="p-3 text-center">Watebwe Amaboko</th>
-                <th class="p-3 text-center">Wasezeranye</th>
-              </tr>
-            </thead>
-            <tbody id="membersTableBody" class="divide-y divide-slate-100">
-              <!-- Dynamic members list renders here -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="p-4 bg-slate-100 border-t border-slate-200 flex justify-end">
-        <button onclick="closeMembersListModal()" class="px-5 py-2 bg-slate-700 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition cursor-pointer">Close</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- APPLICATION DETAILS & APPROVAL MODAL -->
-  <div id="applicationModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex justify-center items-center hidden p-4">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-y-auto border border-slate-200 flex flex-col">
-      
-      <!-- Modal Header -->
-      <div class="p-5 bg-indigo-950 text-white flex justify-between items-center sticky top-0 z-20 border-b border-indigo-900">
-        <div>
-          <h3 class="font-bold text-sm uppercase text-amber-300" id="modalRefTitle">Matrimony Application Details</h3>
-          <p class="text-[11px] text-indigo-200">Review complete candidate records, locations, witnesses & uploads</p>
-        </div>
-        <button onclick="closeModal()" class="text-indigo-200 hover:text-white font-bold text-lg p-1 cursor-pointer">✕</button>
-      </div>
-      
-      <!-- Modal Body -->
-      <div id="modalContent" class="p-6 space-y-6 flex-grow">
-        <!-- Dynamic Content Rendered Here -->
-      </div>
-
-      <!-- Modal Footer with Dropdown Action Button -->
-      <div class="p-4 bg-slate-100 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 sticky bottom-0 z-20">
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <label for="statusDropdown" class="text-xs font-bold text-slate-700 uppercase">Change Application Status:</label>
-          <select id="statusDropdown" onchange="handleStatusSelect(this.value)" class="bg-white border-2 border-indigo-900 rounded-xl px-3 py-2 text-xs font-bold text-indigo-950 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm">
-            <option value="PENDING">🟡 PENDING</option>
-            <option value="RETURNED">🔴 RETURNED</option>
-            <option value="APPROVED">🟢 APPROVED</option>
-          </select>
-        </div>
-
-        <div class="flex gap-2 w-full sm:w-auto justify-end">
-          <button onclick="closeModal()" class="px-5 py-2 bg-slate-600 hover:bg-slate-700 text-white font-bold rounded-xl text-xs transition cursor-pointer">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="bg-indigo-950 text-white border-t-4 border-amber-500 py-10 px-4 text-center text-xs mt-auto">
-    <div class="max-w-4xl mx-auto space-y-4">
-      
-      <p class="text-sm sm:text-base font-semibold text-amber-300 leading-relaxed max-w-2xl mx-auto">
-        Empowering organizations with modern, reliable, and scalable digital solutions tailored to transform your daily operations.
-      </p>
-
-      <p class="font-bold text-slate-200 tracking-wide">hindura imibereho yawe uyumunsi</p>
-
-      <hr class="border-indigo-800 w-1/2 mx-auto my-4" />
-
-      <!-- IT Architectural & Design Showcase -->
-      <div class="space-y-1">
-        <p class="text-xs uppercase tracking-widest text-indigo-300 font-bold">
-          IT Architecture & System Design
-        </p>
-        <p class="text-slate-300 text-xs">
-          Engineered for excellence in Church Management Systems, School Management Systems, & Enterprise Portals.
-        </p>
-        <p class="text-amber-400 font-medium pt-1">
-          Looking for custom software engineering or system architecture? 
-          <a href="mailto:schoolsystems.ange.rw@gmail.com" class="underline font-bold text-white hover:text-amber-300 transition">
-            Contact Us: schoolsystems.ange.rw@gmail.com
-          </a>
-        </p>
-      </div>
-
-      <p class="text-[10px] text-slate-500 pt-2">
-        Technical Support: <a href="mailto:support@diocese.rw" class="text-indigo-400 underline">support@diocese.rw</a>
-      </p>
-
-    </div>
-  </footer>
-
-  <!-- Marquee CSS -->
-  <style>
-    @keyframes marquee {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
-    }
-    .animate-marquee {
-      display: inline-flex;
-      animation: marquee 25s linear infinite;
-    }
-  </style>
-
-  <script>
-    // Church Registered Members Initial Dataset
-    let registeredMembers = [
-      {
-        id: "MEM-001",
-        name: "NSENGIYUMVA Eric",
-        nid: "1199180054321098",
-        phone: "0788334455",
-        kanisa: "Mukama Local Church",
-        baptised: true,
-        watebweAmaboko: true,
-        wasezeranye: false
-      },
-      {
-        id: "MEM-002",
-        name: "MUKESHIMANA Josiane",
-        nid: "1199480076543210",
-        phone: "0788778899",
-        kanisa: "Rukomo Local Church",
-        baptised: true,
-        watebweAmaboko: true,
-        wasezeranye: true
-      }
-    ];
-
-    // Matrimony Applications Data with Locations, Witnesses & File Uploads
-    let applications = [
-      {
-        id: "MAT-2026-001",
-        status: "PENDING",
-        date: "2026-07-20",
-        local_church: "Mukama Local Church",
-        groom: {
-          name: "MUGISHA Jean Paul",
-          phone: "0788123456",
-          nid: "1199580012345678",
-          province: "Eastern Province",
-          district: "Gatsibo",
-          sector: "Mukama",
-          cell: "Kageyo",
-          village: "Rwimbogo"
-        },
-        bride: {
-          name: "UWASE Clarisse",
-          phone: "0788654321",
-          nid: "1199780098765432",
-          province: "Eastern Province",
-          district: "Gatsibo",
-          sector: "Mukama",
-          cell: "Gishora",
-          village: "Nyagasozi"
-        },
-        witnesses: [
-          { name: "HABIMANA Emmanuel", phone: "0788990011" },
-          { name: "MUKAKAMANZI Beatrice", phone: "0788223344" },
-          { name: "NIZEYIMANA Claude", phone: "0788556677" }
-        ],
-        uploads: [
-          { title: "Groom NID Copy", file: "nid_groom_mugisha.pdf" },
-          { title: "Bride NID Copy", file: "nid_bride_uwase.pdf" },
-          { title: "Celibacy Certificate", file: "celibacy_attestation.pdf" },
-          { title: "Local Church Recommendation", file: "church_letter.pdf" }
-        ]
-      },
-      {
-        id: "MAT-2026-002",
-        status: "APPROVED",
-        date: "2026-07-18",
-        local_church: "Rukomo Local Church",
-        groom: {
-          name: "KWIZERA Eric",
-          phone: "0783112233",
-          nid: "1199380033221144",
-          province: "Eastern Province",
-          district: "Gatsibo",
-          sector: "Rukomo",
-          cell: "Kiziguro",
-          village: "Kaborogota"
-        },
-        bride: {
-          name: "INGABIRE Marie",
-          phone: "0783445566",
-          nid: "1199680066554433",
-          province: "Eastern Province",
-          district: "Gatsibo",
-          sector: "Rukomo",
-          cell: "Rwesero",
-          village: "Gihinga"
-        },
-        witnesses: [
-          { name: "RUTAGENGWA Alphonse", phone: "0781112244" },
-          { name: "UWIMANA Chantal", phone: "0785556688" },
-          { name: "KAYITARE Patrick", phone: "0789990022" }
-        ],
-        uploads: [
-          { title: "Groom NID Copy", file: "kwizera_nid.pdf" },
-          { title: "Bride NID Copy", file: "ingabire_nid.pdf" },
-          { title: "Baptism Certificates", file: "baptism_docs.pdf" }
-        ]
-      }
-    ];
-
-    let selectedAppId = null;
-
-    function updateStats() {
-      const pending = applications.filter(a => a.status === 'PENDING').length;
-      const approved = applications.filter(a => a.status === 'APPROVED').length;
-      const returned = applications.filter(a => a.status === 'RETURNED').length;
-      const total = applications.length;
-
-      document.getElementById('stat-pending').textContent = pending;
-      document.getElementById('stat-approved').textContent = approved;
-      document.getElementById('stat-returned').textContent = returned;
-      document.getElementById('stat-total').textContent = total;
-      document.getElementById('stat-members').textContent = registeredMembers.length;
-    }
-
-    function renderTable(data) {
-      const tbody = document.getElementById('applicationsTableBody');
-      tbody.innerHTML = '';
-
-      if (data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-center p-6 text-slate-400 font-medium">No records found matching your query.</td></tr>`;
-        return;
-      }
-
-      data.forEach(app => {
-        let statusBadge = app.status === 'APPROVED' 
-          ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded-full">APPROVED</span>`
-          : app.status === 'RETURNED'
-          ? `<span class="px-2.5 py-1 bg-rose-100 text-rose-800 font-bold text-[10px] rounded-full">RETURNED</span>`
-          : `<span class="px-2.5 py-1 bg-amber-100 text-amber-800 font-bold text-[10px] rounded-full">PENDING</span>`;
-
-        tbody.innerHTML += `
-          <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-            <td class="p-3.5 font-bold text-indigo-950">${app.id}</td>
-            <td class="p-3.5">
-              <div class="font-bold text-slate-800">${app.groom.name}</div>
-              <div class="text-[11px] text-slate-500 font-mono">${app.groom.phone}</div>
-            </td>
-            <td class="p-3.5">
-              <div class="font-bold text-slate-800">${app.bride.name}</div>
-              <div class="text-[11px] text-slate-500 font-mono">${app.bride.phone}</div>
-            </td>
-            <td class="p-3.5 text-slate-600 font-medium">${app.local_church}</td>
-            <td class="p-3.5">${statusBadge}</td>
-            <td class="p-3.5 text-center">
-              <button onclick="viewDetails('${app.id}')" class="px-3 py-1.5 bg-indigo-900 hover:bg-indigo-950 text-white font-semibold rounded-lg text-[11px] transition shadow cursor-pointer">Review</button>
-            </td>
-          </tr>
-        `;
-      });
-    }
-
-    function viewDetails(appId) {
-      selectedAppId = appId;
-      const app = applications.find(a => a.id === appId);
-      if (!app) return;
-
-      document.getElementById('modalRefTitle').textContent = `Matrimony Application Details — ${app.id}`;
-      document.getElementById('statusDropdown').value = app.status;
-
-      let witnessesHtml = app.witnesses.map(w => `<li class="text-xs text-slate-700 font-medium">👤 ${w.name} — <span class="font-mono text-slate-500">${w.phone}</span></li>`).join('');
-      let uploadsHtml = app.uploads.map(u => `
-        <div class="flex justify-between items-center bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs">
-          <span class="font-bold text-slate-700">📄 ${u.title}</span>
-          <span class="font-mono text-indigo-600 underline cursor-pointer">${u.file}</span>
-        </div>
-      `).join('');
-
-      const content = `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-            <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1"> groom information</h4>
-            <p><strong>Name:</strong> ${app.groom.name}</p>
-            <p><strong>Phone:</strong> <span class="font-mono">${app.groom.phone}</span></p>
-            <p><strong>National ID:</strong> <span class="font-mono">${app.groom.nid}</span></p>
-            <p><strong>Address:</strong> Province: ${app.groom.province}, District: ${app.groom.district}, Sector: ${app.groom.sector}, Cell: ${app.groom.cell}, Village: ${app.groom.village}</p>
-          </div>
-          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-            <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1"> bride information</h4>
-            <p><strong>Name:</strong> ${app.bride.name}</p>
-            <p><strong>Phone:</strong> <span class="font-mono">${app.bride.phone}</span></p>
-            <p><strong>National ID:</strong> <span class="font-mono">${app.bride.nid}</span></p>
-            <p><strong>Address:</strong> Province: ${app.bride.province}, District: ${app.bride.district}, Sector: ${app.bride.sector}, Cell: ${app.bride.cell}, Village: ${app.bride.village}</p>
-          </div>
-        </div>
-
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1">Application Metadata & Local Church</h4>
-          <p><strong>Submission Date:</strong> ${app.date}</p>
-          <p><strong>Local Church:</strong> ${app.local_church}</p>
-          <p><strong>Current Status:</strong> <span class="font-bold uppercase">${app.status}</span></p>
-        </div>
-
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1">Witnesses</h4>
-          <ul class="list-disc pl-5 space-y-1">${witnessesHtml}</ul>
-        </div>
-
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
-          <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1">Uploaded Documents</h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${uploadsHtml}</div>
-        </div>
-      `;
-
-      document.getElementById('modalContent').innerHTML = content;
-      document.getElementById('applicationModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('applicationModal').classList.add('hidden');
-      selectedAppId = null;
-    }
-
-    function handleStatusSelect(newStatus) {
-      if (!selectedAppId) return;
-      const app = applications.find(a => a.id === selectedAppId);
-      if (app) {
-        app.status = newStatus;
-        filterApplications();
-        updateStats();
-        alert(`Application ${app.id} status updated to ${newStatus}`);
-      }
-    }
-
-    function renderMembersTable(membersToRender = registeredMembers) {
-      const tbody = document.getElementById('membersTableBody');
-      tbody.innerHTML = '';
-
-      if (membersToRender.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="text-center p-6 text-slate-400">No registered members found.</td></tr>`;
-        return;
-      }
-
-      membersToRender.forEach(m => {
-        tbody.innerHTML += `
-          <tr class="hover:bg-slate-50 border-b border-slate-100">
-            <td class="p-3 font-bold text-indigo-950">${m.name}</td>
-            <td class="p-3 font-mono text-slate-600">${m.nid}</td>
-            <td class="p-3 font-mono font-bold text-emerald-700">${m.phone}</td>
-            <td class="p-3 font-medium text-slate-700">${m.kanisa}</td>
-            <td class="p-3 text-center">${m.baptised ? '✅' : '❌'}</td>
-            <td class="p-3 text-center">${m.watebweAmaboko ? '✅' : '❌'}</td>
-            <td class="p-3 text-center">${m.wasezeranye ? '✅' : '❌'}</td>
-          </tr>
-        `;
-      });
-    }
-
-    function exportOrPrintAllMembers() {
-      let win = window.open('', '', 'height=700,width=900');
-      win.document.write('<html><head><title>All Church Members Directory</title>');
-      win.document.write('<style>body { font-family: sans-serif; padding: 20px; } table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 15px; } th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; } th { background-color: #f1f5f9; color: #1e293b; }</style>');
-      win.document.write('</head><body>');
-      win.document.write('<h2 style="color: #1e1b4b; text-transform: uppercase;">EAR Rwanda - Mukama Parish</h2>');
-      win.document.write('<h3>Complete Parish Members Directory</h3>');
-      win.document.write(document.getElementById("directoryTable").outerHTML);
-      win.document.write('</body></html>');
-      win.document.close();
-      win.focus();
-      setTimeout(() => { win.print(); }, 500);
-    }
-
-    function exportOrPrintMarriedMembers() {
-      const marriedMembers = registeredMembers.filter(m => m.wasezeranye === true);
-      let html = `<html><head><title>Abarasezeranye Members Directory</title>`;
-      html += `<style>body { font-family: sans-serif; padding: 20px; } table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 15px; } th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; } th { background-color: #f1f5f9; color: #1e293b; }</style>`;
-      html += `</head><body>`;
-      html += `<h2 style="color: #1e1b4b; text-transform: uppercase;">EAR Rwanda - Mukama Parish</h2>`;
-      html += `<h3>Abarasezeranye (Barashakanye) Members Directory</h3>`;
-      html += `<table><thead><tr><th>Full Name</th><th>National ID</th><th>Phone Number</th><th>Kanisa (Local Church)</th><th style="text-align:center">Yarabatijwe</th><th style="text-align:center">Watebwe Amaboko</th><th style="text-align:center">Wasezeranye</th></tr></thead><tbody>`;
-      
       marriedMembers.forEach(m => {
-        html += `<tr><td>${m.name}</td><td>${m.nid}</td><td>${m.phone}</td><td>${m.kanisa}</td><td style="text-align:center">${m.baptised ? '✅' : '❌'}</td><td style="text-align:center">${m.watebweAmaboko ? '✅' : '❌'}</td><td style="text-align:center">✅</td></tr>`;
+        html += `<tr>
+          <td><strong>${m.name}</strong></td>
+          <td>${m.nid}</td>
+          <td>${m.phone}</td>
+          <td>${m.kanisa}</td>
+          <td style="text-align: center;">${m.baptised ? '✅' : '❌'}</td>
+          <td style="text-align: center;">${m.watebweAmaboko ? '✅' : '❌'}</td>
+          <td style="text-align: center;">${m.wasezeranye ? '✅' : '❌'}</td>
+        </tr>`;
       });
 
       html += `</tbody></table></body></html>`;
+
       let win = window.open('', '', 'height=700,width=900');
       win.document.write(html);
       win.document.close();
@@ -630,34 +24,13 @@
       setTimeout(() => { win.print(); }, 500);
     }
 
-    function filterApplications() {
-      const query = document.getElementById('searchInput').value.toLowerCase();
-      const status = document.getElementById('statusFilter').value;
-
-      const filtered = applications.filter(app => {
-        const matchesQuery = app.groom.name.toLowerCase().includes(query) ||
-                             app.bride.name.toLowerCase().includes(query) ||
-                             app.groom.nid.includes(query) ||
-                             app.bride.nid.includes(query) ||
-                             app.groom.phone.includes(query) ||
-                             app.bride.phone.includes(query);
-
-        const matchesStatus = status === 'ALL' || app.status === status;
-
-        return matchesQuery && matchesStatus;
-      });
-
-      renderTable(filtered);
-      updateStats();
-    }
-
     function openRegisterMemberModal() {
+      document.getElementById('memberRegisterForm').reset();
       document.getElementById('registerMemberModal').classList.remove('hidden');
     }
 
     function closeRegisterMemberModal() {
       document.getElementById('registerMemberModal').classList.add('hidden');
-      document.getElementById('memberRegisterForm').reset();
     }
 
     function openMembersListModal() {
@@ -669,37 +42,52 @@
       document.getElementById('membersListModal').classList.add('hidden');
     }
 
-    function handleRegisterMember(e) {
-      e.preventDefault();
-      const name = document.getElementById('memberName').value.trim();
-      const nid = document.getElementById('memberNid').value.trim();
-      const phone = document.getElementById('memberPhone').value.trim();
-      const kanisa = document.getElementById('memberKanisa').value;
-      const baptised = document.getElementById('checkBaptised').checked;
-      const watebweAmaboko = document.getElementById('checkWatebweAmaboko').checked;
-      const wasezeranye = document.getElementById('checkWasezeranye').checked;
-
+    function handleRegisterMember(event) {
+      event.preventDefault();
+      
       const newMember = {
         id: `MEM-00${registeredMembers.length + 1}`,
-        name,
-        nid,
-        phone,
-        kanisa,
-        baptised,
-        watebweAmaboko,
-        wasezeranye
+        name: document.getElementById('memberName').value,
+        nid: document.getElementById('memberNid').value,
+        phone: document.getElementById('memberPhone').value,
+        kanisa: document.getElementById('memberKanisa').value,
+        baptised: document.getElementById('checkBaptised').checked,
+        watebweAmaboko: document.getElementById('checkWatebweAmaboko').checked,
+        wasezeranye: document.getElementById('checkWasezeranye').checked
       };
 
       registeredMembers.push(newMember);
       updateStats();
       closeRegisterMemberModal();
-      alert(`Church member "${name}" registered successfully!`);
+      alert(`Member ${newMember.name} successfully registered in the database!`);
     }
 
-    // Initial load setup
+    function filterApplications() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const statusVal = document.getElementById('statusFilter').value;
+
+      const filtered = applications.filter(app => {
+        const matchStatus = statusVal === 'ALL' || app.status === statusVal;
+        const matchQuery = 
+          app.id.toLowerCase().includes(query) ||
+          app.local_church.toLowerCase().includes(query) ||
+          app.groom.name.toLowerCase().includes(query) ||
+          app.groom.nid.includes(query) ||
+          app.groom.phone.includes(query) ||
+          app.bride.name.toLowerCase().includes(query) ||
+          app.bride.nid.includes(query) ||
+          app.bride.phone.includes(query);
+
+        return matchStatus && matchQuery;
+      });
+
+      renderTable(filtered);
+    }
+
+    // Initialize Dashboard on load
     window.onload = function() {
-      filterApplications();
       updateStats();
+      filterApplications();
     };
   </script>
 </body>
