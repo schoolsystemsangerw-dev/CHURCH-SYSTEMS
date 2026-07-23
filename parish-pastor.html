@@ -284,9 +284,8 @@
     async function fetchApplications() {
       try {
         const { data, error } = await supabaseClient
-          .from('matrimony_applications') // Updated table reference
-          .select('*')
-          .order('created_at', { ascending: false });
+          .from('matrimony_applications')
+          .select('*');
 
         if (error) {
           console.error('Error fetching applications:', error);
@@ -295,8 +294,8 @@
 
         if (data) {
           applications = data.map(item => ({
-            id: item.id || item.application_id || 'EAR-2026-00X',
-            date: item.date || item.created_at?.split('T')[0] || '2026-07-23',
+            id: item.ref_code || item.id || 'EAR-2026-00X',
+            date: item.submission_date || item.created_at?.split('T')[0] || '2026-07-23',
             local_church: item.local_church || item.church || 'Mukama Local Church',
             status: item.status || 'PENDING',
             groom: item.groom || { name: item.groom_name, nid: item.groom_nid, phone: item.groom_phone },
@@ -342,8 +341,8 @@
 
     function updateStats() {
       document.getElementById('statTotal').innerText = applications.length;
-      document.getElementById('statPending').innerText = applications.filter(a => a.status === 'PENDING').length;
-      document.getElementById('statApproved').innerText = applications.filter(a => a.status === 'APPROVED').length;
+      document.getElementById('statPending').innerText = applications.filter(a => a.status.toLowerCase() === 'pending').length;
+      document.getElementById('statApproved').innerText = applications.filter(a => a.status.toLowerCase() === 'approved').length;
       document.getElementById('statMembers').innerText = registeredMembers.length;
     }
 
@@ -357,9 +356,10 @@
       }
 
       dataToRender.forEach((app) => {
+        let statusLower = app.status ? app.status.toLowerCase() : 'pending';
         let statusBadge = '';
-        if (app.status === 'PENDING') statusBadge = '<span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">Pending</span>';
-        else if (app.status === 'APPROVED') statusBadge = '<span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold">Approved</span>';
+        if (statusLower === 'pending') statusBadge = '<span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">Pending</span>';
+        else if (statusLower === 'approved') statusBadge = '<span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold">Approved</span>';
         else statusBadge = '<span class="bg-rose-100 text-rose-800 px-2.5 py-1 rounded-full font-bold">Rejected</span>';
 
         let witnessesHtml = Array.isArray(app.witnesses) 
@@ -391,20 +391,20 @@
             <td class="p-3">${witnessesHtml}</td>
             <td class="p-3 text-center">${statusBadge}</td>
             <td class="p-3 text-center space-y-1">
-              <button onclick="updateAppStatus('${app.id}', 'APPROVED')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Approve</button>
-              <button onclick="updateAppStatus('${app.id}', 'REJECTED')" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Reject</button>
+              <button onclick="updateAppStatus('${app.id}', 'Approved')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Approve</button>
+              <button onclick="updateAppStatus('${app.id}', 'Rejected')" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Reject</button>
             </td>
           </tr>
         `;
       });
     }
 
-    async function updateAppStatus(id, newStatus) {
+    async function updateAppStatus(refCode, newStatus) {
       try {
         const { error } = await supabaseClient
           .from('matrimony_applications')
           .update({ status: newStatus })
-          .eq('id', id);
+          .eq('ref_code', refCode);
 
         if (error) {
           alert('Failed to update application status on Supabase.');
@@ -412,12 +412,12 @@
           return;
         }
 
-        const app = applications.find(a => a.id === id);
+        const app = applications.find(a => a.id === refCode);
         if (app) {
           app.status = newStatus;
           updateStats();
           filterApplications();
-          alert(`Application ${id} status updated to ${newStatus}`);
+          alert(`Application ${refCode} status updated to ${newStatus}`);
         }
       } catch (err) {
         console.error('Error updating status:', err);
@@ -551,10 +551,12 @@
 
     function filterApplications() {
       const query = document.getElementById('searchInput').value.toLowerCase();
-      const statusVal = document.getElementById('statusFilter').value;
+      const statusVal = document.getElementById('statusFilter').value.toLowerCase();
 
       const filtered = applications.filter(app => {
-        const matchStatus = statusVal === 'ALL' || app.status === statusVal;
+        const appStatusLower = app.status ? app.status.toLowerCase() : '';
+        const matchStatus = statusVal === 'all' || appStatusLower === statusVal;
+        
         const groomName = app.groom?.name || '';
         const groomNid = app.groom?.nid || '';
         const groomPhone = app.groom?.phone || '';
