@@ -499,6 +499,78 @@
       });
     }
 
+    function viewDetails(appId) {
+      selectedAppId = appId;
+      const app = applications.find(a => a.id === appId);
+      if (!app) return;
+
+      document.getElementById('modalRefTitle').textContent = `Matrimony Application Details — ${app.id}`;
+      document.getElementById('statusDropdown').value = app.status;
+
+      let witnessesHtml = app.witnesses.map(w => `<li class="text-xs text-slate-700 font-medium">👤 ${w.name} — <span class="font-mono text-slate-500">${w.phone}</span></li>`).join('');
+      let uploadsHtml = app.uploads.map(u => `
+        <div class="flex justify-between items-center bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-xs">
+          <span class="font-bold text-slate-700">📄 ${u.title}</span>
+          <span class="font-mono text-indigo-600 underline cursor-pointer">${u.file}</span>
+        </div>
+      `).join('');
+
+      const content = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+            <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1"> groom information</h4>
+            <p><strong>Name:</strong> ${app.groom.name}</p>
+            <p><strong>Phone:</strong> <span class="font-mono">${app.groom.phone}</span></p>
+            <p><strong>National ID:</strong> <span class="font-mono">${app.groom.nid}</span></p>
+            <p><strong>Address:</strong> Province: ${app.groom.province}, District: ${app.groom.district}, Sector: ${app.groom.sector}, Cell: ${app.groom.cell}, Village: ${app.groom.village}</p>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+            <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1"> bride information</h4>
+            <p><strong>Name:</strong> ${app.bride.name}</p>
+            <p><strong>Phone:</strong> <span class="font-mono">${app.bride.phone}</span></p>
+            <p><strong>National ID:</strong> <span class="font-mono">${app.bride.nid}</span></p>
+            <p><strong>Address:</strong> Province: ${app.bride.province}, District: ${app.bride.district}, Sector: ${app.bride.sector}, Cell: ${app.bride.cell}, Village: ${app.bride.village}</p>
+          </div>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+          <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1">Application Metadata & Local Church</h4>
+          <p><strong>Submission Date:</strong> ${app.date}</p>
+          <p><strong>Local Church:</strong> ${app.local_church}</p>
+          <p><strong>Current Status:</strong> <span class="font-bold uppercase">${app.status}</span></p>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+          <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1">Witnesses</h4>
+          <ul class="list-disc pl-5 space-y-1">${witnessesHtml}</ul>
+        </div>
+
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+          <h4 class="font-bold text-indigo-950 uppercase text-xs border-b pb-1">Uploaded Documents</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${uploadsHtml}</div>
+        </div>
+      `;
+
+      document.getElementById('modalContent').innerHTML = content;
+      document.getElementById('applicationModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('applicationModal').classList.add('hidden');
+      selectedAppId = null;
+    }
+
+    function handleStatusSelect(newStatus) {
+      if (!selectedAppId) return;
+      const app = applications.find(a => a.id === selectedAppId);
+      if (app) {
+        app.status = newStatus;
+        filterApplications();
+        updateStats();
+        alert(`Application ${app.id} status updated to ${newStatus}`);
+      }
+    }
+
     function renderMembersTable(membersToRender = registeredMembers) {
       const tbody = document.getElementById('membersTableBody');
       tbody.innerHTML = '';
