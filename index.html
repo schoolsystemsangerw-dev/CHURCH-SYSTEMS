@@ -17,8 +17,6 @@
     <div class="whitespace-nowrap animate-marquee flex gap-8">
       <span>✨ WELCOME TO E.A.R RWANDA — MATRIMONY REGISTRATION PORTAL ✨</span>
       <span>📖 "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe." — Itangiriro 2:24 📖</span>
-      <span>✨ WELCOME TO E.A.R RWANDA — MATRIMONY REGISTRATION PORTAL ✨</span>
-      <span>📖 "Niyo mpamvu umugabo azasiga se na nyina akagumana n'umugore we, bakaba umubiri umwe." — Itangiriro 2:24 📖</span>
     </div>
   </div>
 
@@ -43,26 +41,18 @@
     </div>
   </header>
 
-  <!-- BLESSING MESSAGE -->
-  <div class="bg-amber-50 border-b-2 border-amber-300 p-4 sm:p-5 text-center shadow-sm">
-    <div class="max-w-4xl mx-auto">
-      <p class="text-xs sm:text-sm md:text-base font-bold text-amber-900 leading-relaxed italic">
-        "Mwakoze intambwe ikomeye kandi y'agaciro! Ururo rwanyu rube rwiza rwuzuye ibyishimo, ubwumvikane, n’umudendezo. Imana yazazane no kubaha imiryango yagutse n'imigisha idashira."
-      </p>
-    </div>
-  </div>
-
   <!-- Main Container -->
   <main class="flex-grow p-4 sm:p-6 max-w-5xl mx-auto w-full">
     <form id="matrimonyForm" class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8 space-y-8">
 
-      <!-- CHURCH MEMBER REGISTRATION BUTTON & MODAL TRIGGER SECTION -->
+      <!-- CHURCH MEMBER REGISTRATION BUTTON SECTION -->
       <div class="bg-emerald-50/70 p-4 sm:p-6 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
           <h2 class="font-bold text-emerald-950 text-sm uppercase tracking-wider">Umunyamuryango w'Itorero (Church Member Registration)</h2>
           <p class="text-xs text-slate-600 mt-1">Kanda hano munsi niba uri umunyamuryango w'itorero ushaka kwiyandikisha cyangwa kuzuza imyirondoro yawe.</p>
         </div>
-        <button type="button" onclick="openMemberModal()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2 flex-shrink-0">
+        <!-- Explicit type="button" and inline onclick handler -->
+        <button type="button" id="openModalBtn" onclick="openMemberModal()" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition text-xs flex items-center justify-center gap-2 flex-shrink-0 cursor-pointer">
           <span>📝 Kwiyandikisha nk'Umunyamuryango (Register as Member)</span>
         </button>
       </div>
@@ -71,78 +61,41 @@
       <div class="bg-indigo-50/70 p-4 sm:p-6 rounded-xl border border-indigo-100">
         <h2 class="font-bold text-indigo-950 text-sm uppercase tracking-wider mb-4">Church Structure Details (Urwego rw'Itorero)</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Diocese (Diyosezi) *</label>
-            <input type="text" id="diocese" required placeholder="Andika Diyosezi" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Archdeaconry (Ubudikoni) *</label>
-            <input type="text" id="archdeaconry" required placeholder="Andika Ubudikoni" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Parish (Paruwasi) *</label>
-            <input type="text" id="parish_name" required placeholder="Andika Paruwasi" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 mb-1">Local Church / Ikanisa *</label>
-            <input type="text" id="local_church" required placeholder="Andika Ikanisa / Local Church" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:ring-2 focus:ring-indigo-500" />
-          </div>
+          <div><label class="block text-xs font-semibold text-slate-700 mb-1">Diocese (Diyosezi) *</label><input type="text" id="diocese" required placeholder="Andika Diyosezi" class="w-full p-2.5 bg-white border rounded-lg text-xs" /></div>
+          <div><label class="block text-xs font-semibold text-slate-700 mb-1">Archdeaconry (Ubudikoni) *</label><input type="text" id="archdeaconry" required placeholder="Andika Ubudikoni" class="w-full p-2.5 bg-white border rounded-lg text-xs" /></div>
+          <div><label class="block text-xs font-semibold text-slate-700 mb-1">Parish (Paruwasi) *</label><input type="text" id="parish_name" required placeholder="Andika Paruwasi" class="w-full p-2.5 bg-white border rounded-lg text-xs" /></div>
+          <div><label class="block text-xs font-semibold text-slate-700 mb-1">Local Church / Ikanisa *</label><input type="text" id="local_church" required placeholder="Andika Ikanisa" class="w-full p-2.5 bg-white border rounded-lg text-xs" /></div>
         </div>
       </div>
 
       <!-- 1. GROOM INFORMATION -->
       <div id="groom_section" class="space-y-4">
         <h2 class="font-bold text-indigo-950 text-base uppercase tracking-wider border-b pb-2">1. GROOM INFORMATION (AMAKURU Y'UMUKWE)</h2>
-        
         <div class="flex flex-col md:flex-row gap-6 items-start">
           <div class="w-full md:w-56 flex-shrink-0 flex flex-col items-center">
-            <label class="block text-xs font-bold text-slate-700 mb-2">Groom Photo (Iphoto y'Umukwe) *</label>
-            <div class="relative w-44 h-52 bg-slate-100 border-2 border-dashed border-indigo-300 rounded-xl overflow-hidden flex flex-col items-center justify-center p-2 text-center group hover:border-indigo-500 transition cursor-pointer shadow-sm" onclick="document.getElementById('groom_photo').click()">
+            <label class="block text-xs font-bold text-slate-700 mb-2">Groom Photo *</label>
+            <!-- Fixed Upload Box Container Click Event -->
+            <div id="groom_photo_box" class="relative w-44 h-52 bg-slate-100 border-2 border-dashed border-indigo-300 rounded-xl overflow-hidden flex flex-col items-center justify-center p-2 text-center group hover:border-indigo-500 transition cursor-pointer shadow-sm">
               <img id="groom_photo_preview" src="" alt="Groom Preview" class="hidden w-full h-full object-cover rounded-lg" />
-              <div id="groom_photo_placeholder" class="flex flex-col items-center justify-center text-slate-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-1 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
+              <div id="groom_photo_placeholder" class="flex flex-col items-center justify-center text-slate-400 pointer-events-none">
                 <span class="text-[11px] font-semibold text-indigo-700">Upload Photo</span>
               </div>
             </div>
-            <input type="file" id="groom_photo" accept="image/*" class="hidden" onchange="previewImage(this, 'groom_photo_preview', 'groom_photo_placeholder')" />
+            <input type="file" id="groom_photo" accept="image/*" class="hidden" />
           </div>
 
           <div class="flex-grow w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label>
-              <input type="text" id="groom_name" required class="w-full p-2.5 border border-slate-300 rounded-lg text-xs" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">National ID (16 Digits) *</label>
-              <input type="text" id="groom_id_number" required maxlength="16" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Date of Birth *</label>
-              <input type="date" id="groom_dob" required class="w-full p-2.5 border border-slate-300 rounded-lg text-xs" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Telephone Number *</label>
-              <input type="tel" id="groom_phone" required class="w-full p-2.5 border border-slate-300 rounded-lg text-xs" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label>
-              <input type="email" id="groom_email" class="w-full p-2.5 border border-slate-300 rounded-lg text-xs" />
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Level of Education *</label>
-              <input type="text" id="groom_education" required class="w-full p-2.5 border border-slate-300 rounded-lg text-xs" />
-            </div>
-            <div class="sm:col-span-2">
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Current Job / Profession *</label>
-              <input type="text" id="groom_job" required class="w-full p-2.5 border border-slate-300 rounded-lg text-xs" />
-            </div>
+            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Full Name *</label><input type="text" id="groom_name" required class="w-full p-2.5 border rounded-lg text-xs" /></div>
+            <div><label class="block text-xs font-semibold text-slate-700 mb-1">National ID (16 Digits) *</label><input type="text" id="groom_id_number" required maxlength="16" class="w-full p-2.5 border rounded-lg text-xs" /></div>
+            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Date of Birth *</label><input type="date" id="groom_dob" required class="w-full p-2.5 border rounded-lg text-xs" /></div>
+            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Telephone Number *</label><input type="tel" id="groom_phone" required class="w-full p-2.5 border rounded-lg text-xs" /></div>
+            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Email Address</label><input type="email" id="groom_email" class="w-full p-2.5 border rounded-lg text-xs" /></div>
+            <div><label class="block text-xs font-semibold text-slate-700 mb-1">Level of Education *</label><input type="text" id="groom_education" required class="w-full p-2.5 border rounded-lg text-xs" /></div>
+            <div class="sm:col-span-2"><label class="block text-xs font-semibold text-slate-700 mb-1">Current Job / Profession *</label><input type="text" id="groom_job" required class="w-full p-2.5 border rounded-lg text-xs" /></div>
           </div>
         </div>
 
-        <!-- Groom Geographical Location -->
+        <!-- Groom Location -->
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
           <h3 class="font-bold text-xs text-indigo-900 uppercase">Aho Umukwe Atuye</h3>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -154,32 +107,22 @@
             <div><label class="block text-[11px] text-slate-600 mb-1">Village *</label><input type="text" id="groom_village" class="w-full p-2 border rounded text-xs" /></div>
           </div>
         </div>
-
-        <!-- Groom Witnesses -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
-          <h3 class="font-bold text-xs text-indigo-900 uppercase">Abahamya b'Umukwe</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div><input type="text" id="groom_witness_1_name" placeholder="Izina rya 1" class="w-full p-2 mb-1 border rounded text-xs" /><input type="tel" id="groom_witness_1_phone" placeholder="Tel 1" class="w-full p-2 border rounded text-xs" /></div>
-            <div><input type="text" id="groom_witness_2_name" placeholder="Izina rya 2" class="w-full p-2 mb-1 border rounded text-xs" /><input type="tel" id="groom_witness_2_phone" placeholder="Tel 2" class="w-full p-2 border rounded text-xs" /></div>
-            <div><input type="text" id="groom_witness_3_name" placeholder="Izina rya 3" class="w-full p-2 mb-1 border rounded text-xs" /><input type="tel" id="groom_witness_3_phone" placeholder="Tel 3" class="w-full p-2 border rounded text-xs" /></div>
-          </div>
-        </div>
       </div>
 
       <!-- 2. BRIDE INFORMATION -->
       <div id="bride_section" class="space-y-4 pt-4 border-t border-slate-200">
         <h2 class="font-bold text-indigo-950 text-base uppercase tracking-wider border-b pb-2">2. BRIDE INFORMATION (AMAKURU Y'UMUGENI)</h2>
-        
         <div class="flex flex-col md:flex-row gap-6 items-start">
           <div class="w-full md:w-56 flex-shrink-0 flex flex-col items-center">
             <label class="block text-xs font-bold text-slate-700 mb-2">Bride Photo *</label>
-            <div class="relative w-44 h-52 bg-slate-100 border-2 border-dashed border-indigo-300 rounded-xl overflow-hidden flex flex-col items-center justify-center p-2 text-center group cursor-pointer" onclick="document.getElementById('bride_photo').click()">
+            <!-- Fixed Upload Box Container Click Event -->
+            <div id="bride_photo_box" class="relative w-44 h-52 bg-slate-100 border-2 border-dashed border-indigo-300 rounded-xl overflow-hidden flex flex-col items-center justify-center p-2 text-center group cursor-pointer shadow-sm">
               <img id="bride_photo_preview" src="" alt="Bride Preview" class="hidden w-full h-full object-cover rounded-lg" />
-              <div id="bride_photo_placeholder" class="flex flex-col items-center justify-center text-slate-400">
+              <div id="bride_photo_placeholder" class="flex flex-col items-center justify-center text-slate-400 pointer-events-none">
                 <span class="text-[11px] font-semibold text-indigo-700">Upload Photo</span>
               </div>
             </div>
-            <input type="file" id="bride_photo" accept="image/*" class="hidden" onchange="previewImage(this, 'bride_photo_preview', 'bride_photo_placeholder')" />
+            <input type="file" id="bride_photo" accept="image/*" class="hidden" />
           </div>
 
           <div class="flex-grow w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -193,7 +136,7 @@
           </div>
         </div>
 
-        <!-- Bride Geographical Location -->
+        <!-- Bride Location -->
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
           <h3 class="font-bold text-xs text-indigo-900 uppercase">Aho Umugeni Atuye</h3>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -205,25 +148,14 @@
             <div><label class="block text-[11px] text-slate-600 mb-1">Village *</label><input type="text" id="bride_village" class="w-full p-2 border rounded text-xs" /></div>
           </div>
         </div>
-
-        <!-- Bride Witnesses -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 space-y-3">
-          <h3 class="font-bold text-xs text-indigo-900 uppercase">Abahamya b'Umugeni</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div><input type="text" id="bride_witness_1_name" placeholder="Izina rya 1" class="w-full p-2 mb-1 border rounded text-xs" /><input type="tel" id="bride_witness_1_phone" placeholder="Tel 1" class="w-full p-2 border rounded text-xs" /></div>
-            <div><input type="text" id="bride_witness_2_name" placeholder="Izina rya 2" class="w-full p-2 mb-1 border rounded text-xs" /><input type="tel" id="bride_witness_2_phone" placeholder="Tel 2" class="w-full p-2 border rounded text-xs" /></div>
-            <div><input type="text" id="bride_witness_3_name" placeholder="Izina rya 3" class="w-full p-2 mb-1 border rounded text-xs" /><input type="tel" id="bride_witness_3_phone" placeholder="Tel 3" class="w-full p-2 border rounded text-xs" /></div>
-          </div>
-        </div>
       </div>
 
       <!-- SUBMIT BUTTON -->
       <div class="pt-6 border-t border-slate-200 flex justify-end">
-        <button type="submit" id="submitBtn" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition text-sm">
+        <button type="submit" id="submitBtn" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition text-sm cursor-pointer">
           Ohereza Icyifuzo (Submit Application)
         </button>
       </div>
-
     </form>
   </main>
 
@@ -235,62 +167,62 @@
           <h3 class="font-extrabold text-indigo-950 text-base uppercase tracking-wider">Kwiyandikisha nk'Umunyamuryango</h3>
           <p class="text-xs text-slate-500">Uzuza imyirondoro yawe n'ibijyanye n'itorero</p>
         </div>
-        <button type="button" onclick="closeMemberModal()" class="text-slate-400 hover:text-slate-700 font-bold text-xl">&times;</button>
+        <button type="button" onclick="closeMemberModal()" class="text-slate-400 hover:text-slate-700 font-bold text-xl cursor-pointer">&times;</button>
       </div>
 
-      <form id="memberRegistrationForm" onsubmit="handleMemberSubmit(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Full Names *</label>
-          <input type="text" id="member_fullname" required class="w-full p-2.5 border rounded-lg text-xs" />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">National ID *</label>
-          <input type="text" id="member_national_id" required maxlength="16" class="w-full p-2.5 border rounded-lg text-xs font-mono" />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-700 mb-1">Ikanisa (Local Church) *</label>
-          <input type="text" id="member_ikanisa" required class="w-full p-2.5 border rounded-lg text-xs" />
-        </div>
+      <form id="memberRegistrationForm" class="space-y-4">
+        <div><label class="block text-xs font-semibold text-slate-700 mb-1">Full Names *</label><input type="text" id="member_fullname" required class="w-full p-2.5 border rounded-lg text-xs" /></div>
+        <div><label class="block text-xs font-semibold text-slate-700 mb-1">National ID *</label><input type="text" id="member_national_id" required maxlength="16" class="w-full p-2.5 border rounded-lg text-xs font-mono" /></div>
+        <div><label class="block text-xs font-semibold text-slate-700 mb-1">Ikanisa (Local Church) *</label><input type="text" id="member_ikanisa" required class="w-full p-2.5 border rounded-lg text-xs" /></div>
         <div class="bg-emerald-50/50 p-4 rounded-xl border space-y-3">
           <label class="block text-xs font-bold text-emerald-950 uppercase">Amakuru y'Umubatizo n'Gukomezwa</label>
-          <div class="flex items-center gap-3">
-            <input type="checkbox" id="member_yabatijwe" class="w-4 h-4 text-emerald-600 rounded" />
-            <label for="member_yabatijwe" class="text-xs font-medium text-slate-700 cursor-pointer">Yabatijwe (Baptized)</label>
-          </div>
-          <div class="flex items-center gap-3">
-            <input type="checkbox" id="member_yakomejwe" class="w-4 h-4 text-emerald-600 rounded" />
-            <label for="member_yakomejwe" class="text-xs font-medium text-slate-700 cursor-pointer">Yakomejwe (Confirmed)</label>
-          </div>
-          <div class="flex items-center gap-3">
-            <input type="checkbox" id="member_yarashakanye" class="w-4 h-4 text-emerald-600 rounded" />
-            <label for="member_yarashakanye" class="text-xs font-medium text-slate-700 cursor-pointer">Yarashakanye (Married)</label>
-          </div>
+          <div class="flex items-center gap-3"><input type="checkbox" id="member_yabatijwe" class="w-4 h-4 text-emerald-600 rounded" /><label for="member_yabatijwe" class="text-xs font-medium text-slate-700 cursor-pointer">Yabatijwe (Baptized)</label></div>
+          <div class="flex items-center gap-3"><input type="checkbox" id="member_yakomejwe" class="w-4 h-4 text-emerald-600 rounded" /><label for="member_yakomejwe" class="text-xs font-medium text-slate-700 cursor-pointer">Yakomejwe (Confirmed)</label></div>
+          <div class="flex items-center gap-3"><input type="checkbox" id="member_yarashakanye" class="w-4 h-4 text-emerald-600 rounded" /><label for="member_yarashakanye" class="text-xs font-medium text-slate-700 cursor-pointer">Yarashakanye (Married)</label></div>
         </div>
         <div class="pt-4 flex justify-end gap-3 border-t">
-          <button type="button" onclick="closeMemberModal()" class="bg-slate-200 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-xs">Hagarika</button>
-          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs">Ohereza Imyirondoro</button>
+          <button type="button" onclick="closeMemberModal()" class="bg-slate-200 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer">Hagarika</button>
+          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs cursor-pointer">Ohereza Imyirondoro</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- SCRIPT BLOCK TO ACTIVATE BUTTONS, MODALS, AND SUPABASE DATA HANDLING -->
+  <!-- SCRIPT BLOCK -->
   <script>
-    // 1. Initialize Supabase Client with your exact credentials
     const SUPABASE_URL = 'https://ggrcjxqfmdkzkvipubhd.supabase.co';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_sZnQimLXEoAzSlb5Adw6oQ_P2QW9_cq';
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-    // Modal Control Functions
+    // Explicit Modal Triggers
     function openMemberModal() {
-      document.getElementById('memberModal').classList.remove('hidden');
+      const modal = document.getElementById('memberModal');
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeMemberModal() {
-      document.getElementById('memberModal').classList.add('hidden');
+      const modal = document.getElementById('memberModal');
+      if (modal) modal.classList.add('hidden');
     }
 
-    // Image Preview Helper
+    // Explicit Event Listeners for File Upload Boxes
+    document.getElementById('groom_photo_box').addEventListener('click', function() {
+      document.getElementById('groom_photo').click();
+    });
+
+    document.getElementById('bride_photo_box').addEventListener('click', function() {
+      document.getElementById('bride_photo').click();
+    });
+
+    // Image Previews
+    document.getElementById('groom_photo').addEventListener('change', function(e) {
+      previewImage(this, 'groom_photo_preview', 'groom_photo_placeholder');
+    });
+
+    document.getElementById('bride_photo').addEventListener('change', function(e) {
+      previewImage(this, 'bride_photo_preview', 'bride_photo_placeholder');
+    });
+
     function previewImage(input, previewId, placeholderId) {
       const preview = document.getElementById(previewId);
       const placeholder = document.getElementById(placeholderId);
@@ -305,7 +237,7 @@
       }
     }
 
-    // Helper Function to Upload Files to Supabase Storage Bucket
+    // Upload Helper
     async function uploadFileToSupabase(fileInputId, folderName) {
       const fileInput = document.getElementById(fileInputId);
       if (!fileInput.files || fileInput.files.length === 0) return null;
@@ -313,26 +245,24 @@
       const file = fileInput.files[0];
       const fileExt = file.name.split('.').pop();
       const fileName = `${folderName}_${Date.now()}.${fileExt}`;
-      const filePath = `${fileName}`;
 
       const { data, error } = await supabase.storage
         .from('matrimony-photos')
-        .upload(filePath, file);
+        .upload(fileName, file);
 
       if (error) {
         throw new Error("Gushyira ifoto muri System byanze: " + error.message);
       }
 
-      // Get Public URL
       const { data: publicURLData } = supabase.storage
         .from('matrimony-photos')
-        .getPublicUrl(filePath);
+        .getPublicUrl(fileName);
 
       return publicURLData.publicUrl;
     }
 
-    // 2. Handle Church Member Registration Form Submission
-    async function handleMemberSubmit(event) {
+    // Member Registration Submission
+    document.getElementById('memberRegistrationForm').addEventListener('submit', async function(event) {
       event.preventDefault();
       
       const memberData = {
@@ -341,35 +271,29 @@
         local_church: document.getElementById('member_ikanisa').value,
         is_baptized: document.getElementById('member_yabatijwe').checked,
         is_confirmed: document.getElementById('member_yakomejwe').checked,
-        is_married: document.getElementById('member_yarashakanye').checked,
-        created_at: new Date()
+        is_married: document.getElementById('member_yarashakanye').checked
       };
 
       try {
-        const { data, error } = await supabase
-          .from('church_members')
-          .insert([memberData]);
-
+        const { error } = await supabase.from('church_members').insert([memberData]);
         if (error) throw error;
         
-        alert("Umunyamuryango yiyandikishije neza! (Member successfully registered!)");
-        document.getElementById('memberRegistrationForm').reset();
+        alert("Umunyamuryango yiyandikishije neza!");
+        this.reset();
         closeMemberModal();
       } catch (err) {
         alert("Byanze kohereza: " + err.message);
       }
-    }
+    });
 
-    // 3. Handle Matrimony Form Application Submission (With Photo Uploads)
+    // Matrimony Form Application Submission
     document.getElementById('matrimonyForm').addEventListener('submit', async function(event) {
       event.preventDefault();
-      
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
       submitBtn.textContent = "Tegereza bari kohereza amakuru n'amafoto...";
 
       try {
-        // Upload Groom & Bride Photos
         const groomPhotoUrl = await uploadFileToSupabase('groom_photo', 'groom');
         const bridePhotoUrl = await uploadFileToSupabase('bride_photo', 'bride');
 
@@ -378,7 +302,6 @@
           archdeaconry: document.getElementById('archdeaconry').value,
           parish_name: document.getElementById('parish_name').value,
           local_church: document.getElementById('local_church').value,
-          
           groom_name: document.getElementById('groom_name').value,
           groom_id_number: document.getElementById('groom_id_number').value,
           groom_dob: document.getElementById('groom_dob').value,
@@ -388,7 +311,6 @@
           groom_job: document.getElementById('groom_job').value,
           groom_address: `${document.getElementById('groom_village').value}, ${document.getElementById('groom_cell').value}, ${document.getElementById('groom_sector').value}, ${document.getElementById('groom_district').value}`,
           groom_photo_url: groomPhotoUrl,
-          
           bride_name: document.getElementById('bride_name').value,
           bride_id_number: document.getElementById('bride_id_number').value,
           bride_dob: document.getElementById('bride_dob').value,
@@ -398,21 +320,14 @@
           bride_job: document.getElementById('bride_job').value,
           bride_address: `${document.getElementById('bride_village').value}, ${document.getElementById('bride_cell').value}, ${document.getElementById('bride_sector').value}, ${document.getElementById('bride_district').value}`,
           bride_photo_url: bridePhotoUrl,
-          
-          status: 'Pending',
-          created_at: new Date()
+          status: 'Pending'
         };
 
-        const { data, error } = await supabase
-          .from('matrimony_applications')
-          .insert([matrimonyData]);
-
+        const { error } = await supabase.from('matrimony_applications').insert([matrimonyData]);
         if (error) throw error;
 
-        alert("Icyifuzo cy'ubukwe n'amafoto byoherejwe neza kuri Paruwasi! (Application & photos submitted successfully!)");
+        alert("Icyifuzo cy'ubukwe n'amafoto byoherejwe neza kuri Paruwasi!");
         this.reset();
-        
-        // Reset image previews
         document.getElementById('groom_photo_preview').classList.add('hidden');
         document.getElementById('groom_photo_placeholder').classList.remove('hidden');
         document.getElementById('bride_photo_preview').classList.add('hidden');
