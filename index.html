@@ -305,6 +305,32 @@
       }
     }
 
+    // Helper Function to Upload Files to Supabase Storage Bucket
+    async function uploadFileToSupabase(fileInputId, folderName) {
+      const fileInput = document.getElementById(fileInputId);
+      if (!fileInput.files || fileInput.files.length === 0) return null;
+
+      const file = fileInput.files[0];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${folderName}_${Date.now()}.${fileExt}`;
+      const filePath = `${fileName}`;
+
+      const { data, error } = await supabase.storage
+        .from('matrimony-photos')
+        .upload(filePath, file);
+
+      if (error) {
+        throw new Error("Gushyira ifoto muri System byanze: " + error.message);
+      }
+
+      // Get Public URL
+      const { data: publicURLData } = supabase.storage
+        .from('matrimony-photos')
+        .getPublicUrl(filePath);
+
+      return publicURLData.publicUrl;
+    }
+
     // 2. Handle Church Member Registration Form Submission
     async function handleMemberSubmit(event) {
       event.preventDefault();
@@ -334,49 +360,69 @@
       }
     }
 
-    // 3. Handle Matrimony Form Application Submission
+    // 3. Handle Matrimony Form Application Submission (With Photo Uploads)
     document.getElementById('matrimonyForm').addEventListener('submit', async function(event) {
       event.preventDefault();
       
-      const matrimonyData = {
-        diocese: document.getElementById('diocese').value,
-        archdeaconry: document.getElementById('archdeaconry').value,
-        parish_name: document.getElementById('parish_name').value,
-        local_church: document.getElementById('local_church').value,
-        
-        groom_name: document.getElementById('groom_name').value,
-        groom_id_number: document.getElementById('groom_id_number').value,
-        groom_dob: document.getElementById('groom_dob').value,
-        groom_phone: document.getElementById('groom_phone').value,
-        groom_email: document.getElementById('groom_email').value,
-        groom_education: document.getElementById('groom_education').value,
-        groom_job: document.getElementById('groom_job').value,
-        groom_address: `${document.getElementById('groom_village').value}, ${document.getElementById('groom_cell').value}, ${document.getElementById('groom_sector').value}, ${document.getElementById('groom_district').value}`,
-        
-        bride_name: document.getElementById('bride_name').value,
-        bride_id_number: document.getElementById('bride_id_number').value,
-        bride_dob: document.getElementById('bride_dob').value,
-        bride_phone: document.getElementById('bride_phone').value,
-        bride_email: document.getElementById('bride_email').value,
-        bride_education: document.getElementById('bride_education').value,
-        bride_job: document.getElementById('bride_job').value,
-        bride_address: `${document.getElementById('bride_village').value}, ${document.getElementById('bride_cell').value}, ${document.getElementById('bride_sector').value}, ${document.getElementById('bride_district').value}`,
-        
-        status: 'Pending',
-        created_at: new Date()
-      };
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Tegereza bari kohereza amakuru n'amafoto...";
 
       try {
+        // Upload Groom & Bride Photos
+        const groomPhotoUrl = await uploadFileToSupabase('groom_photo', 'groom');
+        const bridePhotoUrl = await uploadFileToSupabase('bride_photo', 'bride');
+
+        const matrimonyData = {
+          diocese: document.getElementById('diocese').value,
+          archdeaconry: document.getElementById('archdeaconry').value,
+          parish_name: document.getElementById('parish_name').value,
+          local_church: document.getElementById('local_church').value,
+          
+          groom_name: document.getElementById('groom_name').value,
+          groom_id_number: document.getElementById('groom_id_number').value,
+          groom_dob: document.getElementById('groom_dob').value,
+          groom_phone: document.getElementById('groom_phone').value,
+          groom_email: document.getElementById('groom_email').value,
+          groom_education: document.getElementById('groom_education').value,
+          groom_job: document.getElementById('groom_job').value,
+          groom_address: `${document.getElementById('groom_village').value}, ${document.getElementById('groom_cell').value}, ${document.getElementById('groom_sector').value}, ${document.getElementById('groom_district').value}`,
+          groom_photo_url: groomPhotoUrl,
+          
+          bride_name: document.getElementById('bride_name').value,
+          bride_id_number: document.getElementById('bride_id_number').value,
+          bride_dob: document.getElementById('bride_dob').value,
+          bride_phone: document.getElementById('bride_phone').value,
+          bride_email: document.getElementById('bride_email').value,
+          bride_education: document.getElementById('bride_education').value,
+          bride_job: document.getElementById('bride_job').value,
+          bride_address: `${document.getElementById('bride_village').value}, ${document.getElementById('bride_cell').value}, ${document.getElementById('bride_sector').value}, ${document.getElementById('bride_district').value}`,
+          bride_photo_url: bridePhotoUrl,
+          
+          status: 'Pending',
+          created_at: new Date()
+        };
+
         const { data, error } = await supabase
           .from('matrimony_applications')
           .insert([matrimonyData]);
 
         if (error) throw error;
 
-        alert("Icyifuzo cy'ubukwe cyoherejwe neza kuri Paruwasi! (Application submitted successfully!)");
+        alert("Icyifuzo cy'ubukwe n'amafoto byoherejwe neza kuri Paruwasi! (Application & photos submitted successfully!)");
         this.reset();
+        
+        // Reset image previews
+        document.getElementById('groom_photo_preview').classList.add('hidden');
+        document.getElementById('groom_photo_placeholder').classList.remove('hidden');
+        document.getElementById('bride_photo_preview').classList.add('hidden');
+        document.getElementById('bride_photo_placeholder').classList.remove('hidden');
+
       } catch (err) {
         alert("Byanze kohereza icyifuzo: " + err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Ohereza Icyifuzo (Submit Application)";
       }
     });
   </script>
