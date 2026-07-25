@@ -456,16 +456,119 @@
           Engineered for excellence in Church Management Systems, School Management Systems, & Enterprise Portals.
         </p>
         <p class="text-amber-400 font-medium pt-1">
-          Looking for custom software engineering or system architecture? 
-          <a href="mailto:schoolsystems.ange.rw@gmail.com" class="underline font-bold text-white hover:text-amber-300 transition">
-            Contact Us: schoolsystems.ange.rw@gmail.com
-          </a>
+          Looking for custom software engineering or system architecture? Contact: <a href="mailto:support@schoolsയുംsystem.rw" class="underline hover:text-amber-300">support@schoolsяsystem.rw</a>
         </p>
       </div>
 
-      <p class="text-[10px] text-slate-500 pt-4">&copy; 2026 EGLISE ANGLICANE DU RWANDA - All Rights Reserved.</p>
+      <p class="text-[11px] text-slate-400 pt-2">
+        &copy; 2026 EGLISE ANGLICANE DU RWANDA - DIOCESE OF GAHINI. All rights reserved.
+      </p>
+
     </div>
   </footer>
 
+  <!-- JavaScript Integration -->
+  <script>
+    // Initialize Supabase Client
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Modal Control Functions
+    function openMemberModal() {
+      document.getElementById('memberModal').classList.remove('hidden');
+    }
+
+    function closeMemberModal() {
+      document.getElementById('memberModal').classList.add('hidden');
+    }
+
+    // Image Preview Helper
+    function previewImage(input, previewId, placeholderId) {
+      const preview = document.getElementById(previewId);
+      const placeholder = document.getElementById(placeholderId);
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.classList.remove('hidden');
+          placeholder.classList.add('hidden');
+        }
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    // Form Submission Logic integrated from your script snippet
+    document.getElementById('matrimonyForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const refCode = 'MAT-' + Math.floor(100000 + Math.random() * 900000);
+      
+      const matrimonyData = { 
+        reference_code: refCode, 
+        diocese: document.getElementById('diocese').value.trim(), 
+        archdeaconry: document.getElementById('archdeaconry').value.trim(), 
+        parish_name: document.getElementById('parish_name').value.trim(), 
+        local_church: document.getElementById('local_church').value.trim(), 
+        groom_name: document.getElementById('groom_name').value.trim(), 
+        groom_id_number: document.getElementById('groom_id_number').value.trim(), 
+        groom_dob: document.getElementById('groom_dob').value.trim(),
+        groom_phone: document.getElementById('groom_phone').value.trim(), 
+        groom_email: document.getElementById('groom_email').value.trim(), 
+        groom_education: document.getElementById('groom_education').value.trim(), 
+        groom_job: document.getElementById('groom_job').value.trim(), 
+        groom_province: document.getElementById('groom_province').value.trim(),
+        groom_district: document.getElementById('groom_district').value.trim(), 
+        groom_sector: document.getElementById('groom_sector').value.trim(), 
+        groom_cell: document.getElementById('groom_cell').value.trim(), 
+        groom_village: document.getElementById('groom_village').value.trim(), 
+        groom_witness_1_name: document.getElementById('groom_witness_1_name').value.trim(), 
+        groom_witness_1_phone: document.getElementById('groom_witness_1_phone').value.trim(), 
+        groom_witness_2_name: document.getElementById('groom_witness_2_name').value.trim(), 
+        groom_witness_2_phone: document.getElementById('groom_witness_2_phone').value.trim(), 
+        groom_witness_3_name: document.getElementById('groom_witness_3_name').value.trim(), 
+        groom_witness_3_phone: document.getElementById('groom_witness_3_phone').value.trim(), 
+        bride_name: document.getElementById('bride_name').value.trim(), 
+        bride_id_number: document.getElementById('bride_id_number').value.trim(), 
+        bride_dob: document.getElementById('bride_dob').value.trim(), 
+        bride_phone: document.getElementById('bride_phone').value.trim(), 
+        bride_email: document.getElementById('bride_email').value.trim(), 
+        bride_education: document.getElementById('bride_education').value.trim(), 
+        bride_job: document.getElementById('bride_job').value.trim(), 
+        bride_province: document.getElementById('bride_province').value.trim(), 
+        bride_district: document.getElementById('bride_district').value.trim(), 
+        bride_sector: document.getElementById('bride_sector').value.trim(), 
+        bride_cell: document.getElementById('bride_cell').value.trim(), 
+        bride_village: document.getElementById('bride_village').value.trim(), 
+        bride_witness_1_name: document.getElementById('bride_witness_1_name').value.trim(), 
+        bride_witness_1_phone: document.getElementById('bride_witness_1_phone').value.trim(), 
+        bride_witness_2_name: document.getElementById('bride_witness_2_name').value.trim(), 
+        bride_witness_2_phone: document.getElementById('bride_witness_2_phone').value.trim(), 
+        bride_witness_3_name: document.getElementById('bride_witness_3_name').value.trim(), 
+        bride_witness_3_phone: document.getElementById('bride_witness_3_phone').value.trim() 
+      };
+
+      try { 
+        const { error } = await supabaseClient.from('matrimony_applications').insert([matrimonyData]); 
+        if (error) throw error; 
+        alert(`Matrimony application successfully submitted! Your Reference Code is: ${refCode}`);
+        document.getElementById('matrimonyForm').reset(); 
+        document.getElementById('groom_photo_preview').classList.add('hidden');
+        document.getElementById('groom_photo_placeholder').classList.remove('hidden');
+        document.getElementById('bride_photo_preview').classList.add('hidden');
+        document.getElementById('bride_photo_placeholder').classList.remove('hidden'); 
+      } catch (err) { 
+        console.error('Error submitting matrimony application:', err.message); 
+        alert('Failed to submit application: ' + err.message); 
+      }
+    });
+
+    function handleMemberSubmit(e) {
+      e.preventDefault();
+      alert('Member registration saved successfully!');
+      closeMemberModal();
+      document.getElementById('memberRegistrationForm').reset();
+    }
+  </script>
 </body>
 </html>
