@@ -185,164 +185,166 @@
     </div>
   </div>
 
-  <!-- SCRIPT BLOCK WITH SAFE SUPABASE INITIALIZATION -->
+  <!-- SCRIPT BLOCK WITH SAFE SCOPED SUPABASE INITIALIZATION -->
   <script>
-    const SUPABASE_URL = 'https://ggrcjxqfmdkzkvipubhd.supabase.co';
-    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_sZnQimLXEoAzSlb5Adw6oQ_P2QW9_cq';
-    
-    // Safely initialize Supabase once without redeclaration errors
-    window.supabaseClient = window.supabaseClient || window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-    const supabase = window.supabaseClient;
-
-    // Modal Triggers via Native Listeners
-    const modal = document.getElementById('memberModal');
-    
-    document.getElementById('openModalBtn').addEventListener('click', () => {
-      modal.classList.remove('hidden');
-    });
-
-    document.getElementById('closeModalBtn').addEventListener('click', () => {
-      modal.classList.add('hidden');
-    });
-
-    document.getElementById('cancelModalBtn').addEventListener('click', () => {
-      modal.classList.add('hidden');
-    });
-
-    // File Upload Box Listeners
-    document.getElementById('groom_photo_box').addEventListener('click', () => {
-      document.getElementById('groom_photo').click();
-    });
-
-    document.getElementById('bride_photo_box').addEventListener('click', () => {
-      document.getElementById('bride_photo').click();
-    });
-
-    document.getElementById('groom_photo').addEventListener('change', function() {
-      previewImage(this, 'groom_photo_preview', 'groom_photo_placeholder');
-    });
-
-    document.getElementById('bride_photo').addEventListener('change', function() {
-      previewImage(this, 'bride_photo_preview', 'bride_photo_placeholder');
-    });
-
-    function previewImage(input, previewId, placeholderId) {
-      const preview = document.getElementById(previewId);
-      const placeholder = document.getElementById(placeholderId);
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          preview.src = e.target.result;
-          preview.classList.remove('hidden');
-          placeholder.classList.add('hidden');
-        }
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    // Upload Helper
-    async function uploadFileToSupabase(fileInputId, folderName) {
-      const fileInput = document.getElementById(fileInputId);
-      if (!fileInput.files || fileInput.files.length === 0) return null;
-
-      const file = fileInput.files[0];
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${folderName}_${Date.now()}.${fileExt}`;
-
-      const { error } = await supabase.storage
-        .from('matrimony-photos')
-        .upload(fileName, file);
-
-      if (error) {
-        throw new Error("Gushyira ifoto muri System byanze: " + error.message);
-      }
-
-      const { data: publicURLData } = supabase.storage
-        .from('matrimony-photos')
-        .getPublicUrl(fileName);
-
-      return publicURLData.publicUrl;
-    }
-
-    // Member Registration Submission
-    document.getElementById('memberRegistrationForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
+    (function() {
+      const SUPABASE_URL = 'https://ggrcjxqfmdkzkvipubhd.supabase.co';
+      const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_sZnQimLXEoAzSlb5Adw6oQ_P2QW9_cq';
       
-      const memberData = {
-        full_names: document.getElementById('member_fullname').value,
-        national_id: document.getElementById('member_national_id').value,
-        local_church: document.getElementById('member_ikanisa').value,
-        is_baptized: document.getElementById('member_yabatijwe').checked,
-        is_confirmed: document.getElementById('member_yakomejwe').checked,
-        is_married: document.getElementById('member_yarashakanye').checked
-      };
+      // Safely initialize Supabase once without redeclaration errors
+      window.supabaseClient = window.supabaseClient || window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+      const supabase = window.supabaseClient;
 
-      try {
-        const { error } = await supabase.from('church_members').insert([memberData]);
-        if (error) throw error;
-        
-        alert("Umunyamuryango yiyandikishije neza!");
-        this.reset();
+      // Modal Triggers via Native Listeners
+      const modal = document.getElementById('memberModal');
+      
+      document.getElementById('openModalBtn').addEventListener('click', () => {
+        modal.classList.remove('hidden');
+      });
+
+      document.getElementById('closeModalBtn').addEventListener('click', () => {
         modal.classList.add('hidden');
-      } catch (err) {
-        alert("Byanze kohereza: " + err.message);
+      });
+
+      document.getElementById('cancelModalBtn').addEventListener('click', () => {
+        modal.classList.add('hidden');
+      });
+
+      // File Upload Box Listeners
+      document.getElementById('groom_photo_box').addEventListener('click', () => {
+        document.getElementById('groom_photo').click();
+      });
+
+      document.getElementById('bride_photo_box').addEventListener('click', () => {
+        document.getElementById('bride_photo').click();
+      });
+
+      document.getElementById('groom_photo').addEventListener('change', function() {
+        previewImage(this, 'groom_photo_preview', 'groom_photo_placeholder');
+      });
+
+      document.getElementById('bride_photo').addEventListener('change', function() {
+        previewImage(this, 'bride_photo_preview', 'bride_photo_placeholder');
+      });
+
+      function previewImage(input, previewId, placeholderId) {
+        const preview = document.getElementById(previewId);
+        const placeholder = document.getElementById(placeholderId);
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
       }
-    });
 
-    // Matrimony Form Application Submission
-    document.getElementById('matrimonyForm').addEventListener('submit', async function(event) {
-      event.preventDefault();
-      const submitBtn = document.getElementById('submitBtn');
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Tegereza bari kohereza amakuru n'amafoto...";
+      // Upload Helper
+      async function uploadFileToSupabase(fileInputId, folderName) {
+        const fileInput = document.getElementById(fileInputId);
+        if (!fileInput.files || fileInput.files.length === 0) return null;
 
-      try {
-        const groomPhotoUrl = await uploadFileToSupabase('groom_photo', 'groom');
-        const bridePhotoUrl = await uploadFileToSupabase('bride_photo', 'bride');
+        const file = fileInput.files[0];
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${folderName}_${Date.now()}.${fileExt}`;
 
-        const matrimonyData = {
-          diocese: document.getElementById('diocese').value,
-          archdeaconry: document.getElementById('archdeaconry').value,
-          parish_name: document.getElementById('parish_name').value,
-          local_church: document.getElementById('local_church').value,
-          groom_name: document.getElementById('groom_name').value,
-          groom_id_number: document.getElementById('groom_id_number').value,
-          groom_dob: document.getElementById('groom_dob').value,
-          groom_phone: document.getElementById('groom_phone').value,
-          groom_email: document.getElementById('groom_email').value,
-          groom_education: document.getElementById('groom_education').value,
-          groom_job: document.getElementById('groom_job').value,
-          groom_address: `${document.getElementById('groom_village').value}, ${document.getElementById('groom_cell').value}, ${document.getElementById('groom_sector').value}, ${document.getElementById('groom_district').value}`,
-          groom_photo_url: groomPhotoUrl,
-          bride_name: document.getElementById('bride_name').value,
-          bride_id_number: document.getElementById('bride_id_number').value,
-          bride_dob: document.getElementById('bride_dob').value,
-          bride_phone: document.getElementById('bride_phone').value,
-          bride_email: document.getElementById('bride_email').value,
-          bride_education: document.getElementById('bride_education').value,
-          bride_job: document.getElementById('bride_job').value,
-          bride_address: `${document.getElementById('bride_village').value}, ${document.getElementById('bride_cell').value}, ${document.getElementById('bride_sector').value}, ${document.getElementById('bride_district').value}`,
-          bride_photo_url: bridePhotoUrl,
-          status: 'Pending'
+        const { error } = await supabase.storage
+          .from('matrimony-photos')
+          .upload(fileName, file);
+
+        if (error) {
+          throw new Error("Gushyira ifoto muri System byanze: " + error.message);
+        }
+
+        const { data: publicURLData } = supabase.storage
+          .from('matrimony-photos')
+          .getPublicUrl(fileName);
+
+        return publicURLData.publicUrl;
+      }
+
+      // Member Registration Submission
+      document.getElementById('memberRegistrationForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const memberData = {
+          full_names: document.getElementById('member_fullname').value,
+          national_id: document.getElementById('member_national_id').value,
+          local_church: document.getElementById('member_ikanisa').value,
+          is_baptized: document.getElementById('member_yabatijwe').checked,
+          is_confirmed: document.getElementById('member_yakomejwe').checked,
+          is_married: document.getElementById('member_yarashakanye').checked
         };
 
-        const { error } = await supabase.from('matrimony_applications').insert([matrimonyData]);
-        if (error) throw error;
+        try {
+          const { error } = await supabase.from('church_members').insert([memberData]);
+          if (error) throw error;
+          
+          alert("Umunyamuryango yiyandikishije neza!");
+          this.reset();
+          modal.classList.add('hidden');
+        } catch (err) {
+          alert("Byanze kohereza: " + err.message);
+        }
+      });
 
-        alert("Icyifuzo cy'ubukwe n'amafoto byoherejwe neza kuri Paruwasi!");
-        this.reset();
-        document.getElementById('groom_photo_preview').classList.add('hidden');
-        document.getElementById('groom_photo_placeholder').classList.remove('hidden');
-        document.getElementById('bride_photo_preview').classList.add('hidden');
-        document.getElementById('bride_photo_placeholder').classList.remove('hidden');
+      // Matrimony Form Application Submission
+      document.getElementById('matrimonyForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Tegereza bari kohereza amakuru n'amafoto...";
 
-      } catch (err) {
-        alert("Byanze kohereza icyifuzo: " + err.message);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Ohereza Icyifuzo (Submit Application)";
-      }
-    });
+        try {
+          const groomPhotoUrl = await uploadFileToSupabase('groom_photo', 'groom');
+          const bridePhotoUrl = await uploadFileToSupabase('bride_photo', 'bride');
+
+          const matrimonyData = {
+            diocese: document.getElementById('diocese').value,
+            archdeaconry: document.getElementById('archdeaconry').value,
+            parish_name: document.getElementById('parish_name').value,
+            local_church: document.getElementById('local_church').value,
+            groom_name: document.getElementById('groom_name').value,
+            groom_id_number: document.getElementById('groom_id_number').value,
+            groom_dob: document.getElementById('groom_dob').value,
+            groom_phone: document.getElementById('groom_phone').value,
+            groom_email: document.getElementById('groom_email').value,
+            groom_education: document.getElementById('groom_education').value,
+            groom_job: document.getElementById('groom_job').value,
+            groom_address: `${document.getElementById('groom_village').value}, ${document.getElementById('groom_cell').value}, ${document.getElementById('groom_sector').value}, ${document.getElementById('groom_district').value}`,
+            groom_photo_url: groomPhotoUrl,
+            bride_name: document.getElementById('bride_name').value,
+            bride_id_number: document.getElementById('bride_id_number').value,
+            bride_dob: document.getElementById('bride_dob').value,
+            bride_phone: document.getElementById('bride_phone').value,
+            bride_email: document.getElementById('bride_email').value,
+            bride_education: document.getElementById('bride_education').value,
+            bride_job: document.getElementById('bride_job').value,
+            bride_address: `${document.getElementById('bride_village').value}, ${document.getElementById('bride_cell').value}, ${document.getElementById('bride_sector').value}, ${document.getElementById('bride_district').value}`,
+            bride_photo_url: bridePhotoUrl,
+            status: 'Pending'
+          };
+
+          const { error } = await supabase.from('matrimony_applications').insert([matrimonyData]);
+          if (error) throw error;
+
+          alert("Icyifuzo cy'ubukwe n'amafoto byoherejwe neza kuri Paruwasi!");
+          this.reset();
+          document.getElementById('groom_photo_preview').classList.add('hidden');
+          document.getElementById('groom_photo_placeholder').classList.remove('hidden');
+          document.getElementById('bride_photo_preview').classList.add('hidden');
+          document.getElementById('bride_photo_placeholder').classList.remove('hidden');
+
+        } catch (err) {
+          alert("Byanze kohereza icyifuzo: " + err.message);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Ohereza Icyifuzo (Submit Application)";
+        }
+      });
+    })();
   </script>
 </body>
 </html>
