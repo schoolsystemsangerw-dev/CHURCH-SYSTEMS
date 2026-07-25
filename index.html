@@ -185,11 +185,14 @@
     </div>
   </div>
 
-  <!-- SCRIPT BLOCK WITH NATIVE EVENT LISTENERS -->
+  <!-- SCRIPT BLOCK WITH SAFE SUPABASE INITIALIZATION -->
   <script>
     const SUPABASE_URL = 'https://ggrcjxqfmdkzkvipubhd.supabase.co';
     const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_sZnQimLXEoAzSlb5Adw6oQ_P2QW9_cq';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    
+    // Safely initialize Supabase once without redeclaration errors
+    window.supabaseClient = window.supabaseClient || window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    const supabase = window.supabaseClient;
 
     // Modal Triggers via Native Listeners
     const modal = document.getElementById('memberModal');
