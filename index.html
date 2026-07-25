@@ -147,6 +147,59 @@
         </div>
       </div>
 
+      <!-- 3. BAPTISM & CONFIRMATION DOCUMENTS UPLOAD SECTION -->
+      <div class="space-y-4 pt-4 border-t border-slate-200">
+        <h2 class="font-bold text-indigo-950 text-base uppercase tracking-wider border-b pb-2">3. BAPTISM & CONFIRMATION DOCUMENTS (INYANDIKO Z'UMUBATIZO N'UGUKOMEZWA)</h2>
+        <p class="text-xs text-slate-600">Uzuza kandi ushyireho ibimenyetso (Impapuro/Indangamuntu) by'uko mwarabatijwe kandi mukarakomejwe.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <label class="block text-xs font-semibold text-slate-700">Imyandiko y'Umubatizo (Baptism Document/Certificate) *</label>
+            <input type="file" id="baptism_doc" accept=".pdf,image/*" required class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer" />
+          </div>
+          <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+            <label class="block text-xs font-semibold text-slate-700">Imyandiko yo Gukomezwa (Confirmation Document/Certificate) *</label>
+            <input type="file" id="confirmation_doc" accept=".pdf,image/*" required class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. WITNESSES INFORMATION SECTION -->
+      <div class="space-y-4 pt-4 border-t border-slate-200">
+        <h2 class="font-bold text-indigo-950 text-base uppercase tracking-wider border-b pb-2">4. WITNESSES INFORMATION (ABABURANGA / ABAGABANGA)</h2>
+        <p class="text-xs text-slate-600">Andika abahamya batatu (Witnesses 1, 2, & 3) n'indangamuntu zabo ndetse na nimero za telefone.</p>
+
+        <!-- Witness 1 -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <h3 class="font-bold text-xs text-indigo-900 uppercase">Umunyamahanga/Umuhamya 1 (Witness 1)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div><label class="block text-[11px] text-slate-600 mb-1">Full Name *</label><input type="text" id="witness1_name" required class="w-full p-2 border rounded text-xs" /></div>
+            <div><label class="block text-[11px] text-slate-600 mb-1">National ID (16 Digits) *</label><input type="text" id="witness1_id" required maxlength="16" class="w-full p-2 border rounded text-xs" /></div>
+            <div><label class="block text-[11px] text-slate-600 mb-1">Phone Number *</label><input type="tel" id="witness1_phone" required class="w-full p-2 border rounded text-xs" /></div>
+          </div>
+        </div>
+
+        <!-- Witness 2 -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <h3 class="font-bold text-xs text-indigo-900 uppercase">Umunyamahanga/Umuhamya 2 (Witness 2)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div><label class="block text-[11px] text-slate-600 mb-1">Full Name *</label><input type="text" id="witness2_name" required class="w-full p-2 border rounded text-xs" /></div>
+            <div><label class="block text-[11px] text-slate-600 mb-1">National ID (16 Digits) *</label><input type="text" id="witness2_id" required maxlength="16" class="w-full p-2 border rounded text-xs" /></div>
+            <div><label class="block text-[11px] text-slate-600 mb-1">Phone Number *</label><input type="tel" id="witness2_phone" required class="w-full p-2 border rounded text-xs" /></div>
+          </div>
+        </div>
+
+        <!-- Witness 3 -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <h3 class="font-bold text-xs text-indigo-900 uppercase">Umunyamahanga/Umuhamya 3 (Witness 3)</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div><label class="block text-[11px] text-slate-600 mb-1">Full Name *</label><input type="text" id="witness3_name" required class="w-full p-2 border rounded text-xs" /></div>
+            <div><label class="block text-[11px] text-slate-600 mb-1">National ID (16 Digits) *</label><input type="text" id="witness3_id" required maxlength="16" class="w-full p-2 border rounded text-xs" /></div>
+            <div><label class="block text-[11px] text-slate-600 mb-1">Phone Number *</label><input type="tel" id="witness3_phone" required class="w-full p-2 border rounded text-xs" /></div>
+          </div>
+        </div>
+      </div>
+
       <!-- SUBMIT BUTTON -->
       <div class="pt-6 border-t border-slate-200 flex justify-end">
         <button type="submit" id="submitBtn" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition text-sm cursor-pointer">
@@ -255,7 +308,7 @@
           .upload(fileName, file);
 
         if (error) {
-          throw new Error("Gushyira ifoto muri System byanze: " + error.message);
+          throw new Error("Gushyira dosiye muri System byanze: " + error.message);
         }
 
         const { data: publicURLData } = supabase.storage
@@ -295,11 +348,13 @@
         event.preventDefault();
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.disabled = true;
-        submitBtn.textContent = "Tegereza bari kohereza amakuru n'amafoto...";
+        submitBtn.textContent = "Tegereza bari kohereza amakuru, inyandiko n'amafoto...";
 
         try {
           const groomPhotoUrl = await uploadFileToSupabase('groom_photo', 'groom');
           const bridePhotoUrl = await uploadFileToSupabase('bride_photo', 'bride');
+          const baptismDocUrl = await uploadFileToSupabase('baptism_doc', 'baptism');
+          const confirmationDocUrl = await uploadFileToSupabase('confirmation_doc', 'confirmation');
 
           const matrimonyData = {
             diocese: document.getElementById('diocese').value,
@@ -324,13 +379,24 @@
             bride_job: document.getElementById('bride_job').value,
             bride_address: `${document.getElementById('bride_village').value}, ${document.getElementById('bride_cell').value}, ${document.getElementById('bride_sector').value}, ${document.getElementById('bride_district').value}`,
             bride_photo_url: bridePhotoUrl,
+            baptism_doc_url: baptismDocUrl,
+            confirmation_doc_url: confirmationDocUrl,
+            witness1_name: document.getElementById('witness1_name').value,
+            witness1_id: document.getElementById('witness1_id').value,
+            witness1_phone: document.getElementById('witness1_phone').value,
+            witness2_name: document.getElementById('witness2_name').value,
+            witness2_id: document.getElementById('witness2_id').value,
+            witness2_phone: document.getElementById('witness2_phone').value,
+            witness3_name: document.getElementById('witness3_name').value,
+            witness3_id: document.getElementById('witness3_id').value,
+            witness3_phone: document.getElementById('witness3_phone').value,
             status: 'Pending'
           };
 
           const { error } = await supabase.from('matrimony_applications').insert([matrimonyData]);
           if (error) throw error;
 
-          alert("Icyifuzo cy'ubukwe n'amafoto byoherejwe neza kuri Paruwasi!");
+          alert("Icyifuzo cy'ubukwe, inyandiko n'amafoto byoherejwe neza kuri Paruwasi!");
           this.reset();
           document.getElementById('groom_photo_preview').classList.add('hidden');
           document.getElementById('groom_photo_placeholder').classList.remove('hidden');
