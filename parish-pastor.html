@@ -271,14 +271,14 @@
       const filtered = applications.filter(app => {
         let matchesStatus = (statusVal === 'ALL' || app.status.toUpperCase() === statusVal);
         let matchesQuery = 
-          app.id.toLowerCase().includes(query) ||
-          app.local_church.toLowerCase().includes(query) ||
-          app.groom_name.toLowerCase().includes(query) ||
-          app.groom_id_number.toLowerCase().includes(query) ||
-          app.groom_phone.toLowerCase().includes(query) ||
-          app.bride_name.toLowerCase().includes(query) ||
-          app.bride_id_number.toLowerCase().includes(query) ||
-          app.bride_phone.toLowerCase().includes(query);
+          String(app.id || '').toLowerCase().includes(query) ||
+          String(app.local_church || '').toLowerCase().includes(query) ||
+          String(app.groom_name || '').toLowerCase().includes(query) ||
+          String(app.groom_id_number || '').toLowerCase().includes(query) ||
+          String(app.groom_phone || '').toLowerCase().includes(query) ||
+          String(app.bride_name || '').toLowerCase().includes(query) ||
+          String(app.bride_id_number || '').toLowerCase().includes(query) ||
+          String(app.bride_phone || '').toLowerCase().includes(query);
 
         return matchesStatus && matchesQuery;
       });
