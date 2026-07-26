@@ -32,7 +32,7 @@
         <img src="log-diocese.png" alt="Diocese Logo" class="h-28 w-28 sm:h-36 sm:w-36 object-contain">
       </div>
 
-      <!-- Center Address & Titles (Enlarged Red Text & Attractive Typography) -->
+      <!-- Center Address & Titles -->
       <div class="text-center space-y-4 flex-1 px-2">
         <span class="inline-block px-4 py-1.5 bg-emerald-100 text-emerald-800 rounded-full text-xs font-mono tracking-widest uppercase border border-emerald-300 shadow-sm font-extrabold animate-pulse">
           Authorized Personnel Portal
@@ -230,6 +230,7 @@
     let registeredMembers = [];
     let currentSelectedApp = null;
 
+    // Fetch applications on startup
     async function fetchApplications() {
       try {
         const { data, error } = await supabaseClient
@@ -245,10 +246,11 @@
         if (data) {
           applications = data.map((item, index) => ({
             ...item,
-            uniqueRowId: item.id || index,
+            uniqueRowId: item.id !== undefined && item.id !== null ? item.id : index,
             displayId: item.ref_code || item.id || `EAR-2026-00${index + 1}`,
-            date: item.submission_date || (item.created_at ? item.created_at.split('T')[0] : '2026-07-25'),
-            status: item.status || 'Pending'
+            date: item.submission_date || (item.created_at ? item.created_at.split('T')[0] : '2026-07-26'),
+            // Ensure status directly matches database value or defaults to Pending if empty
+            status: item.status ? String(item.status).trim() : 'Pending'
           }));
         }
         updateStats();
@@ -402,26 +404,38 @@
       });
     }
 
+    // Permanently update status in Supabase table
     async function updateAppStatus(uniqueRowId, newStatus) {
       try {
-        const { error } = await supabaseClient
-          .from('matrimony_applications')
-          .update({ status: newStatus })
-          .eq('id', uniqueRowId);
+        const app = applications.find(a => String(a.uniqueRowId) === String(uniqueRowId));
+        if (!app) {
+          alert('Application record not found.');
+          return;
+        }
+
+        // Target the row securely using both the primary ID or reference code if necessary
+        let query = supabaseClient.from('matrimony_applications').update({ status: newStatus });
+        
+        if (app.id !== undefined && app.id !== null) {
+          query = query.eq('id', app.id);
+        } else if (app.ref_code) {
+          query = query.eq('ref_code', app.ref_code);
+        } else {
+          query = query.eq('id', uniqueRowId);
+        }
+
+        const { error } = await query;
 
         if (error) {
-          alert('Failed to update application status.');
+          alert('Failed to update application status in database.');
           console.error(error);
           return;
         }
 
-        const app = applications.find(a => String(a.uniqueRowId) === String(uniqueRowId));
-        if (app) {
-          app.status = newStatus;
-          updateStats();
-          filterApplications();
-          alert(`Application status updated to ${newStatus}`);
-        }
+        app.status = newStatus;
+        updateStats();
+        filterApplications();
+        alert(`Application status permanently updated to ${newStatus}`);
       } catch (err) {
         console.error('Error updating status:', err);
       }
@@ -519,59 +533,46 @@
 
     function printMatrimonyReport() {
       if (!currentSelectedApp) return;
-      let app = currentSelectedApp;
-
-      let printWindow = window.open('', '_blank');
+      const printWindow = window.open('', '_blank');
       printWindow.document.write(`
-        <!DOCTYPE html>
         <html>
-        <head>
-          <title>Official Report - ${app.displayId}</title>
-          <style>
-            body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
-            h2 { text-align: center; color: #1e1b4b; }
-            .section { margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 15px; }
-            .grid { display: flex; justify-content: space-between; }
-            .box { width: 48%; }
-          </style>
-        </head>
-        <body>
-          <h2>ANGLICAN CHURCH OF RWANDA - DIOCESE OF GAHINI</h2>
-          <h3>MUKAMA PARISH &mdash; MATRIMONY APPLICATION REPORT</h3>
-          <p><strong>Reference ID:</strong> ${app.displayId}</p>
-          <p><strong>Submission Date:</strong> ${app.submission_date || app.created_at || app.date}</p>
-          <p><strong>Status:</strong> ${app.status}</p>
-          <hr/>
-          <div class="grid">
-            <div class="box">
+          <head>
+            <title>Matrimony Application Report - ${currentSelectedApp.displayId}</title>
+            <style>
+              body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
+              h2 { text-align: center; color: #1e1b4b; }
+              .section { margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 15px; }
+            </style>
+          </head>
+          <body>
+            <h2>EAR RWANDA - MUKAMA PARISH</h2>
+            <h3>Matrimony Application Report (${currentSelectedApp.displayId})</h3>
+            <div class="section">
+              <p><strong>Status:</strong> ${currentSelectedApp.status}</p>
+              <p><strong>Church Info:</strong> ${currentSelectedApp.local_church} (${currentSelectedApp.parish_name})</p>
+            </div>
+            <div class="section">
               <h4>Groom Details</h4>
-              <p><strong>Name:</strong> ${app.groom_name || 'N/A'}</p>
-              <p><strong>NID:</strong> ${app.groom_id_number || 'N/A'}</p>
-              <p><strong>Phone:</strong> ${app.groom_phone || 'N/A'}</p>
-              <p><strong>Email:</strong> ${app.groom_email || 'N/A'}</p>
+              <p><strong>Name:</strong> ${currentSelectedApp.groom_name}</p>
+              <p><strong>National ID:</strong> ${currentSelectedApp.groom_id_number}</p>
+              <p><strong>Phone:</strong> ${currentSelectedApp.groom_phone}</p>
             </div>
-            <div class="box">
+            <div class="section">
               <h4>Bride Details</h4>
-              <p><strong>Name:</strong> ${app.bride_name || 'N/A'}</p>
-              <p><strong>NID:</strong> ${app.bride_id_number || 'N/A'}</p>
-              <p><strong>Phone:</strong> ${app.bride_phone || 'N/A'}</p>
-              <p><strong>Email:</strong> ${app.bride_email || 'N/A'}</p>
+              <p><strong>Name:</strong> ${currentSelectedApp.bride_name}</p>
+              <p><strong>National ID:</strong> ${currentSelectedApp.bride_id_number}</p>
+              <p><strong>Phone:</strong> ${currentSelectedApp.bride_phone}</p>
             </div>
-          </div>
-          <script>
-            window.onload = function() { window.print(); }
-          <\/script>
-        </body>
+            <script>window.print();<\/script>
+          </body>
         </html>
       `);
       printWindow.document.close();
     }
 
-    // Initialize data load on window load
-    window.onload = function() {
-      fetchApplications();
-      fetchMembers();
-    };
+    // Initial data load on page startup
+    fetchApplications();
+    fetchMembers();
   </script>
 </body>
 </html>
