@@ -521,46 +521,54 @@
       if (!currentSelectedApp) return;
       let app = currentSelectedApp;
 
-      let html = `<!DOCTYPE html>
-      <html>
-      <head>
-        <title>Matrimony Application - ${app.displayId}</title>
-        <style>
-          body { font-family: sans-serif; padding: 30px; color: #333; }
-          h2 { text-align: center; color: #1e1b4b; text-transform: uppercase; margin-bottom: 5px; }
-          p.subtitle { text-align: center; font-size: 12px; color: #666; margin-bottom: 25px; }
-          table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-          th, td { border: 1px solid #ddd; padding: 10px; font-size: 12px; text-align: left; }
-          th { background-color: #1e1b4b; color: #white; }
-        </style>
-      </head>
-      <body>
-        <h2>EAR Rwanda &mdash; Mukama Parish</h2>
-        <p class="subtitle">Official Matrimony Application Report (${app.displayId})</p>
-        <table>
-          <tr><th>Field</th><th>Details</th></tr>
-          <tr><td>Reference Code</td><td>${app.displayId}</td></tr>
-          <tr><td>Diocese</td><td>${app.diocese || 'N/A'}</td></tr>
-          <tr><td>Archdeaconry</td><td>${app.archdeaconry || 'N/A'}</td></tr>
-          <tr><td>Parish</td><td>${app.parish_name || 'N/A'}</td></tr>
-          <tr><td>Local Church</td><td>${app.local_church || 'N/A'}</td></tr>
-          <tr><td>Groom Name</td><td>${app.groom_name || 'N/A'} (NID: ${app.groom_id_number || 'N/A'})</td></tr>
-          <tr><td>Groom Phone & Email</td><td>${app.groom_phone || 'N/A'} | ${app.groom_email || 'N/A'}</td></tr>
-          <tr><td>Bride Name</td><td>${app.bride_name || 'N/A'} (NID: ${app.bride_id_number || 'N/A'})</td></tr>
-          <tr><td>Bride Phone & Email</td><td>${app.bride_phone || 'N/A'} | ${app.bride_email || 'N/A'}</td></tr>
-          <tr><td>Status</td><td>${app.status}</td></tr>
-        </table>
-      </body>
-      </html>`;
-
-      let win = window.open('', '_blank');
-      win.document.write(html);
-      win.document.close();
-      win.print();
+      let printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Official Report - ${app.displayId}</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
+            h2 { text-align: center; color: #1e1b4b; }
+            .section { margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 15px; }
+            .grid { display: flex; justify-content: space-between; }
+            .box { width: 48%; }
+          </style>
+        </head>
+        <body>
+          <h2>ANGLICAN CHURCH OF RWANDA - DIOCESE OF GAHINI</h2>
+          <h3>MUKAMA PARISH &mdash; MATRIMONY APPLICATION REPORT</h3>
+          <p><strong>Reference ID:</strong> ${app.displayId}</p>
+          <p><strong>Submission Date:</strong> ${app.submission_date || app.created_at || app.date}</p>
+          <p><strong>Status:</strong> ${app.status}</p>
+          <hr/>
+          <div class="grid">
+            <div class="box">
+              <h4>Groom Details</h4>
+              <p><strong>Name:</strong> ${app.groom_name || 'N/A'}</p>
+              <p><strong>NID:</strong> ${app.groom_id_number || 'N/A'}</p>
+              <p><strong>Phone:</strong> ${app.groom_phone || 'N/A'}</p>
+              <p><strong>Email:</strong> ${app.groom_email || 'N/A'}</p>
+            </div>
+            <div class="box">
+              <h4>Bride Details</h4>
+              <p><strong>Name:</strong> ${app.bride_name || 'N/A'}</p>
+              <p><strong>NID:</strong> ${app.bride_id_number || 'N/A'}</p>
+              <p><strong>Phone:</strong> ${app.bride_phone || 'N/A'}</p>
+              <p><strong>Email:</strong> ${app.bride_email || 'N/A'}</p>
+            </div>
+          </div>
+          <script>
+            window.onload = function() { window.print(); }
+          <\/script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
 
-    // Initialize Data Fetching on Load
-    window.onload = () => {
+    // Initialize data load on window load
+    window.onload = function() {
       fetchApplications();
       fetchMembers();
     };
