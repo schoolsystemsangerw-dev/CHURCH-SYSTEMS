@@ -25,12 +25,23 @@
       </div>
 
       <!-- Center Address & Titles (Attractive Typography & Centered - Enlarged) -->
-      <div class="text-center space-y-3 flex-1 px-2">
+      <div class="text-center space-y-4 flex-1 px-2">
         <span class="inline-block px-3.5 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-xs font-mono tracking-widest uppercase border border-emerald-200/60 shadow-xs font-bold animate-pulse">
           Authorized Personnel Portal
         </span>
+
+        <!-- Reverend Profile Section -->
+        <div class="flex flex-col items-center justify-center space-y-2 py-1">
+          <div class="p-1.5 bg-indigo-50 rounded-full border border-indigo-100 shadow-sm">
+            <img src="reverend.png" alt="REV. KARYANGO THEONESTE" class="h-24 w-24 sm:h-28 sm:w-28 object-cover rounded-full shadow-inner">
+          </div>
+          <div class="space-y-0.5">
+            <p class="text-xs sm:text-sm font-black text-indigo-950 uppercase tracking-wider">REV. KARYANGO THEONESTE</p>
+            <p class="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest">Parish Priest</p>
+          </div>
+        </div>
         
-        <div class="space-y-1.5">
+        <div class="space-y-1.5 pt-1">
           <p class="text-xs sm:text-sm font-black tracking-widest text-indigo-950 uppercase">ANGLICAN CHURCH OF RWANDA</p>
           <p class="text-xs sm:text-sm font-bold tracking-wider text-slate-600 uppercase">DIOCESE OF GAHINI</p>
           <p class="text-[11px] sm:text-xs font-bold tracking-wide text-slate-500 uppercase">ARCHDEACONRY OF RUKOMO &mdash; PARISH OF MUKAMA</p>
@@ -530,9 +541,8 @@
           <div class="row"><span class="label">Status</span><span class="val">${app.status}</span></div>
           <div class="row"><span class="label">Local Church</span><span class="val">${app.local_church || 'N/A'}</span></div>
           <div class="row"><span class="label">Groom Name</span><span class="val">${app.groom_name || 'N/A'}</span></div>
-          <div class="row"><span class="label">Groom Phone</span><span class="val">${app.groom_phone || 'N/A'}</span></div>
           <div class="row"><span class="label">Bride Name</span><span class="val">${app.bride_name || 'N/A'}</span></div>
-          <div class="row"><span class="label">Bride Phone</span><span class="val">${app.bride_phone || 'N/A'}</span></div>
+          <div class="row"><span class="label">Submission Date</span><span class="val">${app.date}</span></div>
         </div>
       </body>
       </html>`;
@@ -543,11 +553,10 @@
       win.print();
     }
 
-    // Initialize fetches on load
-    window.addEventListener('DOMContentLoaded', () => {
+    window.onload = function() {
       fetchApplications();
       fetchMembers();
-    });
+    };
   </script>
 </body>
 </html>
