@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parish Pastor Dashboard - EAR Rwanda</title>
+  <title>MUKAMA PARISH MANAGEMENT DASHBOARD</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,39 +17,42 @@
   <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 w-full">
     
     <!-- Header Section -->
-    <header class="bg-white rounded-3xl shadow-sm border border-slate-200/80 p-6 sm:p-8 flex flex-col sm:flex-row justify-between items-center gap-6">
-      <div class="flex items-center gap-5">
-        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner">
-          <img src="log-diocese.png" alt="Diocese Logo" class="h-16 w-16 sm:h-20 sm:w-20 object-contain">
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span class="text-[11px] font-mono tracking-wider uppercase text-emerald-600 font-bold">Authorized Personnel Portal</span>
-          </div>
-          <h1 class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-slate-900 mt-1">Parish Pastor Dashboard</h1>
-          <p class="text-xs text-slate-500 mt-0.5 font-medium">EAR Rwanda &mdash; Mukama Parish Management System</p>
-        </div>
+    <header class="bg-white rounded-3xl shadow-sm border border-slate-200/80 p-6 sm:p-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      
+      <!-- Left Logo (Much Bigger) -->
+      <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner shrink-0">
+        <img src="log-diocese.png" alt="Diocese Logo" class="h-28 w-28 sm:h-36 sm:w-36 object-contain">
       </div>
 
-      <div class="flex items-center gap-4">
-        <div class="hidden sm:flex flex-col items-end">
-          <span class="text-xs font-mono bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl border border-emerald-200/60 shadow-xs flex items-center gap-2">
-            <svg class="w-3.5 h-3.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-            Live Sync Active
-          </span>
+      <!-- Center Address & Titles (Attractive Typography & Centered) -->
+      <div class="text-center space-y-2 flex-1 px-2">
+        <span class="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[11px] font-mono tracking-widest uppercase border border-emerald-200/60 shadow-xs font-bold animate-pulse">
+          Authorized Personnel Portal
+        </span>
+        
+        <div class="space-y-1">
+          <p class="text-[11px] sm:text-xs font-black tracking-widest text-indigo-950 uppercase">ANGLICAN CHURCH OF RWANDA</p>
+          <p class="text-[11px] sm:text-xs font-bold tracking-wider text-slate-600 uppercase">DIOCESE OF GAHINI</p>
+          <p class="text-[10px] sm:text-[11px] font-bold tracking-wide text-slate-500 uppercase">ARCHDEACONRY OF RUKOMO &mdash; PARISH OF MUKAMA</p>
         </div>
-        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner">
-          <img src="logo-rwanda.png" alt="Rwanda Logo" class="h-16 w-16 sm:h-20 sm:w-20 object-contain">
-        </div>
+
+        <h1 class="text-2xl sm:text-3xl font-black uppercase tracking-tight bg-gradient-to-r from-indigo-950 via-blue-900 to-indigo-900 bg-clip-text text-transparent pt-1">
+          MUKAMA PARISH MANAGEMENT DASHBOARD
+        </h1>
       </div>
+
+      <!-- Right Logo (Much Bigger) -->
+      <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner shrink-0">
+        <img src="logo-rwanda.png" alt="Rwanda Logo" class="h-28 w-28 sm:h-36 sm:w-36 object-contain">
+      </div>
+
     </header>
 
     <!-- Welcome Marquee Section -->
     <div class="bg-indigo-950 text-indigo-100 px-5 py-3.5 rounded-2xl text-xs font-semibold overflow-hidden whitespace-nowrap shadow-sm flex items-center gap-3">
       <span class="bg-indigo-900 text-indigo-200 px-2.5 py-1 rounded-lg text-[10px] uppercase font-bold tracking-wider shrink-0 border border-indigo-800">Notice</span>
       <marquee behavior="scroll" direction="left" scrollamount="4" class="text-indigo-100">
-        🙏 Murakaza neza kuri Poromosiyo ya Diyoseze ya Shyira &mdash; Hindura imibereho yawe uyumunsi. Imana ibahe umugisha!
+        🙏 Murakaza neza kuri Poromosiyo ya Diyoseze ya Gahini &mdash; Hindura imibereho yawe uyumunsi. Imana ibahe umugisha!
       </marquee>
     </div>
 
@@ -521,7 +524,7 @@
         </style>
       </head>
       <body>
-        <h2>EAR Rwanda - Mukama Parish</h2>
+        <h2>ANGLICAN CHURCH OF RWANDA - MUKAMA PARISH</h2>
         <p class="subtitle">Official Matrimony Application Report - Ref: ${app.displayId}</p>
         <div class="card">
           <div class="row"><span class="label">Status</span><span class="val">${app.status}</span></div>
