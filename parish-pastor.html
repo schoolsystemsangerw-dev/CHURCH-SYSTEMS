@@ -11,10 +11,10 @@
   <!-- Supabase JS Client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-slate-100 min-h-screen font-sans">
+<body class="bg-slate-100 min-h-screen font-sans flex flex-col justify-between">
 
   <!-- Dashboard Container -->
-  <div class="max-w-7xl mx-auto p-4 sm:p-6 space-y-6">
+  <div class="max-w-7xl mx-auto p-4 sm:p-6 space-y-6 w-full">
     
     <!-- Header Section with Logos on Left and Right -->
     <header class="bg-indigo-950 text-white p-6 rounded-2xl shadow-md flex flex-col sm:flex-row justify-between items-center gap-6">
@@ -30,6 +30,13 @@
         <img src="logo-rwanda.png" alt="Rwanda Logo" class="h-20 w-20 object-contain bg-white/10 p-2 rounded-xl border border-indigo-800">
       </div>
     </header>
+
+    <!-- Welcome Marquee Section -->
+    <div class="bg-indigo-900 text-indigo-100 px-4 py-2 rounded-xl text-xs font-medium overflow-hidden whitespace-nowrap border border-indigo-800">
+      <marquee behavior="scroll" direction="left" scrollamount="4">
+        🙏 Murakaza neza kuri Poromosiyo ya Diyoseze ya Shyira — Hindura imibereho yawe uyumunsi. Imana ibahe umugisha!
+      </marquee>
+    </div>
 
     <!-- Stats Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -116,6 +123,11 @@
     </div>
 
   </div>
+
+  <!-- Manager Footer with Support Email -->
+  <footer class="bg-white border-t border-slate-200 mt-12 py-4 px-6 text-center text-xs text-slate-500">
+    <p>EAR Rwanda — Mukama Parish Management System &bull; Technical Support: <a href="mailto:support@earrwanda-mukama.org" class="text-indigo-600 font-semibold hover:underline">support@earrwanda-mukama.org</a></p>
+  </footer>
 
   <!-- View Details Modal -->
   <div id="matrimonyDetailsModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -297,12 +309,12 @@
             <td class="p-3">
               <span class="font-bold text-slate-800">${app.groom_name}</span><br/>
               <span class="font-mono text-[10px] text-slate-500">NID: ${app.groom_id_number}</span><br/>
-              <span class="font-mono text-[10px] text-indigo-600 font-bold">📞 ${app.groom_phone}</span>
+              <span class="font-mono text-[10px] text-indigo-600 font-bold">Tel: ${app.groom_phone}</span>
             </td>
             <td class="p-3">
               <span class="font-bold text-slate-800">${app.bride_name}</span><br/>
               <span class="font-mono text-[10px] text-slate-500">NID: ${app.bride_id_number}</span><br/>
-              <span class="font-mono text-[10px] text-indigo-600 font-bold">📞 ${app.bride_phone}</span>
+              <span class="font-mono text-[10px] text-indigo-600 font-bold">Tel: ${app.bride_phone}</span>
             </td>
             <td class="p-3 text-center">${statusBadge}</td>
             <td class="p-3 text-center space-y-1">
@@ -399,7 +411,7 @@
             <p><strong>Name:</strong> ${app.groom_name}</p>
             <p><strong>NID:</strong> ${app.groom_id_number}</p>
             <p><strong>DOB:</strong> ${app.groom_dob}</p>
-            <p><strong>Phone:</strong> ${app.groom_phone}</p>
+            <p><strong>Phone:</strong> <span class="font-mono font-semibold text-indigo-900">${app.groom_phone}</span></p>
             <p><strong>Email:</strong> ${app.groom_email || 'N/A'}</p>
             <p><strong>Education:</strong> ${app.groom_education}</p>
             <p><strong>Profession:</strong> ${app.groom_job}</p>
@@ -411,7 +423,7 @@
             <p><strong>Name:</strong> ${app.bride_name}</p>
             <p><strong>NID:</strong> ${app.bride_id_number}</p>
             <p><strong>DOB:</strong> ${app.bride_dob}</p>
-            <p><strong>Phone:</strong> ${app.bride_phone}</p>
+            <p><strong>Phone:</strong> <span class="font-mono font-semibold text-indigo-900">${app.bride_phone}</span></p>
             <p><strong>Email:</strong> ${app.bride_email || 'N/A'}</p>
             <p><strong>Education:</strong> ${app.bride_education}</p>
             <p><strong>Profession:</strong> ${app.bride_job}</p>
@@ -452,9 +464,9 @@
           <div class="row"><span class="label">Status</span><span class="val">${app.status}</span></div>
           <div class="row"><span class="label">Submission Date</span><span class="val">${app.date}</span></div>
           <div class="row"><span class="label">Parish / Church</span><span class="val">${app.local_church}, ${app.parish_name}</span></div>
-          <div class="row"><span class="label">Groom Name</span><span class="val">${app.groom_name} (${app.groom_phone})</span></div>
+          <div class="row"><span class="label">Groom Name & Tel</span><span class="val">${app.groom_name} (${app.groom_phone})</span></div>
           <div class="row"><span class="label">Groom NID</span><span class="val">${app.groom_id_number}</span></div>
-          <div class="row"><span class="label">Bride Name</span><span class="val">${app.bride_name} (${app.bride_phone})</span></div>
+          <div class="row"><span class="label">Bride Name & Tel</span><span class="val">${app.bride_name} (${app.bride_phone})</span></div>
           <div class="row"><span class="label">Bride NID</span><span class="val">${app.bride_id_number}</span></div>
         </div>
       </body>
