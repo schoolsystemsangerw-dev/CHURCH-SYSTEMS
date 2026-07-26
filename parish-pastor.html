@@ -190,7 +190,7 @@
   <footer class="bg-white/90 backdrop-blur-md border-t border-indigo-100 mt-16 py-6 px-8 text-center text-xs text-slate-500 shadow-lg">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
       <p class="font-medium">EAR Rwanda &mdash; Mukama Parish Management System</p>
-      <p>Technical Support: <a href="mailto:support@earrwanda-mukama.org" class="text-indigo-600 font-semibold hover:underline">support@earrwanda-mukama.org</a></p>
+      <p>IT support and technical knowledge: <a href="mailto:schoolsystems.ange.rw@gmail.com" class="text-indigo-600 font-semibold hover:underline">schoolsystems.ange.rw@gmail.com</a> | Tel: <a href="tel:0794226003" class="text-indigo-600 font-semibold hover:underline">0794226003</a> | Developed by: <span class="font-bold text-indigo-950">MWESIGWA ELIA MUKAMA</span></p>
     </div>
   </footer>
 
@@ -530,14 +530,37 @@
     }
 
     function printMatrimonyReport() {
-      window.print();
+      if (!currentSelectedApp) return;
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Matrimony Application Report - ${currentSelectedApp.displayId}</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+          </head>
+          <body class="p-8 font-sans bg-white text-slate-800">
+            <div class="text-center space-y-2 mb-8 border-b pb-6">
+              <h1 class="text-2xl font-black uppercase text-indigo-950">ANGLICAN CHURCH OF RWANDA</h1>
+              <h2 class="text-lg font-bold text-blue-900 uppercase">DIOCESE OF GAHINI &mdash; MUKAMA PARISH</h2>
+              <p class="text-xs font-bold uppercase text-slate-600">Official Matrimony Application Report</p>
+            </div>
+            ${document.getElementById('matrimonyDetailsContent').innerHTML}
+            <div class="mt-8 text-center text-xs text-slate-500 border-t pt-4">
+              <p>Generated via Mukama Parish Management System &mdash; ${new Date().toLocaleDateString()}</p>
+            </div>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => printWindow.print(), 500);
     }
 
-    // Initialize data on load
-    window.onload = () => {
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
       fetchApplications();
       fetchMembers();
-    };
+    });
   </script>
 </body>
 </html>
