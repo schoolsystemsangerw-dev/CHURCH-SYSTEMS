@@ -131,14 +131,14 @@
 
   <!-- View Details Modal -->
   <div id="matrimonyDetailsModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div class="bg-white w-full max-w-4xl rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
       <div class="bg-indigo-950 text-white px-6 py-4 flex justify-between items-center">
-        <h3 class="font-bold text-sm uppercase tracking-wider">Complete Matrimony Application Details</h3>
+        <h3 class="font-bold text-sm uppercase tracking-wider">Complete Application & Index Submission Details</h3>
         <button onclick="closeMatrimonyDetailsModal()" class="text-indigo-300 hover:text-white font-bold text-lg cursor-pointer">&times;</button>
       </div>
       
-      <div id="matrimonyDetailsContent" class="p-6 overflow-y-auto space-y-4 text-xs">
-        <!-- Populated via JS -->
+      <div id="matrimonyDetailsContent" class="p-6 overflow-y-auto space-y-6 text-xs text-slate-700">
+        <!-- Populated via JS with complete raw database fields -->
       </div>
 
       <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-between items-center">
@@ -171,34 +171,12 @@
         }
 
         if (data) {
+          // Store raw records directly so all columns/fields from the index form are available
           applications = data.map((item, index) => ({
+            ...item,
             id: item.ref_code || item.id || `EAR-2026-00${index + 1}`,
             date: item.submission_date || (item.created_at ? item.created_at.split('T')[0] : '2026-07-25'),
-            status: item.status || 'Pending',
-            diocese: item.diocese || '',
-            archdeaconry: item.archdeaconry || '',
-            parish_name: item.parish_name || '',
-            local_church: item.local_church || 'Mukama Parish',
-            
-            groom_name: item.groom_name || '',
-            groom_id_number: item.groom_id_number || '',
-            groom_dob: item.groom_dob || '',
-            groom_phone: item.groom_phone || '',
-            groom_email: item.groom_email || '',
-            groom_education: item.groom_education || '',
-            groom_job: item.groom_job || '',
-            groom_address: item.groom_address || '',
-            groom_photo_url: item.groom_photo_url || '',
-
-            bride_name: item.bride_name || '',
-            bride_id_number: item.bride_id_number || '',
-            bride_dob: item.bride_dob || '',
-            bride_phone: item.bride_phone || '',
-            bride_email: item.bride_email || '',
-            bride_education: item.bride_education || '',
-            bride_job: item.bride_job || '',
-            bride_address: item.bride_address || '',
-            bride_photo_url: item.bride_photo_url || ''
+            status: item.status || 'Pending'
           }));
         }
         updateStats();
@@ -240,8 +218,8 @@
 
     function updateStats() {
       document.getElementById('statTotal').innerText = applications.length;
-      document.getElementById('statPending').innerText = applications.filter(a => a.status.toLowerCase() === 'pending').length;
-      document.getElementById('statApproved').innerText = applications.filter(a => a.status.toLowerCase() === 'approved').length;
+      document.getElementById('statPending').innerText = applications.filter(a => String(a.status).toLowerCase() === 'pending').length;
+      document.getElementById('statApproved').innerText = applications.filter(a => String(a.status).toLowerCase() === 'approved').length;
       document.getElementById('statMembers').innerText = registeredMembers.length;
     }
 
@@ -269,7 +247,7 @@
       const statusVal = document.getElementById('statusFilter').value;
 
       const filtered = applications.filter(app => {
-        let matchesStatus = (statusVal === 'ALL' || app.status.toUpperCase() === statusVal);
+        let matchesStatus = (statusVal === 'ALL' || String(app.status || '').toUpperCase() === statusVal);
         let matchesQuery = 
           String(app.id || '').toLowerCase().includes(query) ||
           String(app.local_church || '').toLowerCase().includes(query) ||
@@ -296,7 +274,7 @@
       }
 
       dataToRender.forEach((app) => {
-        let statusLower = app.status ? app.status.toLowerCase() : 'pending';
+        let statusLower = app.status ? String(app.status).toLowerCase() : 'pending';
         let statusBadge = '';
         if (statusLower === 'pending') statusBadge = '<span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold">Pending</span>';
         else if (statusLower === 'approved') statusBadge = '<span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold">Approved</span>';
@@ -305,22 +283,22 @@
         tbody.innerHTML += `
           <tr class="hover:bg-slate-50/80 transition">
             <td class="p-3 font-mono font-bold text-indigo-950">${app.id}<br/><span class="text-[10px] text-slate-400 font-normal">${app.date}</span></td>
-            <td class="p-3 font-semibold text-slate-700">${app.local_church}<br/><span class="text-[10px] text-indigo-600">${app.parish_name}</span></td>
+            <td class="p-3 font-semibold text-slate-700">${app.local_church || 'N/A'}<br/><span class="text-[10px] text-indigo-600">${app.parish_name || ''}</span></td>
             <td class="p-3">
-              <span class="font-bold text-slate-800">${app.groom_name}</span><br/>
-              <span class="font-mono text-[10px] text-slate-500">NID: ${app.groom_id_number}</span><br/>
-              <span class="font-mono text-[10px] text-indigo-600 font-bold">Tel: ${app.groom_phone}</span>
+              <span class="font-bold text-slate-800">${app.groom_name || 'N/A'}</span><br/>
+              <span class="font-mono text-[10px] text-slate-500">NID: ${app.groom_id_number || 'N/A'}</span><br/>
+              <span class="font-mono text-[10px] text-indigo-600 font-bold">Tel: ${app.groom_phone || 'N/A'}</span>
             </td>
             <td class="p-3">
-              <span class="font-bold text-slate-800">${app.bride_name}</span><br/>
-              <span class="font-mono text-[10px] text-slate-500">NID: ${app.bride_id_number}</span><br/>
-              <span class="font-mono text-[10px] text-indigo-600 font-bold">Tel: ${app.bride_phone}</span>
+              <span class="font-bold text-slate-800">${app.bride_name || 'N/A'}</span><br/>
+              <span class="font-mono text-[10px] text-slate-500">NID: ${app.bride_id_number || 'N/A'}</span><br/>
+              <span class="font-mono text-[10px] text-indigo-600 font-bold">Tel: ${app.bride_phone || 'N/A'}</span>
             </td>
             <td class="p-3 text-center">${statusBadge}</td>
             <td class="p-3 text-center space-y-1">
-              <button onclick="updateAppStatus('${app.id}', 'Approved')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Approve</button>
-              <button onclick="updateAppStatus('${app.id}', 'Rejected')" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Reject</button>
-              <button onclick="viewMatrimonyDetails('${app.id}')" class="block w-full px-2 py-1 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded text-[10px] transition cursor-pointer mt-1">👁️ View</button>
+              <button onclick="updateAppStatus('${app.ref_code || app.id}', 'Approved')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Approve</button>
+              <button onclick="updateAppStatus('${app.ref_code || app.id}', 'Rejected')" class="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded text-[10px] transition cursor-pointer">Reject</button>
+              <button onclick="viewMatrimonyDetails('${app.ref_code || app.id}')" class="block w-full px-2 py-1 bg-indigo-900 hover:bg-indigo-950 text-white font-bold rounded text-[10px] transition cursor-pointer mt-1">👁️ View</button>
             </td>
           </tr>
         `;
@@ -363,7 +341,7 @@
           return;
         }
 
-        const app = applications.find(a => a.id === refCode);
+        const app = applications.find(a => (a.ref_code === refCode || a.id === refCode));
         if (app) {
           app.status = newStatus;
           updateStats();
@@ -376,60 +354,87 @@
     }
 
     function viewMatrimonyDetails(appId) {
-      const app = applications.find(a => a.id === appId);
+      const app = applications.find(a => (a.ref_code === appId || a.id === appId));
       if (!app) return;
 
       currentSelectedApp = app;
 
-      let groomPhoto = app.groom_photo_url ? `<img src="${app.groom_photo_url}" class="h-24 w-24 object-cover rounded-xl mx-auto border shadow" />` : `<div class="h-24 w-24 bg-slate-200 rounded-xl mx-auto flex items-center justify-center text-[10px]">No Photo</div>`;
-      let bridePhoto = app.bride_photo_url ? `<img src="${app.bride_photo_url}" class="h-24 w-24 object-cover rounded-xl mx-auto border shadow" />` : `<div class="h-24 w-24 bg-slate-200 rounded-xl mx-auto flex items-center justify-center text-[10px]">No Photo</div>`;
+      let groomPhoto = app.groom_photo_url ? `<img src="${app.groom_photo_url}" class="h-28 w-28 object-cover rounded-xl mx-auto border shadow" />` : `<div class="h-28 w-28 bg-slate-200 rounded-xl mx-auto flex items-center justify-center text-[10px] text-slate-500 font-semibold">No Groom Photo</div>`;
+      let bridePhoto = app.bride_photo_url ? `<img src="${app.bride_photo_url}" class="h-28 w-28 object-cover rounded-xl mx-auto border shadow" />` : `<div class="h-28 w-28 bg-slate-200 rounded-xl mx-auto flex items-center justify-center text-[10px] text-slate-500 font-semibold">No Bride Photo</div>`;
+
+      // Dynamically generate list of all key-value pairs sent from the index submission
+      let excludedKeys = ['id', 'ref_code', 'submission_date', 'created_at', 'status', 'groom_name', 'groom_id_number', 'groom_dob', 'groom_phone', 'groom_email', 'groom_education', 'groom_job', 'groom_address', 'groom_photo_url', 'bride_name', 'bride_id_number', 'bride_dob', 'bride_phone', 'bride_email', 'bride_education', 'bride_job', 'bride_address', 'bride_photo_url', 'diocese', 'archdeaconry', 'parish_name', 'local_church'];
+      
+      let extraFieldsHtml = '';
+      for (const [key, val] of Object.entries(app)) {
+        if (!excludedKeys.includes(key)) {
+          extraFieldsHtml += `
+            <div class="bg-white p-3 rounded-lg border border-slate-200 flex justify-between items-center">
+              <span class="font-bold text-slate-500 uppercase text-[10px]">${key.replace(/_/g, ' ')}</span>
+              <span class="font-semibold text-indigo-950 text-right">${val !== null && val !== '' ? val : 'N/A'}</span>
+            </div>
+          `;
+        }
+      }
 
       const detailsContainer = document.getElementById('matrimonyDetailsContent');
       detailsContainer.innerHTML = `
         <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 flex justify-between items-center">
           <div>
-            <span class="text-[10px] font-bold text-indigo-600 uppercase">Application Reference</span>
-            <h4 class="text-base font-black font-mono text-indigo-950">${app.id}</h4>
+            <span class="text-[10px] font-bold text-indigo-600 uppercase">Application Reference Code</span>
+            <h4 class="text-base font-black font-mono text-indigo-950">${app.ref_code || app.id}</h4>
           </div>
           <div class="text-right">
-            <span class="text-[10px] font-bold text-slate-400 uppercase">Submission Date</span>
-            <p class="text-xs font-bold text-slate-700">${app.date}</p>
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Submission Date / Time</span>
+            <p class="text-xs font-bold text-slate-700">${app.submission_date || app.created_at || app.date}</p>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-50 p-3 rounded-xl border">
-          <div><span class="text-[10px] text-slate-400 block">Diocese</span><strong>${app.diocese}</strong></div>
-          <div><span class="text-[10px] text-slate-400 block">Archdeaconry</span><strong>${app.archdeaconry}</strong></div>
-          <div><span class="text-[10px] text-slate-400 block">Parish</span><strong>${app.parish_name}</strong></div>
-          <div><span class="text-[10px] text-slate-400 block">Local Church</span><strong>${app.local_church}</strong></div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-50 p-4 rounded-xl border">
+          <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Diocese</span><strong class="text-indigo-950">${app.diocese || 'N/A'}</strong></div>
+          <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Archdeaconry</span><strong class="text-indigo-950">${app.archdeaconry || 'N/A'}</strong></div>
+          <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Parish</span><strong class="text-indigo-950">${app.parish_name || 'N/A'}</strong></div>
+          <div><span class="text-[10px] text-slate-400 block uppercase font-bold">Local Church</span><strong class="text-indigo-950">${app.local_church || 'N/A'}</strong></div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Groom Section -->
           <div class="bg-slate-50 p-4 rounded-xl border space-y-2">
-            <div class="text-center">${groomPhoto}</div>
-            <p class="text-xs font-bold text-indigo-900 uppercase border-b pb-1">Groom Information</p>
-            <p><strong>Name:</strong> ${app.groom_name}</p>
-            <p><strong>NID:</strong> ${app.groom_id_number}</p>
-            <p><strong>DOB:</strong> ${app.groom_dob}</p>
-            <p><strong>Phone:</strong> <span class="font-mono font-semibold text-indigo-900">${app.groom_phone}</span></p>
-            <p><strong>Email:</strong> ${app.groom_email || 'N/A'}</p>
-            <p><strong>Education:</strong> ${app.groom_education}</p>
-            <p><strong>Profession:</strong> ${app.groom_job}</p>
-            <p><strong>Address:</strong> ${app.groom_address}</p>
+            <div class="text-center mb-3">${groomPhoto}</div>
+            <p class="text-xs font-bold text-indigo-900 uppercase border-b pb-1">Groom Full Information</p>
+            <p><strong>Full Name:</strong> ${app.groom_name || 'N/A'}</p>
+            <p><strong>National ID:</strong> <span class="font-mono font-semibold">${app.groom_id_number || 'N/A'}</span></p>
+            <p><strong>Date of Birth:</strong> ${app.groom_dob || 'N/A'}</p>
+            <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-indigo-900">${app.groom_phone || 'N/A'}</span></p>
+            <p><strong>Email Address:</strong> ${app.groom_email || 'N/A'}</p>
+            <p><strong>Education Level:</strong> ${app.groom_education || 'N/A'}</p>
+            <p><strong>Profession / Occupation:</strong> ${app.groom_job || 'N/A'}</p>
+            <p><strong>Residential Address:</strong> ${app.groom_address || 'N/A'}</p>
           </div>
+
+          <!-- Bride Section -->
           <div class="bg-slate-50 p-4 rounded-xl border space-y-2">
-            <div class="text-center">${bridePhoto}</div>
-            <p class="text-xs font-bold text-indigo-900 uppercase border-b pb-1">Bride Information</p>
-            <p><strong>Name:</strong> ${app.bride_name}</p>
-            <p><strong>NID:</strong> ${app.bride_id_number}</p>
-            <p><strong>DOB:</strong> ${app.bride_dob}</p>
-            <p><strong>Phone:</strong> <span class="font-mono font-semibold text-indigo-900">${app.bride_phone}</span></p>
-            <p><strong>Email:</strong> ${app.bride_email || 'N/A'}</p>
-            <p><strong>Education:</strong> ${app.bride_education}</p>
-            <p><strong>Profession:</strong> ${app.bride_job}</p>
-            <p><strong>Address:</strong> ${app.bride_address}</p>
+            <div class="text-center mb-3">${bridePhoto}</div>
+            <p class="text-xs font-bold text-indigo-900 uppercase border-b pb-1">Bride Full Information</p>
+            <p><strong>Full Name:</strong> ${app.bride_name || 'N/A'}</p>
+            <p><strong>National ID:</strong> <span class="font-mono font-semibold">${app.bride_id_number || 'N/A'}</span></p>
+            <p><strong>Date of Birth:</strong> ${app.bride_dob || 'N/A'}</p>
+            <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-indigo-900">${app.bride_phone || 'N/A'}</span></p>
+            <p><strong>Email Address:</strong> ${app.bride_email || 'N/A'}</p>
+            <p><strong>Education Level:</strong> ${app.bride_education || 'N/A'}</p>
+            <p><strong>Profession / Occupation:</strong> ${app.bride_job || 'N/A'}</p>
+            <p><strong>Residential Address:</strong> ${app.bride_address || 'N/A'}</p>
           </div>
         </div>
+
+        ${extraFieldsHtml ? `
+          <div>
+            <p class="text-xs font-bold text-indigo-950 uppercase mb-2">Additional Index Form Data & Documents</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              ${extraFieldsHtml}
+            </div>
+          </div>
+        ` : ''}
       `;
 
       document.getElementById('matrimonyDetailsModal').classList.remove('hidden');
@@ -446,7 +451,7 @@
       let html = `<!DOCTYPE html>
       <html>
       <head>
-        <title>Matrimony Application - ${app.id}</title>
+        <title>Matrimony Application - ${app.ref_code || app.id}</title>
         <style>
           body { font-family: sans-serif; padding: 30px; color: #333; }
           h2 { text-align: center; color: #1e1b4b; text-transform: uppercase; margin-bottom: 5px; }
@@ -459,15 +464,15 @@
       </head>
       <body>
         <h2>EAR Rwanda - Mukama Parish</h2>
-        <p class="subtitle">Official Matrimony Application Report - Ref: ${app.id}</p>
+        <p class="subtitle">Official Matrimony Application Report - Ref: ${app.ref_code || app.id}</p>
         <div class="card">
           <div class="row"><span class="label">Status</span><span class="val">${app.status}</span></div>
-          <div class="row"><span class="label">Submission Date</span><span class="val">${app.date}</span></div>
-          <div class="row"><span class="label">Parish / Church</span><span class="val">${app.local_church}, ${app.parish_name}</span></div>
-          <div class="row"><span class="label">Groom Name & Tel</span><span class="val">${app.groom_name} (${app.groom_phone})</span></div>
-          <div class="row"><span class="label">Groom NID</span><span class="val">${app.groom_id_number}</span></div>
-          <div class="row"><span class="label">Bride Name & Tel</span><span class="val">${app.bride_name} (${app.bride_phone})</span></div>
-          <div class="row"><span class="label">Bride NID</span><span class="val">${app.bride_id_number}</span></div>
+          <div class="row"><span class="label">Submission Date</span><span class="val">${app.submission_date || app.created_at || app.date}</span></div>
+          <div class="row"><span class="label">Parish / Church</span><span class="val">${app.local_church || 'N/A'}, ${app.parish_name || 'N/A'}</span></div>
+          <div class="row"><span class="label">Groom Name & Tel</span><span class="val">${app.groom_name || 'N/A'} (${app.groom_phone || 'N/A'})</span></div>
+          <div class="row"><span class="label">Groom NID</span><span class="val">${app.groom_id_number || 'N/A'}</span></div>
+          <div class="row"><span class="label">Bride Name & Tel</span><span class="val">${app.bride_name || 'N/A'} (${app.bride_phone || 'N/A'})</span></div>
+          <div class="row"><span class="label">Bride NID</span><span class="val">${app.bride_id_number || 'N/A'}</span></div>
         </div>
       </body>
       </html>`;
