@@ -532,7 +532,13 @@
     function printMatrimonyReport() {
       if (!currentSelectedApp) return;
       const printWindow = window.open('', '_blank');
+      
+      // Fixed string template escaping issue for print window HTML generation
+      const modalHtml = document.getElementById('matrimonyDetailsContent').innerHTML;
+      const currentDateStr = new Date().toLocaleDateString();
+
       printWindow.document.write(`
+        <!DOCTYPE html>
         <html>
           <head>
             <title>Matrimony Application Report - ${currentSelectedApp.displayId}</title>
@@ -544,9 +550,9 @@
               <h2 class="text-lg font-bold text-blue-900 uppercase">DIOCESE OF GAHINI &mdash; MUKAMA PARISH</h2>
               <p class="text-xs font-bold uppercase text-slate-600">Official Matrimony Application Report</p>
             </div>
-            ${document.getElementById('matrimonyDetailsContent').innerHTML}
+            ${modalHtml}
             <div class="mt-8 text-center text-xs text-slate-500 border-t pt-4">
-              <p>Generated via Mukama Parish Management System &mdash; ${new Date().toLocaleDateString()}</p>
+              <p>Generated via Mukama Parish Management System &mdash; ${currentDateStr}</p>
             </div>
           </body>
         </html>
