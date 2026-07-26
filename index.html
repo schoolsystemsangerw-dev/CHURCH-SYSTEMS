@@ -234,6 +234,18 @@
     </form>
   </main>
 
+  <!-- FOOTER -->
+  <footer class="bg-indigo-950 text-indigo-200 py-8 px-4 sm:px-6 mt-auto border-t-4 border-amber-500">
+    <div class="max-w-5xl mx-auto text-center space-y-3">
+      <p class="text-xs sm:text-sm leading-relaxed text-indigo-100 font-medium">
+        Umuyobozi w’icyerekezo ufite umutima utajegajega ku bakirisitu be, Rev. Karyango Theoneste ahora aharanira iterambere ry'umwuka n'iry'umuryango wa Paruwasi ya Mukama. Kwiyemeza kwe mu iterambere ry'igihe rigezweho, gukoresha neza igihe, n'imibereho myiza ya buri mukirisitu bitera abandi bose inkunga. Ayobowe n'ubwenge no guhanga udushya, asiga inzira y'ejo hazaza heza kandi hafatanije n'umuryango mugari wose.
+      </p>
+      <p class="text-[11px] text-amber-300 font-semibold tracking-wider uppercase pt-2 border-t border-indigo-900">
+        &copy; 2026 EGLISE ANGLICANE DU RWANDA — MUKAMA PARISH. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
   <!-- CHURCH MEMBER REGISTRATION MODAL -->
   <div id="memberModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl border max-w-lg w-full p-6 sm:p-8 space-y-6">
@@ -258,7 +270,7 @@
         <div class="pt-4 flex justify-end gap-3 border-t">
           <button type="button" id="cancelModalBtn" class="bg-slate-200 text-slate-700 font-bold px-4 py-2.5 rounded-xl text-xs cursor-pointer">Hagarika</button>
           <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs cursor-pointer">Ohereza Imyirondoro</button>
-        </div>
+      </div>
       </form>
     </div>
   </div>
@@ -413,7 +425,7 @@
             bride_education: document.getElementById('bride_education').value,
             bride_job: document.getElementById('bride_job').value,
             bride_address: `${document.getElementById('bride_village').value}, ${document.getElementById('bride_cell').value}, ${document.getElementById('bride_sector').value}, ${document.getElementById('bride_district').value}`,
-            bride_photo_url: bridePhotoUrl,
+            bride_photo_surl: bridePhotoUrl,
             bride_baptism_url: brideBaptismUrl,
             bride_confirmation_url: brideConfirmationUrl,
 
@@ -425,24 +437,17 @@
             bride_witness_2_phone: document.getElementById('bride_witness_2_phone').value,
             bride_witness_3_name: document.getElementById('bride_witness_3_name').value,
             bride_witness_3_id: document.getElementById('bride_witness_3_id').value,
-            bride_witness_3_phone: document.getElementById('bride_witness_3_phone').value,
-
-            status: 'Pending'
+            bride_witness_3_phone: document.getElementById('bride_witness_3_phone').value
           };
 
           const { error } = await supabase.from('matrimony_applications').insert([matrimonyData]);
           if (error) throw error;
 
-          alert("Icyifuzo cy'ubukwe n'inyandiko byoherejwe neza kuri Paruwasi!");
+          alert("Icyifuzo cyanyu cyoherejwe neza!");
           this.reset();
-          document.getElementById('groom_photo_preview').classList.add('hidden');
-          document.getElementById('groom_photo_placeholder').classList.remove('hidden');
-          document.getElementById('bride_photo_preview').classList.add('hidden');
-          document.getElementById('bride_photo_placeholder').classList.remove('hidden');
-
+          location.reload();
         } catch (err) {
-          alert("Byanze kohereza icyifuzo: " + err.message);
-        } finally {
+          alert("Habaye ikibazo mu kohereza icyifuzo: " + err.message);
           submitBtn.disabled = false;
           submitBtn.textContent = "Ohereza Icyifuzo (Submit Application)";
         }
