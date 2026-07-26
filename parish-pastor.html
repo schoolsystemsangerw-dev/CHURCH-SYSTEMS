@@ -187,10 +187,15 @@
   </div>
 
   <!-- Manager Footer with Support Email -->
-  <footer class="bg-white/90 backdrop-blur-md border-t border-indigo-100 mt-16 py-6 px-8 text-center text-xs text-slate-500 shadow-lg">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
-      <p class="font-medium">EAR Rwanda &mdash; Mukama Parish Management System</p>
-      <p>Technical Support: <a href="mailto:support@earrwanda-mukama.org" class="text-indigo-600 font-semibold hover:underline">support@earrwanda-mukama.org</a></p>
+  <footer class="bg-white/90 backdrop-blur-md border-t border-indigo-100 mt-16 py-8 px-6 text-slate-600 shadow-lg">
+    <div class="max-w-7xl mx-auto space-y-6">
+      <div class="text-xs leading-relaxed text-slate-600 italic border-l-4 border-indigo-900 pl-4 py-1 bg-indigo-50/50 rounded-r-xl">
+        Umuyobozi w’icyerekezo ufite umutima utajegajega ku bakirisitu be, Rev. Karyango Theoneste ahora aharanira iterambere ry'umwuka n'iry'umuryango wa Paruwasi ya Mukama. Kwiyemeza kwe mu iterambere ry'igihe rigezweho, gukoresha neza igihe, n'imibereho myiza ya buri mukirisitu bitera abandi bose inkunga. Ayobowe n'ubwenge no guhanga udushya, asiga inzira y'ejo hazaza heza kandi hafatanije n'umuryango mugari wose.
+      </div>
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs pt-4 border-t border-indigo-100">
+        <p class="font-medium text-center sm:text-left">&copy; 2026 EGLISE ANGLICANE DU RWANDA &mdash; MUKAMA PARISH. All Rights Reserved.</p>
+        <p class="text-center sm:text-right">the creator and the designer of the system and help desk: <a href="mailto:schoolsystems.ange.rw@gmail.com" class="text-indigo-600 font-semibold hover:underline">schoolsystems.ange.rw@gmail.com</a> / <a href="tel:0794226003" class="text-indigo-600 font-semibold hover:underline font-mono">0794226003</a></p>
+      </div>
     </div>
   </footer>
 
@@ -512,14 +517,7 @@
           </div>
         </div>
 
-        ${extraFieldsHtml ? `
-          <div>
-            <p class="text-xs font-extrabold text-indigo-950 uppercase mb-3 tracking-wider">Additional Index Form Data & Documents</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              ${extraFieldsHtml}
-            </div>
-          </div>
-        ` : ''}
+        ${extraFieldsHtml ? `<div class="space-y-2"><p class="text-xs font-extrabold text-indigo-950 uppercase tracking-wider pt-2">Additional Application Parameters</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${extraFieldsHtml}</div></div>` : ''}
       `;
 
       document.getElementById('matrimonyDetailsModal').classList.remove('hidden');
@@ -527,17 +525,66 @@
 
     function closeMatrimonyDetailsModal() {
       document.getElementById('matrimonyDetailsModal').classList.add('hidden');
+      currentSelectedApp = null;
     }
 
     function printMatrimonyReport() {
-      window.print();
+      if (!currentSelectedApp) return;
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+        <head>
+          <title>Matrimony Application Report - ${currentSelectedApp.displayId}</title>
+          <script src="https://cdn.tailwindcss.com"><\/script>
+        </head>
+        <body class="p-8 font-sans text-slate-800 bg-white">
+          <div class="max-w-3xl mx-auto space-y-6">
+            <div class="text-center border-b pb-6">
+              <h1 class="text-xl font-bold uppercase">Anglican Church of Rwanda</h1>
+              <h2 class="text-lg font-semibold uppercase text-indigo-900">Diocese of Gahini &mdash; Mukama Parish</h2>
+              <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">Official Matrimony Application Report</p>
+            </div>
+            <div class="flex justify-between text-xs bg-slate-50 p-4 rounded-xl border">
+              <div><strong>Reference ID:</strong> ${currentSelectedApp.displayId}</div>
+              <div><strong>Status:</strong> ${currentSelectedApp.status}</div>
+              <div><strong>Submission Date:</strong> ${currentSelectedApp.submission_date || currentSelectedApp.created_at || 'N/A'}</div>
+            </div>
+            <div class="grid grid-cols-2 gap-6 text-xs">
+              <div class="border p-4 rounded-xl space-y-2">
+                <h3 class="font-bold uppercase text-indigo-950 border-b pb-1">Groom Details</h3>
+                <p><strong>Name:</strong> ${currentSelectedApp.groom_name || 'N/A'}</p>
+                <p><strong>National ID:</strong> ${currentSelectedApp.groom_id_number || 'N/A'}</p>
+                <p><strong>Phone:</strong> ${currentSelectedApp.groom_phone || 'N/A'}</p>
+                <p><strong>Email:</strong> ${currentSelectedApp.groom_email || 'N/A'}</p>
+                <p><strong>Occupation:</strong> ${currentSelectedApp.groom_job || 'N/A'}</p>
+              </div>
+              <div class="border p-4 rounded-xl space-y-2">
+                <h3 class="font-bold uppercase text-indigo-950 border-b pb-1">Bride Details</h3>
+                <p><strong>Name:</strong> ${currentSelectedApp.bride_name || 'N/A'}</p>
+                <p><strong>National ID:</strong> ${currentSelectedApp.bride_id_number || 'N/A'}</p>
+                <p><strong>Phone:</strong> ${currentSelectedApp.bride_phone || 'N/A'}</p>
+                <p><strong>Email:</strong> ${currentSelectedApp.bride_email || 'N/A'}</p>
+                <p><strong>Occupation:</strong> ${currentSelectedApp.bride_job || 'N/A'}</p>
+              </div>
+            </div>
+            <div class="text-center text-[10px] text-slate-400 pt-12 border-t">
+              <p>Mukama Parish Management System &mdash; Generated on ${new Date().toLocaleDateString()}</p>
+            </div>
+          </div>
+          <script>
+            window.onload = () => { window.print(); };
+          <\/script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
 
-    // Initialize data on load
-    window.onload = () => {
+    // Initialize application data loaders on page load
+    window.addEventListener('DOMContentLoaded', () => {
       fetchApplications();
       fetchMembers();
-    };
+    });
   </script>
 </body>
 </html>
