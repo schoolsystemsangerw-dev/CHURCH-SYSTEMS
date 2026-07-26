@@ -52,7 +52,7 @@
     <div class="bg-indigo-950 text-indigo-100 px-5 py-3.5 rounded-2xl text-xs font-semibold overflow-hidden whitespace-nowrap shadow-sm flex items-center gap-3">
       <span class="bg-indigo-900 text-indigo-200 px-2.5 py-1 rounded-lg text-[10px] uppercase font-bold tracking-wider shrink-0 border border-indigo-800">Notice</span>
       <marquee behavior="scroll" direction="left" scrollamount="4" class="text-indigo-100">
-        🙏 Murakaza neza kuri Poromosiyo ya Diyoseze ya Gahini &mdash; Hindura imibereho yawe uyumunsi. Imana ibahe umugisha!
+        🙏 WELCOME TO MUKAMA PARISH. &ldquo;And over all these virtues put on love, which binds them all together in perfect unity.&rdquo; (Colossians 3:14) &mdash; Imana ibahe umugisha!
       </marquee>
     </div>
 
@@ -528,10 +528,26 @@
         <p class="subtitle">Official Matrimony Application Report - Ref: ${app.displayId}</p>
         <div class="card">
           <div class="row"><span class="label">Status</span><span class="val">${app.status}</span></div>
-          <div class="row"><span class="label">Submission Date</span><span class="val">${app.submission_date || app.created_at || app.date}</span></div>
+          <div class="row"><span class="label">Local Church</span><span class="val">${app.local_church || 'N/A'}</span></div>
+          <div class="row"><span class="label">Groom Name</span><span class="val">${app.groom_name || 'N/A'}</span></div>
+          <div class="row"><span class="label">Groom Phone</span><span class="val">${app.groom_phone || 'N/A'}</span></div>
+          <div class="row"><span class="label">Bride Name</span><span class="val">${app.bride_name || 'N/A'}</span></div>
+          <div class="row"><span class="label">Bride Phone</span><span class="val">${app.bride_phone || 'N/A'}</span></div>
+        </div>
       </body>
       </html>`;
+
+      let win = window.open('', '_blank');
+      win.document.write(html);
+      win.document.close();
+      win.print();
     }
+
+    // Initialize fetches on load
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchApplications();
+      fetchMembers();
+    });
   </script>
 </body>
 </html>
