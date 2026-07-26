@@ -17,7 +17,7 @@
   <div class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-indigo-950 via-purple-950 to-indigo-950 text-indigo-100 px-6 py-2.5 text-xs font-semibold overflow-hidden whitespace-nowrap shadow-md border-b border-indigo-800 flex items-center gap-3">
     <span class="bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider shrink-0 border border-indigo-700 shadow-inner">Notice</span>
     <marquee behavior="scroll" direction="left" scrollamount="4" class="text-indigo-100 font-medium">
-      🙏 WELCOME TO MUKAMA PARISH. &ldquo;And over all these virtues put on love, which binds them all together in perfect unity.&rdquo; (Colossians 3:14) &mdash; hindura imibereho yawe uyumunsi
+      🙏 WELCOME TO MUKAMA PARISH. &ldquo;And over all these virtues put on love, which binds them all together in perfect unity.&rdquo; (Colossians 3:14) &mdash; <span class="text-pink-400 font-black text-sm uppercase tracking-wider animate-pulse">HINDURA IMIBEREHO YAWE UYUMUNSI</span>
     </marquee>
   </div>
 
@@ -512,14 +512,7 @@
           </div>
         </div>
 
-        ${extraFieldsHtml ? `
-          <div>
-            <p class="text-xs font-extrabold text-indigo-300 uppercase mb-3 tracking-wider">Additional Index Form Data & Documents</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              ${extraFieldsHtml}
-            </div>
-          </div>
-        ` : ''}
+        ${extraFieldsHtml ? `<div class="space-y-2"><p class="text-xs font-extrabold text-indigo-300 uppercase tracking-wider">Additional Submission Details</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-3">${extraFieldsHtml}</div></div>` : ''}
       `;
 
       document.getElementById('matrimonyDetailsModal').classList.remove('hidden');
@@ -527,13 +520,78 @@
 
     function closeMatrimonyDetailsModal() {
       document.getElementById('matrimonyDetailsModal').classList.add('hidden');
+      currentSelectedApp = null;
     }
 
     function printMatrimonyReport() {
-      window.print();
+      if (!currentSelectedApp) return;
+      const app = currentSelectedApp;
+
+      let printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Matrimony Application Report - ${app.displayId}</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; color: #000; line-height: 1.5; }
+            h2, h3 { text-align: center; color: #1e1b4b; text-transform: uppercase; }
+            .header-info { text-align: center; margin-bottom: 20px; font-size: 12px; }
+            .section { margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 8px; }
+            .grid { display: flex; justify-content: space-between; gap: 20px; }
+            .col { flex: 1; }
+            p { margin: 6px 0; font-size: 13px; }
+            .badge { font-weight: bold; padding: 4px 8px; background: #eee; border-radius: 4px; }
+          </style>
+        </head>
+        <body>
+          <h2>ANGLICAN CHURCH OF RWANDA</h2>
+          <h3>DIOCESE OF GAHINI &mdash; MUKAMA PARISH</h3>
+          <div class="header-info">
+            <strong>Official Matrimony Application Report</strong><br/>
+            Reference ID: <strong>${app.displayId}</strong> | Status: <span class="badge">${app.status}</span> | Date: ${app.submission_date || app.created_at || app.date}
+          </div>
+
+          <div class="section">
+            <p><strong>Local Church:</strong> ${app.local_church || 'N/A'} | <strong>Parish:</strong> ${app.parish_name || 'N/A'}</p>
+          </div>
+
+          <div class="grid">
+            <div class="section col">
+              <h3>Groom Details</h3>
+              <p><strong>Full Name:</strong> ${app.groom_name || 'N/A'}</p>
+              <p><strong>National ID:</strong> ${app.groom_id_number || 'N/A'}</p>
+              <p><strong>Date of Birth:</strong> ${app.groom_dob || 'N/A'}</p>
+              <p><strong>Phone:</strong> ${app.groom_phone || 'N/A'}</p>
+              <p><strong>Email:</strong> ${app.groom_email || 'N/A'}</p>
+              <p><strong>Education:</strong> ${app.groom_education || 'N/A'}</p>
+              <p><strong>Profession:</strong> ${app.groom_job || 'N/A'}</p>
+              <p><strong>Address:</strong> ${app.groom_address || 'N/A'}</p>
+            </div>
+
+            <div class="section col">
+              <h3>Bride Details</h3>
+              <p><strong>Full Name:</strong> ${app.bride_name || 'N/A'}</p>
+              <p><strong>National ID:</strong> ${app.bride_id_number || 'N/A'}</p>
+              <p><strong>Date of Birth:</strong> ${app.bride_dob || 'N/A'}</p>
+              <p><strong>Phone:</strong> ${app.bride_phone || 'N/A'}</p>
+              <p><strong>Email:</strong> ${app.bride_email || 'N/A'}</p>
+              <p><strong>Education:</strong> ${app.bride_education || 'N/A'}</p>
+              <p><strong>Profession:</strong> ${app.bride_job || 'N/A'}</p>
+              <p><strong>Address:</strong> ${app.bride_address || 'N/A'}</p>
+            </div>
+          </div>
+
+          <script>
+            window.onload = function() { window.print(); }
+          </script>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
     }
 
-    // Initialize application execution on load
+    // Initialize application data loading on page load
     window.addEventListener('DOMContentLoaded', () => {
       fetchApplications();
       fetchMembers();
