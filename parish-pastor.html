@@ -196,7 +196,7 @@
 
   <!-- View Details Modal -->
   <div id="matrimonyDetailsModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-indigo-100 animate-in fade-in zoom-in-95 duration-150">
+    <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] border border-indigo-100">
       <div class="bg-indigo-950 text-white px-6 py-4 flex justify-between items-center">
         <h3 class="font-bold text-sm uppercase tracking-wider flex items-center gap-2">
           <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
@@ -249,7 +249,6 @@
             uniqueRowId: item.id !== undefined && item.id !== null ? item.id : index,
             displayId: item.ref_code || item.id || `EAR-2026-00${index + 1}`,
             date: item.submission_date || (item.created_at ? item.created_at.split('T')[0] : '2026-07-26'),
-            // Ensure status directly matches database value or defaults to Pending if empty
             status: item.status ? String(item.status).trim() : 'Pending'
           }));
         }
@@ -413,7 +412,6 @@
           return;
         }
 
-        // Target the row securely using both the primary ID or reference code if necessary
         let query = supabaseClient.from('matrimony_applications').update({ status: newStatus });
         
         if (app.id !== undefined && app.id !== null) {
@@ -517,7 +515,7 @@
         ${extraFieldsHtml ? `
           <div>
             <p class="text-xs font-extrabold text-indigo-950 uppercase mb-3 tracking-wider">Additional Index Form Data & Documents</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               ${extraFieldsHtml}
             </div>
           </div>
@@ -532,47 +530,14 @@
     }
 
     function printMatrimonyReport() {
-      if (!currentSelectedApp) return;
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>Matrimony Application Report - ${currentSelectedApp.displayId}</title>
-            <style>
-              body { font-family: Arial, sans-serif; padding: 20px; color: #333; }
-              h2 { text-align: center; color: #1e1b4b; }
-              .section { margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 15px; }
-            </style>
-          </head>
-          <body>
-            <h2>EAR RWANDA - MUKAMA PARISH</h2>
-            <h3>Matrimony Application Report (${currentSelectedApp.displayId})</h3>
-            <div class="section">
-              <p><strong>Status:</strong> ${currentSelectedApp.status}</p>
-              <p><strong>Church Info:</strong> ${currentSelectedApp.local_church} (${currentSelectedApp.parish_name})</p>
-            </div>
-            <div class="section">
-              <h4>Groom Details</h4>
-              <p><strong>Name:</strong> ${currentSelectedApp.groom_name}</p>
-              <p><strong>National ID:</strong> ${currentSelectedApp.groom_id_number}</p>
-              <p><strong>Phone:</strong> ${currentSelectedApp.groom_phone}</p>
-            </div>
-            <div class="section">
-              <h4>Bride Details</h4>
-              <p><strong>Name:</strong> ${currentSelectedApp.bride_name}</p>
-              <p><strong>National ID:</strong> ${currentSelectedApp.bride_id_number}</p>
-              <p><strong>Phone:</strong> ${currentSelectedApp.bride_phone}</p>
-            </div>
-            <script>window.print();<\/script>
-          </body>
-        </html>
-      `);
-      printWindow.document.close();
+      window.print();
     }
 
-    // Initial data load on page startup
-    fetchApplications();
-    fetchMembers();
+    // Initialize data on load
+    window.onload = () => {
+      fetchApplications();
+      fetchMembers();
+    };
   </script>
 </body>
 </html>
