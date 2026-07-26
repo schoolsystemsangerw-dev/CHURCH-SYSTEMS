@@ -24,19 +24,19 @@
         <img src="log-diocese.png" alt="Diocese Logo" class="h-28 w-28 sm:h-36 sm:w-36 object-contain">
       </div>
 
-      <!-- Center Address & Titles (Attractive Typography & Centered) -->
-      <div class="text-center space-y-2 flex-1 px-2">
-        <span class="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[11px] font-mono tracking-widest uppercase border border-emerald-200/60 shadow-xs font-bold animate-pulse">
+      <!-- Center Address & Titles (Attractive Typography & Centered - Enlarged) -->
+      <div class="text-center space-y-3 flex-1 px-2">
+        <span class="inline-block px-3.5 py-1.5 bg-emerald-50 text-emerald-700 rounded-full text-xs font-mono tracking-widest uppercase border border-emerald-200/60 shadow-xs font-bold animate-pulse">
           Authorized Personnel Portal
         </span>
         
-        <div class="space-y-1">
-          <p class="text-[11px] sm:text-xs font-black tracking-widest text-indigo-950 uppercase">ANGLICAN CHURCH OF RWANDA</p>
-          <p class="text-[11px] sm:text-xs font-bold tracking-wider text-slate-600 uppercase">DIOCESE OF GAHINI</p>
-          <p class="text-[10px] sm:text-[11px] font-bold tracking-wide text-slate-500 uppercase">ARCHDEACONRY OF RUKOMO &mdash; PARISH OF MUKAMA</p>
+        <div class="space-y-1.5">
+          <p class="text-xs sm:text-sm font-black tracking-widest text-indigo-950 uppercase">ANGLICAN CHURCH OF RWANDA</p>
+          <p class="text-xs sm:text-sm font-bold tracking-wider text-slate-600 uppercase">DIOCESE OF GAHINI</p>
+          <p class="text-[11px] sm:text-xs font-bold tracking-wide text-slate-500 uppercase">ARCHDEACONRY OF RUKOMO &mdash; PARISH OF MUKAMA</p>
         </div>
 
-        <h1 class="text-2xl sm:text-3xl font-black uppercase tracking-tight bg-gradient-to-r from-indigo-950 via-blue-900 to-indigo-900 bg-clip-text text-transparent pt-1">
+        <h1 class="text-3xl sm:text-4xl lg:text-[2.6rem] font-black uppercase tracking-tight bg-gradient-to-r from-indigo-950 via-blue-900 to-indigo-900 bg-clip-text text-transparent pt-1 leading-tight">
           MUKAMA PARISH MANAGEMENT DASHBOARD
         </h1>
       </div>
@@ -529,26 +529,9 @@
         <div class="card">
           <div class="row"><span class="label">Status</span><span class="val">${app.status}</span></div>
           <div class="row"><span class="label">Submission Date</span><span class="val">${app.submission_date || app.created_at || app.date}</span></div>
-          <div class="row"><span class="label">Parish / Church</span><span class="val">${app.local_church || 'N/A'}, ${app.parish_name || 'N/A'}</span></div>
-          <div class="row"><span class="label">Groom Name & Tel</span><span class="val">${app.groom_name || 'N/A'} (${app.groom_phone || 'N/A'})</span></div>
-          <div class="row"><span class="label">Groom NID</span><span class="val">${app.groom_id_number || 'N/A'}</span></div>
-          <div class="row"><span class="label">Bride Name & Tel</span><span class="val">${app.bride_name || 'N/A'} (${app.bride_phone || 'N/A'})</span></div>
-          <div class="row"><span class="label">Bride NID</span><span class="val">${app.bride_id_number || 'N/A'}</span></div>
-        </div>
       </body>
       </html>`;
-
-      let win = window.open('', '', 'height=700,width=800');
-      win.document.write(html);
-      win.document.close();
-      win.focus();
-      setTimeout(() => { win.print(); }, 500);
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      fetchApplications();
-      fetchMembers();
-    });
   </script>
 </body>
 </html>
