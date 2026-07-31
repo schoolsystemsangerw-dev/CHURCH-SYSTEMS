@@ -31,25 +31,43 @@
           ⚡ Ibikorwa by'Itorero
         </h3>
         
-        <div class="space-y-2.5">
+        <div class="space-y-2">
           <!-- Button 1: Kwandika Umukirisitu -->
-          <button onclick="openModal('memberModal')" class="w-full flex items-center gap-3 px-4 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 group cursor-pointer text-left">
-            <span class="text-base">➕</span>
-            <span class="leading-tight">Kwandika Umukirisitu Mushya</span>
+          <button onclick="openModal('memberModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
+            <span>➕</span>
+            <span class="leading-tight">Kwandika Umukirisitu</span>
           </button>
 
           <!-- Button 2: Gusaba Ubukwe -->
-          <button onclick="openModal('matrimonyModal')" class="w-full flex items-center gap-3 px-4 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 group cursor-pointer text-left">
-            <span class="text-base">💍</span>
-            <span class="leading-tight">Gutanga Busabe bw'Ubukwe</span>
+          <button onclick="openModal('matrimonyModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
+            <span>💍</span>
+            <span class="leading-tight">Gusaba Ubukwe (Matrimony)</span>
+          </button>
+
+          <!-- Button 3: Imari n'Amaturo -->
+          <button onclick="openModal('financeModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
+            <span>💰</span>
+            <span class="leading-tight">Gutangaza Amaturo n'Icya Cumi</span>
+          </button>
+
+          <!-- Button 4: Abayobozi b'Itorero -->
+          <button onclick="openModal('leadershipModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
+            <span>👥</span>
+            <span class="leading-tight">Abayobozi b'Itorero</span>
+          </button>
+
+          <!-- Button 5: Amatangazo n'Ibikorwa -->
+          <button onclick="openModal('announcementModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
+            <span>📢</span>
+            <span class="leading-tight">Amatangazo n'Amakoraniro</span>
           </button>
         </div>
       </div>
 
       <!-- Quick Info Card -->
       <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-purple-100 text-xs text-slate-600 space-y-2">
-        <p class="font-bold text-purple-950 uppercase tracking-tight">💡 Ubufasha bwihuse</p>
-        <p>Koresha ibikorwa biri hejuru kugira ngo wongeyeho abakirisitu cyangwa wohereze ubusabe bw'ubukwe kuri Paruwasi.</p>
+        <p class="font-bold text-purple-950 uppercase tracking-tight">💡 Ubufasha bwa Paruwasi</p>
+        <p>Amakuru yose yanditswe hano agera ako kanya ku cyicaro gikuru cya Paruwasi ya Mukama.</p>
       </div>
     </aside>
 
@@ -85,19 +103,23 @@
         </div>
       </header>
 
-      <!-- Imibare y'Ibanze y'Ukwikurikirana (Monitoring Growth) -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-purple-100">
-          <p class="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Abakirisitu Banditse</p>
-          <p id="statChurchMembers" class="text-3xl font-black text-purple-950 mt-3">0</p>
+      <!-- Imibare y'Ibanze y'Ukwikurikirana -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-purple-100">
+          <p class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Abakirisitu Banditse</p>
+          <p id="statChurchMembers" class="text-2xl font-black text-purple-950 mt-2">0</p>
         </div>
-        <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-amber-50">
-          <p class="text-[11px] font-extrabold text-amber-600 uppercase tracking-wider">Ababatijwe</p>
-          <p id="statChurchBaptized" class="text-3xl font-black text-amber-600 mt-3">0</p>
+        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-amber-50">
+          <p class="text-[10px] font-extrabold text-amber-600 uppercase tracking-wider">Ababatijwe</p>
+          <p id="statChurchBaptized" class="text-2xl font-black text-amber-600 mt-2">0</p>
         </div>
-        <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-emerald-50">
-          <p class="text-[11px] font-extrabold text-emerald-600 uppercase tracking-wider">Gushaka / Ubukwe</p>
-          <p id="statChurchMatrimony" class="text-3xl font-black text-emerald-600 mt-3">0</p>
+        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-emerald-50">
+          <p class="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider">Ubukwe (Matrimony)</p>
+          <p id="statChurchMatrimony" class="text-2xl font-black text-emerald-600 mt-2">0</p>
+        </div>
+        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-blue-50">
+          <p class="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Amaturo Yose (RWF)</p>
+          <p id="statChurchFinances" class="text-2xl font-black text-blue-600 mt-2">0</p>
         </div>
       </div>
 
@@ -125,70 +147,156 @@
 
   <!-- MODAL 1: Kwandika Umukirisitu Mushya -->
   <div id="memberModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-lg p-6 sm:p-8 space-y-6 relative animate-in fade-in zoom-in-95 duration-200">
+    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-lg p-6 sm:p-8 space-y-6 relative">
       <div class="flex justify-between items-center border-b pb-4">
         <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">➕ Kwandika Umukirisitu Mushya</h3>
         <button onclick="closeModal('memberModal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg px-2 cursor-pointer">&times;</button>
       </div>
-      
       <form id="addMemberForm" onsubmit="submitNewMember(event)" class="space-y-4">
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina Yombi (Full Names)</label>
-          <input type="text" id="newFullName" required placeholder="Urugero: Niyitegeka Jean" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+          <input type="text" id="newFullName" required placeholder="Urugero: Niyitegeka Jean" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
         </div>
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Nimero y'Indangamuntu (National ID)</label>
-          <input type="text" id="newNationalId" required placeholder="1199..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+          <input type="text" id="newNationalId" required placeholder="1199..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
         </div>
         <div class="flex items-center gap-6 pt-2">
           <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
-            <input type="checkbox" id="newBaptized" class="rounded text-purple-900 focus:ring-purple-900"> Yarabatijwe?
+            <input type="checkbox" id="newBaptized" class="rounded text-purple-900"> Yarabatijwe?
           </label>
           <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
-            <input type="checkbox" id="newConfirmed" class="rounded text-purple-900 focus:ring-purple-900"> Yarakomejwe?
+            <input type="checkbox" id="newConfirmed" class="rounded text-purple-900"> Yarakomejwe?
           </label>
         </div>
         <div class="pt-4 flex gap-3">
-          <button type="button" onclick="closeModal('memberModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer">Reka / Garuka</button>
-          <button type="submit" id="submitMemberBtn" class="w-1/2 py-3 bg-purple-950 hover:bg-purple-900 text-amber-200 font-bold rounded-xl text-xs transition shadow-md cursor-pointer">💾 Bika Umukirisitu</button>
+          <button type="button" onclick="closeModal('memberModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs cursor-pointer">Reka</button>
+          <button type="submit" id="submitMemberBtn" class="w-1/2 py-3 bg-purple-950 hover:bg-purple-900 text-amber-200 font-bold rounded-xl text-xs shadow-md cursor-pointer">💾 Bika</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL 2: Gutanga Busabe bw'Ubukwe -->
+  <!-- MODAL 2: Gusaba Ubukwe -->
   <div id="matrimonyModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-xl p-6 sm:p-8 space-y-6 relative animate-in fade-in zoom-in-95 duration-200">
+    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-xl p-6 sm:p-8 space-y-6 relative">
       <div class="flex justify-between items-center border-b pb-4">
-        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">💍 Gutanga Busabe bw'Ubukwe</h3>
+        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">💍 Gusaba Ubukwe (Matrimony)</h3>
         <button onclick="closeModal('matrimonyModal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg px-2 cursor-pointer">&times;</button>
       </div>
-      <p class="text-xs text-slate-500">Aya makuru azoherezwa ako kanya kuri Paruwasi kugira ngo Padiri Mukuru (Rev. Karyango Theoneste) ayigenzure.</p>
-      
       <form id="addMatrimonyForm" onsubmit="submitMatrimony(event)" class="space-y-4">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umusore (Groom)</label>
-            <input type="text" id="groomName" required placeholder="Amazina y'umusore" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umusore</label>
+            <input type="text" id="groomName" required placeholder="Umusore" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
           </div>
           <div>
             <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Telefone y'Umusore</label>
-            <input type="text" id="groomPhone" required placeholder="078..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+            <input type="text" id="groomPhone" required placeholder="078..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
           </div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umukobwa (Bride)</label>
-            <input type="text" id="brideName" required placeholder="Amazina y'umukobwa" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umukobwa</label>
+            <input type="text" id="brideName" required placeholder="Umukobwa" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
           </div>
           <div>
             <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Telefone y'Umukobwa</label>
-            <input type="text" id="bridePhone" required placeholder="072..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+            <input type="text" id="bridePhone" required placeholder="072..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
           </div>
         </div>
         <div class="pt-4 flex gap-3">
-          <button type="button" onclick="closeModal('matrimonyModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer">Reka / Garuka</button>
-          <button type="submit" id="submitMatrimonyBtn" class="w-1/2 py-3 bg-amber-600 hover:bg-amber-500 text-purple-950 font-black rounded-xl text-xs transition shadow-md cursor-pointer">⛪ Ohereza Ubukwe</button>
+          <button type="button" onclick="closeModal('matrimonyModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs cursor-pointer">Reka</button>
+          <button type="submit" id="submitMatrimonyBtn" class="w-1/2 py-3 bg-amber-600 hover:bg-amber-500 text-purple-950 font-black rounded-xl text-xs shadow-md cursor-pointer">⛪ Ohereza</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Imari n'Amaturo (Financial / Tithe Logging) -->
+  <div id="financeModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-lg p-6 sm:p-8 space-y-6 relative">
+      <div class="flex justify-between items-center border-b pb-4">
+        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">💰 Gutangaza Amaturo n'Icya Cumi</h3>
+        <button onclick="closeModal('financeModal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg px-2 cursor-pointer">&times;</button>
+      </div>
+      <form id="addFinanceForm" onsubmit="submitFinance(event)" class="space-y-4">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Ubwoko bw'Amafaranga (Category)</label>
+          <select id="finCategory" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
+            <option value="Tithe (Icya Cumi)">Icya Cumi (Tithe)</option>
+            <option value="Offering (Amaturobisanzwe)">Amaturo Bisanzwe (Offering)</option>
+            <option value="Building Fund (Ubwubatsi)">Ubwubatsi (Building Fund)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amafaranga mu Frw (Amount)</label>
+          <input type="number" id="finAmount" required placeholder="Urugero: 50000" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Itariki cyangwa Icyumweru</label>
+          <input type="text" id="finDate" required placeholder="Urugero: Icyumweru cya 3, Kanama 2026" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
+        </div>
+        <div class="pt-4 flex gap-3">
+          <button type="button" onclick="closeModal('financeModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs cursor-pointer">Reka</button>
+          <button type="submit" id="submitFinanceBtn" class="w-1/2 py-3 bg-blue-900 hover:bg-blue-800 text-white font-bold rounded-xl text-xs shadow-md cursor-pointer">💾 Bika Amaturo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 4: Abayobozi b'Itorero (Leadership Directory) -->
+  <div id="leadershipModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-lg p-6 sm:p-8 space-y-6 relative">
+      <div class="flex justify-between items-center border-b pb-4">
+        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">👥 Andika cyangwa Vugurura Umuyobozi</h3>
+        <button onclick="closeModal('leadershipModal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg px-2 cursor-pointer">&times;</button>
+      </div>
+      <form id="addLeaderForm" onsubmit="submitLeader(event)" class="space-y-4">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umuyobozi</label>
+          <input type="text" id="leaderName" required placeholder="Urugero: Ev. John Mugabo" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Inshingano (Role)</label>
+          <select id="leaderRole" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
+            <option value="Local Evangelist (Umwigisha)">Umwigisha w'Itorero (Evangelist)</option>
+            <option value="Treasurer (Umunyamari)">Umunyamari (Treasurer)</option>
+            <option value="Youth Leader (Urubyiruko)">Ubuyobozi bw'Urubyiruko</option>
+            <option value="Church Warden (Umukangurambaga)">Umukangurambaga (Warden)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Telefone</label>
+          <input type="text" id="leaderPhone" required placeholder="078..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
+        </div>
+        <div class="pt-4 flex gap-3">
+          <button type="button" onclick="closeModal('leadershipModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs cursor-pointer">Reka</button>
+          <button type="submit" id="submitLeaderBtn" class="w-1/2 py-3 bg-purple-950 hover:bg-purple-900 text-amber-200 font-bold rounded-xl text-xs shadow-md cursor-pointer">💾 Bika Umuyobozi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 5: Amatangazo n'Amakoraniro (Announcements Board) -->
+  <div id="announcementModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-lg p-6 sm:p-8 space-y-6 relative">
+      <div class="flex justify-between items-center border-b pb-4">
+        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">📢 Ongeraho Itangazo cyangwa Igikorwa</h3>
+        <button onclick="closeModal('announcementModal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg px-2 cursor-pointer">&times;</button>
+      </div>
+      <form id="addAnnouncementForm" onsubmit="submitAnnouncement(event)" class="space-y-4">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Umutwe w'Itangazo (Title)</label>
+          <input type="text" id="annTitle" required placeholder="Urugero: Igikorwa cy'Umuganda cyangwa Amakoraniro" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
+        </div>Ubur
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Ubutumwa Burambuye (Description)</label>
+          <textarea id="annContent" rows="3" required placeholder="Andika hano amakuru y'ingenzi..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none"></textarea>
+        </div>
+        <div class="pt-4 flex gap-3">
+          <button type="button" onclick="closeModal('announcementModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs cursor-pointer">Reka</button>
+          <button type="submit" id="submitAnnBtn" class="w-1/2 py-3 bg-amber-600 hover:bg-amber-500 text-purple-950 font-black rounded-xl text-xs shadow-md cursor-pointer">📢 Tangaza</button>
         </div>
       </form>
     </div>
@@ -211,28 +319,27 @@
     document.getElementById('churchTitle').innerText = currentChurch;
     document.getElementById('churchBadge').innerText = `Ubuyobozi bwa ${currentChurch}`;
 
-    // Modal Control Functions
-    function openModal(modalId) {
-      document.getElementById(modalId).classList.remove('hidden');
-    }
-
-    function closeModal(modalId) {
-      document.getElementById(modalId).classList.add('hidden');
-    }
+    function openModal(modalId) { document.getElementById(modalId).classList.remove('hidden'); }
+    function closeModal(modalId) { document.getElementById(modalId).classList.add('hidden'); }
 
     async function fetchChurchData() {
       try {
-        const [memRes, appRes] = await Promise.all([
+        const [memRes, appRes, finRes] = await Promise.all([
           supabaseClient.from('church_members').select('*').eq('local_church', currentChurch),
-          supabaseClient.from('matrimony_applications').select('*').eq('local_church', currentChurch)
+          supabaseClient.from('matrimony_applications').select('*').eq('local_church', currentChurch),
+          supabaseClient.from('church_finances').select('*').eq('local_church', currentChurch)
         ]);
 
         const members = memRes.data || [];
         const applications = appRes.data || [];
+        const finances = finRes.data || [];
 
         document.getElementById('statChurchMembers').innerText = members.length;
         document.getElementById('statChurchBaptized').innerText = members.filter(m => m.is_baptized).length;
         document.getElementById('statChurchMatrimony').innerText = applications.length;
+
+        const totalFin = finances.reduce((sum, item) => sum + Number(item.amount || 0), 0);
+        document.getElementById('statChurchFinances').innerText = totalFin.toLocaleString();
 
         const tbody = document.getElementById('churchMembersTableBody');
         tbody.innerHTML = members.length === 0 ? `<tr><td colspan="5" class="p-6 text-center text-slate-400">Nta mukirisitu wanditse wabonetse muri ${currentChurch}.</td></tr>` : '';
@@ -255,78 +362,104 @@
 
     async function submitNewMember(event) {
       event.preventDefault();
-      const submitBtn = document.getElementById('submitMemberBtn');
-      submitBtn.innerText = 'Buri kubikwa...';
-      submitBtn.disabled = true;
-
-      const full_names = document.getElementById('newFullName').value;
-      const national_id = document.getElementById('newNationalId').value;
-      const is_baptized = document.getElementById('newBaptized').checked;
-      const is_confirmed = document.getElementById('newConfirmed').checked;
-
+      const btn = document.getElementById('submitMemberBtn');
+      btn.innerText = 'Buri kubikwa...'; btn.disabled = true;
       try {
-        const { error } = await supabaseClient.from('church_members').insert([
-          {
-            full_names: full_names,
-            national_id: national_id,
-            local_church: currentChurch,
-            is_baptized: is_baptized,
-            is_confirmed: is_confirmed,
-            is_married: false
-          }
-        ]);
-
+        const { error } = await supabaseClient.from('church_members').insert([{
+          full_names: document.getElementById('newFullName').value,
+          national_id: document.getElementById('newNationalId').value,
+          local_church: currentChurch,
+          is_baptized: document.getElementById('newBaptized').checked,
+          is_confirmed: document.getElementById('newConfirmed').checked,
+          is_married: false
+        }]);
         if (error) throw error;
-
-        alert('Umukirisitu yanditswe neza mu itorero!');
+        alert('Umukirisitu yanditswe neza!');
         document.getElementById('addMemberForm').reset();
         closeModal('memberModal');
-        fetchChurchData(); 
-      } catch (err) {
-        alert('Habaye ikosa mu kubika: ' + err.message);
-      } finally {
-        submitBtn.innerText = '💾 Bika Umukirisitu';
-        submitBtn.disabled = false;
-      }
+        fetchChurchData();
+      } catch (err) { alert('Ikosa: ' + err.message); }
+      finally { btn.innerText = '💾 Bika'; btn.disabled = false; }
     }
 
     async function submitMatrimony(event) {
       event.preventDefault();
-      const submitBtn = document.getElementById('submitMatrimonyBtn');
-      submitBtn.innerText = 'Buri koherezwa...';
-      submitBtn.disabled = true;
-
-      const groom_name = document.getElementById('groomName').value;
-      const groom_phone = document.getElementById('groomPhone').value;
-      const bride_name = document.getElementById('brideName').value;
-      const bride_phone = document.getElementById('bridePhone').value;
-      const ref_code = 'MUK-2026-' + Math.floor(1000 + Math.random() * 9000);
-
+      const btn = document.getElementById('submitMatrimonyBtn');
+      btn.innerText = 'Buri koherezwa...'; btn.disabled = true;
       try {
-        const { error } = await supabaseClient.from('matrimony_applications').insert([
-          {
-            ref_code: ref_code,
-            groom_name: groom_name,
-            groom_phone: groom_phone,
-            bride_name: bride_name,
-            bride_phone: bride_phone,
-            local_church: currentChurch,
-            status: 'Pending'
-          }
-        ]);
-
+        const { error } = await supabaseClient.from('matrimony_applications').insert([{
+          ref_code: 'MUK-2026-' + Math.floor(1000 + Math.random() * 9000),
+          groom_name: document.getElementById('groomName').value,
+          groom_phone: document.getElementById('groomPhone').value,
+          bride_name: document.getElementById('brideName').value,
+          bride_phone: document.getElementById('bridePhone').value,
+          local_church: currentChurch,
+          status: 'Pending'
+        }]);
         if (error) throw error;
-
-        alert('Gusaba ubukwe byoherejwe neza kuri Paruwasi! Bizagenzurwa na Padiri Mukuru.');
+        alert('Ubusabe bwerekanywe kuri Paruwasi!');
         document.getElementById('addMatrimonyForm').reset();
         closeModal('matrimonyModal');
         fetchChurchData();
-      } catch (err) {
-        alert('Habaye ikosa mu kohereza ubukwe: ' + err.message);
-      } finally {
-        submitBtn.innerText = '⛪ Ohereza Ubukwe';
-        submitBtn.disabled = false;
-      }
+      } catch (err) { alert('Ikosa: ' + err.message); }
+      finally { btn.innerText = '⛪ Ohereza'; btn.disabled = false; }
+    }
+
+    async function submitFinance(event) {
+      event.preventDefault();
+      const btn = document.getElementById('submitFinanceBtn');
+      btn.innerText = 'Buri kubikwa...'; btn.disabled = true;
+      try {
+        const { error } = await supabaseClient.from('church_finances').insert([{
+          category: document.getElementById('finCategory').value,
+          amount: parseFloat(document.getElementById('finAmount').value),
+          period: document.getElementById('finDate').value,
+          local_church: currentChurch
+        }]);
+        if (error) throw error;
+        alert('Amaturo yanditswe neza muri raporo ya Paruwasi!');
+        document.getElementById('addFinanceForm').reset();
+        closeModal('financeModal');
+        fetchChurchData();
+      } catch (err) { alert('Ikosa: ' + err.message); }
+      finally { btn.innerText = '💾 Bika Amaturo'; btn.disabled = false; }
+    }
+
+    async function submitLeader(event) {
+      event.preventDefault();
+      const btn = document.getElementById('submitLeaderBtn');
+      btn.innerText = 'Buri kubikwa...'; btn.disabled = true;
+      try {
+        const { error } = await supabaseClient.from('church_leaders').insert([{
+          full_name: document.getElementById('leaderName').value,
+          role: document.getElementById('leaderRole').value,
+          phone: document.getElementById('leaderPhone').value,
+          local_church: currentChurch
+        }]);
+        if (error) throw error;
+        alert('Umuyobozi yashyizwe mu bubiko bwa Paruwasi!');
+        document.getElementById('addLeaderForm').reset();
+        closeModal('leadershipModal');
+      } catch (err) { alert('Ikosa: ' + err.message); }
+      finally { btn.innerText = '💾 Bika Umuyobozi'; btn.disabled = false; }
+    }
+
+    async function submitAnnouncement(event) {
+      event.preventDefault();
+      const btn = document.getElementById('submitAnnBtn');
+      btn.innerText = 'Buri gutangaza...'; btn.disabled = true;
+      try {
+        const { error } = await supabaseClient.from('church_announcements').insert([{
+          title: document.getElementById('annTitle').value,
+          content: document.getElementById('annContent').value,
+          local_church: currentChurch
+        }]);
+        if (error) throw error;
+        alert('Itangazo ryashyizwe ku mugaragaro!');
+        document.getElementById('addAnnouncementForm').reset();
+        closeModal('announcementModal');
+      } catch (err) { alert('Ikosa: ' + err.message); }
+      finally { btn.innerText = '📢 Tangaza'; btn.disabled = false; }
     }
 
     window.addEventListener('DOMContentLoaded', fetchChurchData);
