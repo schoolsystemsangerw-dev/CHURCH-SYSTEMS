@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="rw">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LOCAL CHURCH MANAGEMENT DASHBOARD</title>
+  <title>UBUYANGA BW'ITORERO - PARUWASI YA MUKAMA</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,65 +13,65 @@
 </head>
 <body class="bg-gradient-to-br from-indigo-50/60 via-slate-50 to-purple-50/40 min-h-screen font-sans text-slate-800 flex flex-col justify-between pt-16">
 
-  <!-- Welcome Marquee Section -->
+  <!-- Aho Amakuru y'ingenzi baca -->
   <div class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-950 via-indigo-950 to-purple-950 text-amber-200 px-6 py-2.5 text-xs font-semibold overflow-hidden whitespace-nowrap shadow-md border-b border-amber-500/30 flex items-center gap-3">
-    <span class="bg-amber-500 text-purple-950 px-3 py-1 rounded-full text-[10px] uppercase font-black tracking-wider shrink-0 shadow-inner">Local Church Portal</span>
+    <span class="bg-amber-500 text-purple-950 px-3 py-1 rounded-full text-[10px] uppercase font-black tracking-wider shrink-0 shadow-inner">Itangazo</span>
     <marquee behavior="scroll" direction="left" scrollamount="4" class="text-indigo-100 font-medium">
-      🙏 ANGLICAN CHURCH OF RWANDA &mdash; MUKAMA PARISH NETWORK. &ldquo;Serve one another in love.&rdquo; (Galatians 5:13)
+      🙏 EAR KODEPA YA GAHINI &mdash; PARUWASI YA MUKAMA. &ldquo;Mukundane nk'uko nabakunze.&rdquo; (Yohana 13:34) &mdash; Imana ibahe umugisha!
     </marquee>
   </div>
 
-  <!-- Main Container -->
+  <!-- Umubiri Mukuru -->
   <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 w-full">
     
-    <!-- Church Header Section -->
+    <!-- Umutwe w'Inyandiko w'Itorero -->
     <header class="relative bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-3xl shadow-2xl border-2 border-amber-500/40 p-6 sm:p-8 overflow-hidden text-white flex flex-col sm:flex-row justify-between items-center gap-6">
       <div class="space-y-2 text-center sm:text-left">
         <span id="churchBadge" class="inline-block px-4 py-1 bg-amber-500 text-purple-950 rounded-full text-[10px] font-black tracking-widest uppercase shadow-md">
-          Local Congregation Dashboard
+          Ubuyobozi bw'Itorero ry'Akarere
         </span>
         <h1 id="churchTitle" class="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
-          Loading Church Name...
+          Tegereza Izina ry'Itorero...
         </h1>
         <p class="text-xs text-indigo-200 font-medium uppercase tracking-wider">
-          Diocese of Gahini &mdash; Mukama Parish Sub-Network
+          Diosezi ya Gahini &mdash; Paruwasi ya Mukama
         </p>
       </div>
       <div>
         <a href="index.html" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-amber-400/30 text-amber-200 font-bold rounded-xl text-xs transition shadow-md flex items-center gap-2">
-          ⬅️ Back to Parish Hub
+          ⬅️ Gusubira ku Cyicaro Gikuru
         </a>
       </div>
     </header>
 
-    <!-- Stats Grid for This Specific Church -->
+    <!-- Imibare y'Ibanze y'Itorero -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-purple-100">
-        <p class="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Registered Members</p>
+        <p class="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Abakirisitu Banditse</p>
         <p id="statChurchMembers" class="text-3xl font-black text-purple-950 mt-3">0</p>
       </div>
       <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-amber-50">
-        <p class="text-[11px] font-extrabold text-amber-600 uppercase tracking-wider">Baptized Souls</p>
+        <p class="text-[11px] font-extrabold text-amber-600 uppercase tracking-wider">Ababatijwe</p>
         <p id="statChurchBaptized" class="text-3xl font-black text-amber-600 mt-3">0</p>
       </div>
       <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-emerald-50">
-        <p class="text-[11px] font-extrabold text-emerald-600 uppercase tracking-wider">Matrimony Cases</p>
+        <p class="text-[11px] font-extrabold text-emerald-600 uppercase tracking-wider">Gushaka (Matrimony)</p>
         <p id="statChurchMatrimony" class="text-3xl font-black text-emerald-600 mt-3">0</p>
       </div>
     </div>
 
-    <!-- Data Tables Section -->
+    <!-- Urutonde rw'Abakirisitu -->
     <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden p-6 space-y-4">
-      <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">Registered Members in this Congregation</h3>
+      <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">Abakirisitu Banditse muri iri Torero</h3>
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
             <tr class="bg-purple-950 text-purple-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-purple-900">
-              <th class="p-3">Full Names</th>
-              <th class="p-3">National ID</th>
-              <th class="p-3 text-center">Baptized</th>
-              <th class="p-3 text-center">Confirmed</th>
-              <th class="p-3 text-center">Married</th>
+              <th class="p-3">Amazina Yombi</th>
+              <th class="p-3">Nimero y'Indangamuntu</th>
+              <th class="p-3 text-center">Yarabatijwe?</th>
+              <th class="p-3 text-center">Yarakomejwe?</th>
+              <th class="p-3 text-center">Yarashyingirwe?</th>
             </tr>
           </thead>
           <tbody id="churchMembersTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
@@ -81,23 +81,23 @@
 
   </div>
 
-  <!-- Footer -->
+  <!-- Umusozo w'Urupapuro (Footer) -->
   <footer class="bg-white/90 backdrop-blur-md border-t border-purple-100 mt-16 py-6 px-6 text-slate-600 shadow-lg text-center text-xs">
-    <p>&copy; 2026 MUKAMA PARISH MANAGEMENT SYSTEM &mdash; Local Church Portal</p>
+    <p>&copy; 2026 EGLISE ANGLICANE DU RWANDA &mdash; PARUWASI YA MUKAMA. Uburenganzira bwose burasanzwe.</p>
   </footer>
 
-  <!-- Script Logic -->
+  <!-- Gahunda ya JavaScript -->
   <script>
     const SUPABASE_URL = 'https://ggrcjxqfmdkzkvipubhd.supabase.co'; 
     const SUPABASE_ANON_KEY = 'sb_publishable_sZnQimLXEoAzSlb5Adw6oQ_P2QW9_cq';
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // Read church name from URL parameter, default to Mukama Church if none provided
+    // Gusoma izina ry'itorero ryoherejwe muri URL
     const urlParams = new URLSearchParams(window.location.search);
     const currentChurch = urlParams.get('church') || 'Mukama Church';
 
     document.getElementById('churchTitle').innerText = currentChurch;
-    document.getElementById('churchBadge').innerText = `${currentChurch} Portal`;
+    document.getElementById('churchBadge').innerText = `Ubuyobozi bwa ${currentChurch}`;
 
     async function fetchChurchData() {
       try {
@@ -114,21 +114,21 @@
         document.getElementById('statChurchMatrimony').innerText = applications.length;
 
         const tbody = document.getElementById('churchMembersTableBody');
-        tbody.innerHTML = members.length === 0 ? `<tr><td colspan="5" class="p-6 text-center text-slate-400">No registered members found for ${currentChurch}.</td></tr>` : '';
+        tbody.innerHTML = members.length === 0 ? `<tr><td colspan="5" class="p-6 text-center text-slate-400">Nta mukirisitu wanditse wabonetse muri ${currentChurch}.</td></tr>` : '';
         
         members.forEach(m => {
           tbody.innerHTML += `
             <tr class="hover:bg-purple-50/40 transition border-b border-slate-100">
               <td class="p-3 font-bold text-slate-900">${m.full_names || 'N/A'}</td>
               <td class="p-3 font-mono text-slate-600">${m.national_id || 'N/A'}</td>
-              <td class="p-3 text-center">${m.is_baptized ? '✅' : '❌'}</td>
-              <td class="p-3 text-center">${m.is_confirmed ? '✅' : '❌'}</td>
-              <td class="p-3 text-center">${m.is_married ? '✅' : '❌'}</td>
+              <td class="p-3 text-center">${m.is_baptized ? '✅ Yego' : '❌ Oya'}</td>
+              <td class="p-3 text-center">${m.is_confirmed ? '✅ Yego' : '❌ Oya'}</td>
+              <td class="p-3 text-center">${m.is_married ? '✅ Yego' : '❌ Oya'}</td>
             </tr>
           `;
         });
       } catch (err) {
-        console.error('Error fetching church data:', err);
+        console.error('Ikosa ryo gukurura amakuru:', err);
       }
     }
 
