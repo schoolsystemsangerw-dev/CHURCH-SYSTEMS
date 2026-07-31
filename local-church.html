@@ -149,6 +149,7 @@
                   <th class="p-3">Nimero y'Indangamuntu</th>
                   <th class="p-3 text-center">Yarabatijwe?</th>
                   <th class="p-3 text-center">Yarakomejwe?</th>
+                  <th class="p-3 text-center">Arubatse?</th>
                   <th class="p-3 text-center">Yarashyingiwe?</th>
                 </tr>
               </thead>
@@ -197,12 +198,15 @@
           <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Nimero y'Indangamuntu (National ID)</label>
           <input type="text" id="newNationalId" required placeholder="1199..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:outline-none">
         </div>
-        <div class="flex items-center gap-6 pt-2">
+        <div class="flex flex-wrap items-center gap-6 pt-2">
           <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
             <input type="checkbox" id="newBaptized" class="rounded text-purple-900"> Yarabatijwe?
           </label>
           <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
             <input type="checkbox" id="newConfirmed" class="rounded text-purple-900"> Yarakomejwe?
+          </label>
+          <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+            <input type="checkbox" id="newMarried" class="rounded text-purple-900"> Arubatse?
           </label>
         </div>
         <div class="pt-4 flex gap-3">
@@ -428,7 +432,7 @@
 
         // Render Members Table
         const tbody = document.getElementById('churchMembersTableBody');
-        tbody.innerHTML = members.length === 0 ? `<tr><td colspan="5" class="p-6 text-center text-slate-400">Nta mukirisitu wanditse wabonetse muri ${currentChurch}.</td></tr>` : '';
+        tbody.innerHTML = members.length === 0 ? `<tr><td colspan="6" class="p-6 text-center text-slate-400">Nta mukirisitu wanditse wabonetse muri ${currentChurch}.</td></tr>` : '';
         members.forEach(m => {
           tbody.innerHTML += `
             <tr class="hover:bg-purple-50/40 transition border-b border-slate-100">
@@ -436,6 +440,7 @@
               <td class="p-3 font-mono text-slate-600">${m.national_id || 'N/A'}</td>
               <td class="p-3 text-center">${m.is_baptized ? '✅ Yego' : '❌ Oya'}</td>
               <td class="p-3 text-center">${m.is_confirmed ? '✅ Yego' : '❌ Oya'}</td>
+              <td class="p-3 text-center">${m.is_married ? '✅ Yego' : '❌ Oya'}</td>
               <td class="p-3 text-center">${m.is_married ? '✅ Yego' : '❌ Oya'}</td>
             </tr>
           `;
@@ -471,7 +476,7 @@
           local_church: currentChurch,
           is_baptized: document.getElementById('newBaptized').checked,
           is_confirmed: document.getElementById('newConfirmed').checked,
-          is_married: false
+          is_married: document.getElementById('newMarried').checked
         }]);
         if (error) throw error;
         alert('Umukirisitu yanditswe neza!');
@@ -550,7 +555,7 @@
       btn.innerText = 'Buri gutangaza...'; btn.disabled = true;
       try {
         const { error } = await supabaseClient.from('church_announcements').insert([{
-          title: document.getElementById('annTitle').value,
+          title: document.getElementById('annTitle5').value,
           content: document.getElementById('annContent').value,
           local_church: currentChurch
         }]);
