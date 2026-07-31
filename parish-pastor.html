@@ -191,7 +191,7 @@
             <label for="churchFilter" class="text-xs font-bold text-slate-700 uppercase tracking-wider">Local Church:</label>
             <select id="churchFilter" onchange="filterCurrentView()" class="px-4 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 font-semibold text-purple-950 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-900 transition cursor-pointer">
               <option value="ALL">All Local Churches (Byose)</option>
-              <!-- Populated dynamically -->
+              <!-- Populated dynamically with all local churches -->
             </select>
           </div>
         </div>
@@ -274,7 +274,14 @@
     let churchLeaders = [];
     let churchAnnouncements = [];
     let churchAssets = [];
-    let localChurchesList = [];
+    let localChurchesList = [
+      'Mukama',
+      'Rugarama',
+      'Gakirage',
+      'Kageyo',
+      'Gasura',
+      'Nyagatare'
+    ];
     let currentSelectedRecord = null;
 
     // Fetch all database tables on startup
@@ -301,7 +308,7 @@
           displayId: item.ref_code || item.id || `EAR-2026-00${index + 1}`,
           date: item.submission_date || (item.created_at ? item.created_at.split('T')[0] : '2026-07-26'),
           status: item.status ? String(item.status).trim() : 'Pending',
-          local_church: item.local_church || 'Mukama Main'
+          local_church: item.local_church || 'Mukama'
         }));
       }
     }
@@ -312,7 +319,7 @@
         registeredMembers = data.map((m, index) => ({
           ...m,
           uniqueRowId: m.id || index,
-          local_church: m.local_church || 'Mukama Main',
+          local_church: m.local_church || 'Mukama',
           full_names: m.full_names || 'N/A',
           national_id: m.national_id || 'N/A',
           is_baptized: !!m.is_baptized,
@@ -328,7 +335,7 @@
         churchTithes = data.map((t, index) => ({
           ...t,
           uniqueRowId: t.id || index,
-          local_church: t.local_church || 'Mukama Main',
+          local_church: t.local_church || 'Mukama',
           amount: t.amount || 0,
           contributor_name: t.contributor_name || t.name || 'Anonymous',
           tithe_date: t.tithe_date || (t.created_at ? t.created_at.split('T')[0] : '2026-07-26')
@@ -342,7 +349,7 @@
         churchLeaders = data.map((l, index) => ({
           ...l,
           uniqueRowId: l.id || index,
-          local_church: l.local_church || 'Mukama Main',
+          local_church: l.local_church || 'Mukama',
           full_name: l.full_name || l.name || 'N/A',
           position: l.position || 'Leader',
           phone: l.phone || 'N/A'
@@ -356,7 +363,7 @@
         churchAnnouncements = data.map((a, index) => ({
           ...a,
           uniqueRowId: a.id || index,
-          local_church: a.local_church || 'Mukama Parish',
+          local_church: a.local_church || 'Mukama',
           title: a.title || 'Announcement',
           content: a.content || a.message || 'N/A',
           date: a.date || (a.created_at ? a.created_at.split('T')[0] : '2026-07-26')
@@ -370,7 +377,7 @@
         churchAssets = data.map((ast, index) => ({
           ...ast,
           uniqueRowId: ast.id || index,
-          local_church: ast.local_church || 'Mukama Main',
+          local_church: ast.local_church || 'Mukama',
           asset_name: ast.asset_name || ast.name || 'Equipment',
           category: ast.category || 'General',
           condition: ast.condition || 'Good'
@@ -379,13 +386,15 @@
     }
 
     function extractLocalChurches() {
-      let set = new Set();
-      applications.forEach(i => set.add(i.local_church));
-      registeredMembers.forEach(i => set.add(i.local_church));
-      churchTithes.forEach(i => set.add(i.local_church));
-      churchLeaders.forEach(i => set.add(i.local_church));
-      churchAnnouncements.forEach(i => set.add(i.local_church));
-      churchAssets.forEach(i => set.add(i.local_church));
+      let set = new Set(localChurchesList);
+      
+      // Also grab any custom names from database rows
+      applications.forEach(i => { if(i.local_church) set.add(i.local_church); });
+      registeredMembers.forEach(i => { if(i.local_church) set.add(i.local_church); });
+      churchTithes.forEach(i => { if(i.local_church) set.add(i.local_church); });
+      churchLeaders.forEach(i => { if(i.local_church) set.add(i.local_church); });
+      churchAnnouncements.forEach(i => { if(i.local_church) set.add(i.local_church); });
+      churchAssets.forEach(i => { if(i.local_church) set.add(i.local_church); });
 
       localChurchesList = Array.from(set).filter(Boolean);
       
@@ -443,7 +452,7 @@
       else if (currentCategory === 'assets') currentDataSet = churchAssets;
 
       const filtered = currentDataSet.filter(item => {
-        const matchesChurch = (churchVal === 'ALL' || String(item.local_church || '') === churchVal);
+        const matchesChurch = (churchVal === 'ALL' || String(item.local_church || '').trim().toLowerCase() === churchVal.trim().toLowerCase());
         const matchesQuery = Object.values(item).some(val => String(val || '').toLowerCase().includes(query));
         return matchesChurch && matchesQuery;
       });
