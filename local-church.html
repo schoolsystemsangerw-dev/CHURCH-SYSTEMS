@@ -21,156 +21,144 @@
     </marquee>
   </div>
 
-  <!-- Umubiri Mukuru n'Uruhande rw'Ibumoso (Sidebar Layout) -->
-  <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 w-full flex flex-col lg:flex-row gap-8 items-start">
+  <!-- Umubiri Mukuru wose (Full Width Layout) -->
+  <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 w-full space-y-6">
     
-    <!-- Urutonde rw'Ibikorwa ku Ruhande rw'Ibumoso (Left Sidebar Actions) -->
-    <aside class="w-full lg:w-72 shrink-0 space-y-4 lg:sticky lg:top-24">
-      <div class="bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-2xl shadow-xl border border-amber-500/30 p-5 text-white space-y-4">
-        <h3 class="text-xs font-black uppercase text-amber-400 tracking-wider border-b border-purple-800/60 pb-3">
-          ⚡ Ibikorwa by'Itorero
-        </h3>
-        
-        <div class="space-y-2">
-          <!-- Button 1: Kwandika Umukirisitu -->
-          <button onclick="openModal('memberModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
-            <span>➕</span>
-            <span class="leading-tight">Kwandika Umukirisitu</span>
-          </button>
+    <!-- 1. Umutwe w'Inyandiko (Full-Width Header Banner) -->
+    <header class="relative bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-3xl shadow-2xl border-2 border-amber-500/40 p-6 sm:p-10 overflow-hidden text-white flex flex-col md:flex-row justify-between items-center gap-6 w-full">
+      <div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
+        <img src="log-diocese.png" alt="Logo ya Diosezi" class="h-20 w-20 sm:h-28 sm:w-28 object-contain drop-shadow-md">
+      </div>
 
-          <!-- Button 2: Gusaba Ubukwe -->
-          <button onclick="openModal('matrimonyModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
-            <span>💍</span>
-            <span class="leading-tight">Gusaba Ubukwe (Matrimony)</span>
-          </button>
-
-          <!-- Button 3: Imari n'Amaturo -->
-          <button onclick="openModal('financeModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
-            <span>💰</span>
-            <span class="leading-tight">Gutangaza Amaturo n'Icya Cumi</span>
-          </button>
-
-          <!-- Button 4: Abayobozi b'Itorero -->
-          <button onclick="openModal('leadershipModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
-            <span>👥</span>
-            <span class="leading-tight">Abayobozi b'Itorero</span>
-          </button>
-
-          <!-- Button 5: Amatangazo n'Ibikorwa -->
-          <button onclick="openModal('announcementModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
-            <span>📢</span>
-            <span class="leading-tight">Amatangazo n'Amakoraniro</span>
-          </button>
-
-          <!-- Button 6: Umutungo n'Ibikoresho (Assets Inventory) -->
-          <button onclick="openModal('assetModal')" class="w-full flex items-center gap-3 px-3.5 py-2.5 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer text-left">
-            <span>📦</span>
-            <span class="leading-tight">Umutungo n'Ibikoresho</span>
-          </button>
+      <div class="text-center space-y-3 flex-1 px-2">
+        <span id="churchBadge" class="inline-block px-5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-purple-950 rounded-full text-xs font-black tracking-widest uppercase border border-amber-300 shadow-lg">
+          Ubuyobozi bw'Itorero
+        </span>
+        <div class="space-y-1">
+          <h1 id="churchTitle" class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white drop-shadow-sm">
+            Itorero...
+          </h1>
+          <p class="text-sm font-bold tracking-widest text-amber-300 uppercase">DISEZO YA GAHINI</p>
+          <p class="text-xs sm:text-sm font-extrabold tracking-wider text-indigo-200 uppercase">PARUWASI YA MUKAMA</p>
+        </div>
+        <div class="pt-2">
+          <a href="index.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-amber-400/30 text-amber-200 font-bold rounded-xl text-xs transition shadow-md">
+            ⬅️ Gusubira ku Cyicaro Gikuru (Parish Dashboard)
+          </a>
         </div>
       </div>
 
-      <!-- Quick Info Card -->
-      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-purple-100 text-xs text-slate-600 space-y-2">
-        <p class="font-bold text-purple-950 uppercase tracking-tight">💡 Ubufasha bwa Paruwasi</p>
-        <p>Amakuru yose yanditswe hano agera ako kanya ku cyicaro gikuru cya Paruwasi ya Mukama.</p>
+      <div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
+        <img src="logo-rwanda.png" alt="Logo y'u Rwanda" class="h-20 w-20 sm:h-28 sm:w-28 object-contain drop-shadow-md">
       </div>
-    </aside>
+    </header>
 
-    <!-- Ikigo cy'Amakuru (Main Content Area) -->
-    <main class="flex-1 space-y-6 w-full">
+    <!-- 2. Ibikorwa By'Itorero Byimuwe Hasi (Horizontal Grid Actions below header) -->
+    <div class="bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-2xl shadow-xl border border-amber-500/30 p-5 text-white space-y-3">
+      <h3 class="text-xs font-black uppercase text-amber-400 tracking-wider border-b border-purple-800/60 pb-2">
+        ⚡ Ibikorwa by'Itorero &mdash; Hitamo icyo ushaka gukora:
+      </h3>
       
-      <!-- Umutwe w'Inyandiko n'Ibirango -->
-      <header class="relative bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-3xl shadow-2xl border-2 border-amber-500/40 p-6 sm:p-10 overflow-hidden text-white flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
-          <img src="log-diocese.png" alt="Logo ya Diosezi" class="h-24 w-24 sm:h-32 sm:w-32 object-contain drop-shadow-md">
-        </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <!-- Button 1: Kwandika Umukirisitu -->
+        <button onclick="openModal('memberModal')" class="flex items-center justify-center gap-2 px-3 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer">
+          <span>➕</span>
+          <span>Kwandika Umukirisitu</span>
+        </button>
 
-        <div class="text-center space-y-3 flex-1 px-2">
-          <span id="churchBadge" class="inline-block px-5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-purple-950 rounded-full text-xs font-black tracking-widest uppercase border border-amber-300 shadow-lg">
-            Ubuyobozi bw'Itorero
-          </span>
-          <div class="space-y-1">
-            <h1 id="churchTitle" class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white drop-shadow-sm">
-              Itorero...
-            </h1>
-            <p class="text-sm font-bold tracking-widest text-amber-300 uppercase">DISEZO YA GAHINI</p>
-            <p class="text-xs sm:text-sm font-extrabold tracking-wider text-indigo-200 uppercase">PARUWASI YA MUKAMA</p>
-          </div>
-          <div class="pt-2">
-            <a href="index.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-amber-400/30 text-amber-200 font-bold rounded-xl text-xs transition shadow-md">
-              ⬅️ Gusubira ku Cyicaro Gikuru (Parish Dashboard)
-            </a>
-          </div>
-        </div>
+        <!-- Button 2: Gusaba Ubukwe -->
+        <button onclick="openModal('matrimonyModal')" class="flex items-center justify-center gap-2 px-3 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer">
+          <span>💍</span>
+          <span>Gusaba Ubukwe</span>
+        </button>
 
-        <div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
-          <img src="logo-rwanda.png" alt="Logo y'u Rwanda" class="h-24 w-24 sm:h-32 sm:w-32 object-contain drop-shadow-md">
-        </div>
-      </header>
+        <!-- Button 3: Imari n'Amaturo -->
+        <button onclick="openModal('financeModal')" class="flex items-center justify-center gap-2 px-3 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer">
+          <span>💰</span>
+          <span>Amaturo n'Icya Cumi</span>
+        </button>
 
-      <!-- Imibare y'Ibanze y'Ukwikurikirana -->
-      <div class="grid grid-cols-1 sm:grid-cols-5 gap-4">
-        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-purple-100">
-          <p class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Abakirisitu Banditse</p>
-          <p id="statChurchMembers" class="text-2xl font-black text-purple-950 mt-2">0</p>
-        </div>
-        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-amber-50">
-          <p class="text-[10px] font-extrabold text-amber-600 uppercase tracking-wider">Ababatijwe</p>
-          <p id="statChurchBaptized" class="text-2xl font-black text-amber-600 mt-2">0</p>
-        </div>
-        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-emerald-50">
-          <p class="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider">Ubukwe</p>
-          <p id="statChurchMatrimony" class="text-2xl font-black text-emerald-600 mt-2">0</p>
-        </div>
-        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-blue-50">
-          <p class="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Amaturo (RWF)</p>
-          <p id="statChurchFinances" class="text-2xl font-black text-blue-600 mt-2">0</p>
-        </div>
-        <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-purple-100">
-          <p class="text-[10px] font-extrabold text-purple-700 uppercase tracking-wider">Ibikoresho / Imitungo</p>
-          <p id="statChurchAssets" class="text-2xl font-black text-purple-900 mt-2">0</p>
-        </div>
+        <!-- Button 4: Abayobozi b'Itorero -->
+        <button onclick="openModal('leadershipModal')" class="flex items-center justify-center gap-2 px-3 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer">
+          <span>👥</span>
+          <span>Abayobozi b'Itorero</span>
+        </button>
+
+        <!-- Button 5: Amatangazo n'Ibikorwa -->
+        <button onclick="openModal('announcementModal')" class="flex items-center justify-center gap-2 px-3 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer">
+          <span>📢</span>
+          <span>Amatangazo</span>
+        </button>
+
+        <!-- Button 6: Umutungo n'Ibikoresho -->
+        <button onclick="openModal('assetModal')" class="flex items-center justify-center gap-2 px-3 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 cursor-pointer sm:col-span-2 lg:col-span-5">
+          <span>📦</span>
+          <span>Umutungo n'Ibikoresho by'Itorero</span>
+        </button>
       </div>
+    </div>
 
-      <!-- Urutonde rw'Abakirisitu (Members Table) -->
-      <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden p-6 space-y-4">
-        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">📋 Abakirisitu Banditse muri iri Torero</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse text-xs">
-            <thead>
-              <tr class="bg-purple-950 text-purple-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-purple-900">
-                <th class="p-3">Amazina Yombi</th>
-                <th class="p-3">Nimero y'Indangamuntu</th>
-                <th class="p-3 text-center">Yarabatijwe?</th>
-                <th class="p-3 text-center">Yarakomejwe?</th>
-                <th class="p-3 text-center">Yarashyingiwe?</th>
-              </tr>
-            </thead>
-            <tbody id="churchMembersTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
-          </table>
-        </div>
+    <!-- 3. Imibare y'Ibanze y'Ukwikurikirana (Stats Cards) -->
+    <div class="grid grid-cols-1 sm:grid-cols-5 gap-4">
+      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-purple-100">
+        <p class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">Abakirisitu Banditse</p>
+        <p id="statChurchMembers" class="text-2xl font-black text-purple-950 mt-2">0</p>
       </div>
-
-      <!-- Urutonde rw'Umutungo n'Ibikoresho (Assets Table) -->
-      <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden p-6 space-y-4">
-        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">📦 Urutonde rw'Umutungo n'Ibikoresho by'Itorero</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse text-xs">
-            <thead>
-              <tr class="bg-indigo-950 text-indigo-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-indigo-900">
-                <th class="p-3">Izina ry'Igikoresho cyangwa Umutungo</th>
-                <th class="p-3">Ubwoko (Category)</th>
-                <th class="p-3 text-center">Umubare (Quantity)</th>
-                <th class="p-3 text-center">Imiterere / Ubuziranenge</th>
-              </tr>
-            </thead>
-            <tbody id="churchAssetsTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
-          </table>
-        </div>
+      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-amber-50">
+        <p class="text-[10px] font-extrabold text-amber-600 uppercase tracking-wider">Ababatijwe</p>
+        <p id="statChurchBaptized" class="text-2xl font-black text-amber-600 mt-2">0</p>
       </div>
+      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-emerald-50">
+        <p class="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wider">Ubukwe</p>
+        <p id="statChurchMatrimony" class="text-2xl font-black text-emerald-600 mt-2">0</p>
+      </div>
+      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-blue-50">
+        <p class="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">Amaturo (RWF)</p>
+        <p id="statChurchFinances" class="text-2xl font-black text-blue-600 mt-2">0</p>
+      </div>
+      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-purple-100">
+        <p class="text-[10px] font-extrabold text-purple-700 uppercase tracking-wider">Ibikoresho / Imitungo</p>
+        <p id="statChurchAssets" class="text-2xl font-black text-purple-900 mt-2">0</p>
+      </div>
+    </div>
 
-    </main>
+    <!-- 4. Urutonde rw'Abakirisitu (Members Table) -->
+    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden p-6 space-y-4">
+      <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">📋 Abakirisitu Banditse muri iri Torero</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-purple-950 text-purple-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-purple-900">
+              <th class="p-3">Amazina Yombi</th>
+              <th class="p-3">Nimero y'Indangamuntu</th>
+              <th class="p-3 text-center">Yarabatijwe?</th>
+              <th class="p-3 text-center">Yarakomejwe?</th>
+              <th class="p-3 text-center">Yarashyingiwe?</th>
+            </tr>
+          </thead>
+          <tbody id="churchMembersTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 5. Urutonde rw'Umutungo n'Ibikoresho (Assets Table) -->
+    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden p-6 space-y-4">
+      <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">📦 Urutonde rw'Umutungo n'Ibikoresho by'Itorero</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-indigo-950 text-indigo-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-indigo-900">
+              <th class="p-3">Izina ry'Igikoresho cyangwa Umutungo</th>
+              <th class="p-3">Ubwoko (Category)</th>
+              <th class="p-3 text-center">Umubare (Quantity)</th>
+              <th class="p-3 text-center">Imiterere / Ubuziranenge</th>
+            </tr>
+          </thead>
+          <tbody id="churchAssetsTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 
   <!-- MODAL 1: Kwandika Umukirisitu Mushya -->
