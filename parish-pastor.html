@@ -13,7 +13,7 @@
 </head>
 <body class="bg-gradient-to-br from-indigo-50/60 via-slate-50 to-purple-50/40 min-h-screen font-sans text-slate-800 flex flex-col justify-between pt-16">
 
-  <!-- Welcome Marquee Section (Topmost of Everything) -->
+  <!-- Welcome Marquee Section -->
   <div class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-950 via-indigo-950 to-purple-950 text-amber-200 px-6 py-2.5 text-xs font-semibold overflow-hidden whitespace-nowrap shadow-md border-b border-amber-500/30 flex items-center gap-3">
     <span class="bg-amber-500 text-purple-950 px-3 py-1 rounded-full text-[10px] uppercase font-black tracking-wider shrink-0 shadow-inner">Notice</span>
     <marquee behavior="scroll" direction="left" scrollamount="4" class="text-indigo-100 font-medium">
@@ -27,28 +27,23 @@
     <!-- Professional Church Header Section -->
     <header class="relative bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-3xl shadow-2xl border-2 border-amber-500/40 p-6 sm:p-10 overflow-hidden text-white">
       
-      <!-- Open Holy Bible Watermark Background Graphic -->
       <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center overflow-hidden">
         <svg class="w-[120%] h-[120%] text-amber-200" fill="currentColor" viewBox="0 0 24 24">
           <path d="M19 2H5C3.34 2 2 3.34 2 5v14c0 1.66 1.34 3 3 3h14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3zm-1 16H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H6c-.55 0-1-.45-1-1s.45-1 1-1h12c.55 0 1 .45 1 1s-.45 1-1 1z"/>
         </svg>
       </div>
 
-      <!-- Header Content Layout -->
       <div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
         
-        <!-- Left Logo -->
         <div class="p-3.5 bg-white/10 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
           <img src="log-diocese.png" alt="Diocese Logo" class="h-28 w-28 sm:h-36 sm:w-36 object-contain drop-shadow-md">
         </div>
 
-        <!-- Center Address & Titles -->
         <div class="text-center space-y-4 flex-1 px-2">
           <span class="inline-block px-5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-purple-950 rounded-full text-xs font-black tracking-widest uppercase border border-amber-300 shadow-lg animate-pulse">
             ✝️ Authorized Parish Personnel Portal ✝️
           </span>
 
-          <!-- Reverend Profile Section -->
           <div class="flex flex-col items-center justify-center space-y-2 py-1">
             <div class="p-1.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-500 rounded-full shadow-lg">
               <img src="reverend.png" alt="REV. KARYANGO THEONESTE" class="h-24 w-24 sm:h-28 sm:w-28 object-cover rounded-full border-2 border-purple-950 shadow-inner">
@@ -59,7 +54,6 @@
             </div>
           </div>
           
-          <!-- Church Hierarchy Text -->
           <div class="space-y-1.5 pt-1">
             <p class="text-sm sm:text-base md:text-lg font-black tracking-widest text-white uppercase">ANGLICAN CHURCH OF RWANDA</p>
             <p class="text-sm sm:text-base font-extrabold tracking-wider text-amber-300 uppercase">DIOCESE OF GAHINI</p>
@@ -71,7 +65,6 @@
           </h1>
         </div>
 
-        <!-- Right Logo -->
         <div class="p-3.5 bg-white/10 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
           <img src="logo-rwanda.png" alt="Rwanda Logo" class="h-28 w-28 sm:h-36 sm:w-36 object-contain drop-shadow-md">
         </div>
@@ -122,82 +115,119 @@
       </div>
     </div>
 
-    <!-- Controls / Filters Section -->
-    <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-purple-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="w-full sm:w-80 relative">
-        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-purple-400">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        </span>
-        <input type="text" id="searchInput" oninput="filterApplications()" placeholder="Search by name, code, phone, NID..." class="w-full pl-9 pr-4 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-900 transition">
-      </div>
-      <div class="w-full sm:w-auto flex items-center gap-3">
-        <label for="statusFilter" class="text-xs font-bold text-slate-700 uppercase tracking-wider">Status Filter:</label>
-        <select id="statusFilter" onchange="filterApplications()" class="px-4 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 font-semibold text-purple-950 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-900 transition cursor-pointer">
-          <option value="ALL">All Statuses</option>
-          <option value="PENDING">Pending</option>
-          <option value="APPROVED">Approved</option>
-          <option value="REJECTED">Rejected</option>
-        </select>
-      </div>
-    </div>
+    <!-- MAIN GRID LAYOUT: Left Action Buttons & Right Dynamic Content Reports -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+      
+      <!-- LEFT SIDEBAR: Local Church Action Buttons (Ibijyanye n'Itorero) -->
+      <div class="bg-gradient-to-b from-purple-950 via-indigo-950 to-slate-900 p-5 rounded-3xl shadow-xl border border-amber-500/30 space-y-4 lg:col-span-1">
+        <div class="flex items-center gap-2 pb-2 border-b border-purple-800 text-amber-300">
+          <svg class="w-5 h-5 animate-bounce" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <h2 class="text-xs font-black uppercase tracking-widest text-amber-200">Ibijyanye n'Itorero</h2>
+        </div>
 
-    <!-- Tabs for Switching Between Applications & Church Members -->
-    <div class="flex gap-3 border-b border-purple-100 pb-3">
-      <button onclick="switchTab('applications')" id="tabAppBtn" class="px-5 py-2.5 bg-purple-950 text-white rounded-xl text-xs font-bold shadow-md transition cursor-pointer flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-        Matrimony Applications
-      </button>
-      <button onclick="switchTab('members')" id="tabMemberBtn" class="px-5 py-2.5 bg-white text-slate-600 hover:bg-purple-50 rounded-xl text-xs font-bold border border-purple-100 transition cursor-pointer flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-        Registered Church Members
-      </button>
-    </div>
+        <div class="space-y-2.5">
+          <button onclick="selectCategory('members')" id="btnCat-members" class="w-full text-left p-3.5 rounded-2xl bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white transition font-bold text-xs flex items-center gap-3 border border-white/5 shadow-sm cursor-pointer group">
+            <span class="text-base p-1 bg-white/10 rounded-xl group-hover:bg-purple-950 group-hover:text-amber-300 transition">➕</span>
+            <div>
+              <p class="uppercase tracking-wide font-black">Kwandika Umukirisitu</p>
+              <p class="text-[10px] text-indigo-200 group-hover:text-purple-900 font-medium">By local church reports</p>
+            </div>
+          </button>
 
-    <!-- Main Table Section: Applications -->
-    <div id="applicationsSection" class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-xs">
-          <thead>
-            <tr class="bg-purple-950 text-purple-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-purple-900">
-              <th class="p-4">Reference / Date</th>
-              <th class="p-4">Church Info</th>
-              <th class="p-4">Groom Details</th>
-              <th class="p-4">Bride Details</th>
-              <th class="p-4 text-center">Status</th>
-              <th class="p-4 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="applicationsTableBody" class="divide-y divide-slate-100 font-medium">
-            <!-- Populated via JS -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+          <button onclick="selectCategory('applications')" id="btnCat-applications" class="w-full text-left p-3.5 rounded-2xl bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white transition font-bold text-xs flex items-center gap-3 border border-white/5 shadow-sm cursor-pointer group">
+            <span class="text-base p-1 bg-white/10 rounded-xl group-hover:bg-purple-950 group-hover:text-amber-300 transition">💍</span>
+            <div>
+              <p class="uppercase tracking-wide font-black">Gusaba Ubukwe</p>
+              <p class="text-[10px] text-indigo-200 group-hover:text-purple-900 font-medium">Matrimony applications</p>
+            </div>
+          </button>
 
-    <!-- Main Table Section: Church Members -->
-    <div id="membersSection" class="hidden bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-xs">
-          <thead>
-            <tr class="bg-purple-950 text-purple-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-purple-900">
-              <th class="p-4">Full Names</th>
-              <th class="p-4">National ID</th>
-              <th class="p-4">Local Church (Ikanisa)</th>
-              <th class="p-4 text-center">Baptized</th>
-              <th class="p-4 text-center">Confirmed</th>
-              <th class="p-4 text-center">Married</th>
-            </tr>
-          </thead>
-          <tbody id="membersTableBody" class="divide-y divide-slate-100 font-medium">
-            <!-- Populated via JS -->
-          </tbody>
-        </table>
+          <button onclick="selectCategory('tithes')" id="btnCat-tithes" class="w-full text-left p-3.5 rounded-2xl bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white transition font-bold text-xs flex items-center gap-3 border border-white/5 shadow-sm cursor-pointer group">
+            <span class="text-base p-1 bg-white/10 rounded-xl group-hover:bg-purple-950 group-hover:text-amber-300 transition">💰</span>
+            <div>
+              <p class="uppercase tracking-wide font-black">Amaturo n'Icya Cumi</p>
+              <p class="text-[10px] text-indigo-200 group-hover:text-purple-900 font-medium">Financial & tithe reports</p>
+            </div>
+          </button>
+
+          <button onclick="selectCategory('leaders')" id="btnCat-leaders" class="w-full text-left p-3.5 rounded-2xl bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white transition font-bold text-xs flex items-center gap-3 border border-white/5 shadow-sm cursor-pointer group">
+            <span class="text-base p-1 bg-white/10 rounded-xl group-hover:bg-purple-950 group-hover:text-amber-300 transition">👥</span>
+            <div>
+              <p class="uppercase tracking-wide font-black">Abayobozi b'Itorero</p>
+              <p class="text-[10px] text-indigo-200 group-hover:text-purple-900 font-medium">Local church leaders</p>
+            </div>
+          </button>
+
+          <button onclick="selectCategory('announcements')" id="btnCat-announcements" class="w-full text-left p-3.5 rounded-2xl bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white transition font-bold text-xs flex items-center gap-3 border border-white/5 shadow-sm cursor-pointer group">
+            <span class="text-base p-1 bg-white/10 rounded-xl group-hover:bg-purple-950 group-hover:text-amber-300 transition">📢</span>
+            <div>
+              <p class="uppercase tracking-wide font-black">Amatangazo</p>
+              <p class="text-[10px] text-indigo-200 group-hover:text-purple-900 font-medium">Notices & gatherings</p>
+            </div>
+          </button>
+
+          <button onclick="selectCategory('assets')" id="btnCat-assets" class="w-full text-left p-3.5 rounded-2xl bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white transition font-bold text-xs flex items-center gap-3 border border-white/5 shadow-sm cursor-pointer group">
+            <span class="text-base p-1 bg-white/10 rounded-xl group-hover:bg-purple-950 group-hover:text-amber-300 transition">📦</span>
+            <div>
+              <p class="uppercase tracking-wide font-black">Umutungo n'Ibikoresho</p>
+              <p class="text-[10px] text-indigo-200 group-hover:text-purple-900 font-medium">Church assets & inventory</p>
+            </div>
+          </button>
+        </div>
       </div>
+
+      <!-- RIGHT SIDE: Dynamic Reporting Area -->
+      <div class="lg:col-span-3 space-y-6">
+        
+        <!-- Controls / Search & Filters -->
+        <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-purple-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div class="w-full sm:w-72 relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-purple-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </span>
+            <input type="text" id="searchInput" oninput="filterCurrentView()" placeholder="Search records..." class="w-full pl-9 pr-4 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-900 transition">
+          </div>
+          <div class="w-full sm:w-auto flex items-center gap-3">
+            <label for="churchFilter" class="text-xs font-bold text-slate-700 uppercase tracking-wider">Local Church:</label>
+            <select id="churchFilter" onchange="filterCurrentView()" class="px-4 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 font-semibold text-purple-950 focus:bg-white focus:outline-none focus:ring-2 focus:ring-purple-900 transition cursor-pointer">
+              <option value="ALL">All Local Churches (Byose)</option>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Active View Banner Header -->
+        <div class="bg-purple-950 text-white px-6 py-4 rounded-2xl flex justify-between items-center shadow-md border border-amber-500/30">
+          <div>
+            <span class="text-[10px] font-black text-amber-300 uppercase tracking-widest block">Active Report Category</span>
+            <h3 id="activeCategoryTitle" class="text-base font-black uppercase tracking-wider mt-0.5">Matrimony Applications Report</h3>
+          </div>
+          <span id="activeCountBadge" class="px-3.5 py-1.5 bg-amber-500 text-purple-950 font-black rounded-full text-xs shadow-inner">0 Records</span>
+        </div>
+
+        <!-- Main Data Table Container -->
+        <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr id="tableHeaderRow" class="bg-purple-950 text-purple-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-purple-900">
+                  <!-- Populated dynamically based on selected button category -->
+                </tr>
+              </thead>
+              <tbody id="dynamicTableBody" class="divide-y divide-slate-100 font-medium">
+                <!-- Populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
 
-  <!-- Manager Footer with Support Email -->
+  <!-- Footer -->
   <footer class="bg-white/90 backdrop-blur-md border-t border-purple-100 mt-16 py-8 px-6 text-slate-600 shadow-lg">
     <div class="max-w-7xl mx-auto space-y-6">
       <div class="text-xs leading-relaxed text-slate-600 italic border-l-4 border-purple-900 pl-4 py-1 bg-purple-50/50 rounded-r-xl">
@@ -216,19 +246,14 @@
       <div class="bg-purple-950 text-white px-6 py-4 flex justify-between items-center">
         <h3 class="font-bold text-sm uppercase tracking-wider flex items-center gap-2">
           <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-          Complete Application & Index Submission Details
+          Complete Record Submission Details
         </h3>
         <button onclick="closeMatrimonyDetailsModal()" class="text-purple-300 hover:text-white font-bold text-xl cursor-pointer p-1 rounded-lg hover:bg-white/15 transition">&times;</button>
       </div>
       
-      <div id="matrimonyDetailsContent" class="p-6 overflow-y-auto space-y-6 text-xs text-slate-700">
-        <!-- Populated via JS with complete raw database fields -->
-      </div>
+      <div id="matrimonyDetailsContent" class="p-6 overflow-y-auto space-y-6 text-xs text-slate-700"></div>
 
       <div class="bg-purple-50/50 px-6 py-4 border-t border-purple-100 flex justify-between items-center">
-        <button onclick="printMatrimonyReport()" class="px-5 py-2.5 bg-purple-900 hover:bg-purple-950 text-white font-bold rounded-xl text-xs transition shadow-md cursor-pointer flex items-center gap-2">
-          🖨️ Print Official Report
-        </button>
         <button onclick="closeMatrimonyDetailsModal()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer">
           Close Window
         </button>
@@ -242,67 +267,133 @@
     const SUPABASE_ANON_KEY = 'sb_publishable_sZnQimLXEoAzSlb5Adw6oQ_P2QW9_cq';
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    let currentCategory = 'applications'; // Default view
     let applications = [];
     let registeredMembers = [];
-    let currentSelectedApp = null;
+    let churchTithes = [];
+    let churchLeaders = [];
+    let churchAnnouncements = [];
+    let churchAssets = [];
+    let localChurchesList = [];
+    let currentSelectedRecord = null;
 
-    // Fetch applications on startup
+    // Fetch all database tables on startup
+    async function fetchAllData() {
+      await Promise.all([
+        fetchApplications(),
+        fetchMembers(),
+        fetchTithes(),
+        fetchLeaders(),
+        fetchAnnouncements(),
+        fetchAssets()
+      ]);
+      extractLocalChurches();
+      updateStats();
+      selectCategory('applications');
+    }
+
     async function fetchApplications() {
-      try {
-        const { data, error } = await supabaseClient
-          .from('matrimony_applications')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (error) {
-          console.error('Error fetching applications:', error);
-          return;
-        }
-
-        if (data) {
-          applications = data.map((item, index) => ({
-            ...item,
-            uniqueRowId: item.id !== undefined && item.id !== null ? item.id : index,
-            displayId: item.ref_code || item.id || `EAR-2026-00${index + 1}`,
-            date: item.submission_date || (item.created_at ? item.created_at.split('T')[0] : '2026-07-26'),
-            status: item.status ? String(item.status).trim() : 'Pending'
-          }));
-        }
-        updateStats();
-        filterApplications();
-      } catch (err) {
-        console.error('Unexpected error fetching applications:', err);
+      const { data } = await supabaseClient.from('matrimony_applications').select('*').order('created_at', { ascending: false });
+      if (data) {
+        applications = data.map((item, index) => ({
+          ...item,
+          uniqueRowId: item.id || index,
+          displayId: item.ref_code || item.id || `EAR-2026-00${index + 1}`,
+          date: item.submission_date || (item.created_at ? item.created_at.split('T')[0] : '2026-07-26'),
+          status: item.status ? String(item.status).trim() : 'Pending',
+          local_church: item.local_church || 'Mukama Main'
+        }));
       }
     }
 
     async function fetchMembers() {
-      try {
-        const { data, error } = await supabaseClient 
-          .from('church_members') 
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (error) {
-          console.error('Error fetching church members:', error);
-          return;
-        }
-
-        if (data) {
-          registeredMembers = data.map((m, index) => ({
-            id: m.id || index + 1,
-            full_names: m.full_names || '',
-            national_id: m.national_id || '',
-            local_church: m.local_church || '',
-            is_baptized: !!m.is_baptized,
-            is_confirmed: !!m.is_confirmed,
-            is_married: !!m.is_married
-          }));
-        }
-        updateStats();
-        renderMembersTable(registeredMembers);
-      } catch (err) {
-        console.error('Unexpected error fetching members:', err);
+      const { data } = await supabaseClient.from('church_members').select('*').order('created_at', { ascending: false });
+      if (data) {
+        registeredMembers = data.map((m, index) => ({
+          ...m,
+          uniqueRowId: m.id || index,
+          local_church: m.local_church || 'Mukama Main',
+          full_names: m.full_names || 'N/A',
+          national_id: m.national_id || 'N/A',
+          is_baptized: !!m.is_baptized,
+          is_confirmed: !!m.is_confirmed,
+          is_married: !!m.is_married
+        }));
       }
+    }
+
+    async function fetchTithes() {
+      const { data } = await supabaseClient.from('church_tithes').select('*').order('created_at', { ascending: false });
+      if (data) {
+        churchTithes = data.map((t, index) => ({
+          ...t,
+          uniqueRowId: t.id || index,
+          local_church: t.local_church || 'Mukama Main',
+          amount: t.amount || 0,
+          contributor_name: t.contributor_name || t.name || 'Anonymous',
+          tithe_date: t.tithe_date || (t.created_at ? t.created_at.split('T')[0] : '2026-07-26')
+        }));
+      }
+    }
+
+    async function fetchLeaders() {
+      const { data } = await supabaseClient.from('church_leaders').select('*').order('created_at', { ascending: false });
+      if (data) {
+        churchLeaders = data.map((l, index) => ({
+          ...l,
+          uniqueRowId: l.id || index,
+          local_church: l.local_church || 'Mukama Main',
+          full_name: l.full_name || l.name || 'N/A',
+          position: l.position || 'Leader',
+          phone: l.phone || 'N/A'
+        }));
+      }
+    }
+
+    async function fetchAnnouncements() {
+      const { data } = await supabaseClient.from('church_announcements').select('*').order('created_at', { ascending: false });
+      if (data) {
+        churchAnnouncements = data.map((a, index) => ({
+          ...a,
+          uniqueRowId: a.id || index,
+          local_church: a.local_church || 'Mukama Parish',
+          title: a.title || 'Announcement',
+          content: a.content || a.message || 'N/A',
+          date: a.date || (a.created_at ? a.created_at.split('T')[0] : '2026-07-26')
+        }));
+      }
+    }
+
+    async function fetchAssets() {
+      const { data } = await supabaseClient.from('church_assets').select('*').order('created_at', { ascending: false });
+      if (data) {
+        churchAssets = data.map((ast, index) => ({
+          ...ast,
+          uniqueRowId: ast.id || index,
+          local_church: ast.local_church || 'Mukama Main',
+          asset_name: ast.asset_name || ast.name || 'Equipment',
+          category: ast.category || 'General',
+          condition: ast.condition || 'Good'
+        }));
+      }
+    }
+
+    function extractLocalChurches() {
+      let set = new Set();
+      applications.forEach(i => set.add(i.local_church));
+      registeredMembers.forEach(i => set.add(i.local_church));
+      churchTithes.forEach(i => set.add(i.local_church));
+      churchLeaders.forEach(i => set.add(i.local_church));
+      churchAnnouncements.forEach(i => set.add(i.local_church));
+      churchAssets.forEach(i => set.add(i.local_church));
+
+      localChurchesList = Array.from(set).filter(Boolean);
+      
+      const select = document.getElementById('churchFilter');
+      select.innerHTML = `<option value="ALL">All Local Churches (Byose)</option>`;
+      localChurchesList.forEach(church => {
+        select.innerHTML += `<option value="${church}">${church}</option>`;
+      });
     }
 
     function updateStats() {
@@ -312,324 +403,239 @@
       document.getElementById('statMembers').innerText = registeredMembers.length;
     }
 
-    function switchTab(tab) {
-      const appSec = document.getElementById('applicationsSection');
-      const memSec = document.getElementById('membersSection');
-      const appBtn = document.getElementById('tabAppBtn');
-      const memBtn = document.getElementById('tabMemberBtn');
+    function selectCategory(category) {
+      currentCategory = category;
 
-      if (tab === 'applications') {
-        appSec.classList.remove('hidden');
-        memSec.classList.add('hidden');
-        appBtn.className = "px-5 py-2.5 bg-purple-950 text-white rounded-xl text-xs font-bold shadow-md transition cursor-pointer flex items-center gap-2";
-        memBtn.className = "px-5 py-2.5 bg-white text-slate-600 hover:bg-purple-50 rounded-xl text-xs font-bold border border-purple-100 transition cursor-pointer flex items-center gap-2";
-      } else {
-        memSec.classList.remove('hidden');
-        appSec.classList.add('hidden');
-        memBtn.className = "px-5 py-2.5 bg-purple-950 text-white rounded-xl text-xs font-bold shadow-md transition cursor-pointer flex items-center gap-2";
-        appBtn.className = "px-5 py-2.5 bg-white text-slate-600 hover:bg-purple-50 rounded-xl text-xs font-bold border border-purple-100 transition cursor-pointer flex items-center gap-2";
+      // Highlight active sidebar button
+      document.querySelectorAll('[id^="btnCat-"]').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-purple-950');
+        btn.classList.add('bg-white/10', 'text-white');
+      });
+      const activeBtn = document.getElementById(`btnCat-${category}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-white/10', 'text-white');
+        activeBtn.classList.add('bg-amber-500', 'text-purple-950');
       }
+
+      const titles = {
+        'members': "Kwandika Umukirisitu (Registered Members Report)",
+        'applications': "Gusaba Ubukwe (Matrimony Applications Report)",
+        'tithes': "Amaturo n'Icya Cumi (Tithes & Financial Offerings)",
+        'leaders': "Abayobozi b'Itorero (Local Church Leaders)",
+        'announcements': "Amatangazo n'Amakoraniro (Notices & Gatherings)",
+        'assets': "Umutungo n'Ibikoresho (Church Assets & Inventory)"
+      };
+
+      document.getElementById('activeCategoryTitle').innerText = titles[category] || 'Church Report';
+      filterCurrentView();
     }
 
-    function filterApplications() {
+    function filterCurrentView() {
       const query = document.getElementById('searchInput').value.toLowerCase();
-      const statusVal = document.getElementById('statusFilter').value;
+      const churchVal = document.getElementById('churchFilter').value;
 
-      const filtered = applications.filter(app => {
-        let matchesStatus = (statusVal === 'ALL' || String(app.status || '').toUpperCase() === statusVal);
-        let matchesQuery = 
-          String(app.displayId || '').toLowerCase().includes(query) ||
-          String(app.local_church || '').toLowerCase().includes(query) ||
-          String(app.groom_name || '').toLowerCase().includes(query) ||
-          String(app.groom_id_number || '').toLowerCase().includes(query) ||
-          String(app.groom_phone || '').toLowerCase().includes(query) ||
-          String(app.bride_name || '').toLowerCase().includes(query) ||
-          String(app.bride_id_number || '').toLowerCase().includes(query) ||
-          String(app.bride_phone || '').toLowerCase().includes(query);
+      let currentDataSet = [];
+      if (currentCategory === 'members') currentDataSet = registeredMembers;
+      else if (currentCategory === 'applications') currentDataSet = applications;
+      else if (currentCategory === 'tithes') currentDataSet = churchTithes;
+      else if (currentCategory === 'leaders') currentDataSet = churchLeaders;
+      else if (currentCategory === 'announcements') currentDataSet = churchAnnouncements;
+      else if (currentCategory === 'assets') currentDataSet = churchAssets;
 
-        return matchesStatus && matchesQuery;
+      const filtered = currentDataSet.filter(item => {
+        const matchesChurch = (churchVal === 'ALL' || String(item.local_church || '') === churchVal);
+        const matchesQuery = Object.values(item).some(val => String(val || '').toLowerCase().includes(query));
+        return matchesChurch && matchesQuery;
       });
 
-      renderTable(filtered);
+      document.getElementById('activeCountBadge').innerText = `${filtered.length} Records`;
+      renderDynamicTable(filtered);
     }
 
-    function renderTable(dataToRender) {
-      const tbody = document.getElementById('applicationsTableBody');
+    function renderDynamicTable(data) {
+      const headerRow = document.getElementById('tableHeaderRow');
+      const tbody = document.getElementById('dynamicTableBody');
       tbody.innerHTML = '';
 
-      if (dataToRender.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 font-medium">No matrimony applications found matching criteria.</td></tr>`;
-        return;
-      }
-
-      dataToRender.forEach((app) => {
-        let statusLower = app.status ? String(app.status).toLowerCase() : 'pending';
-        let statusBadge = '';
-        if (statusLower === 'pending') statusBadge = '<span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-extrabold text-[10px] tracking-wide inline-block shadow-sm">Pending</span>';
-        else if (statusLower === 'approved') statusBadge = '<span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-extrabold text-[10px] tracking-wide inline-block shadow-sm">Approved</span>';
-        else statusBadge = '<span class="bg-rose-100 text-rose-800 px-3 py-1 rounded-full font-extrabold text-[10px] tracking-wide inline-block shadow-sm">Rejected</span>';
-
-        tbody.innerHTML += `
-          <tr class="hover:bg-purple-50/40 transition border-b border-slate-100 last:border-none">
-            <td class="p-4 font-mono font-bold text-purple-950">${app.displayId}<br/><span class="text-[10px] text-slate-400 font-normal">${app.date}</span></td>
-            <td class="p-4 font-semibold text-slate-700">${app.local_church || 'N/A'}<br/><span class="text-[10px] text-purple-700 font-bold">${app.parish_name || ''}</span></td>
-            <td class="p-4">
-              <span class="font-bold text-slate-800">${app.groom_name || 'N/A'}</span><br/>
-              <span class="font-mono text-[10px] text-slate-500">NID: ${app.groom_id_number || 'N/A'}</span><br/>
-              <span class="font-mono text-[10px] text-purple-700 font-bold">Tel: ${app.groom_phone || 'N/A'}</span>
-            </td>
-            <td class="p-4">
-              <span class="font-bold text-slate-800">${app.bride_name || 'N/A'}</span><br/>
-              <span class="font-mono text-[10px] text-slate-500">NID: ${app.bride_id_number || 'N/A'}</span><br/>
-              <span class="font-mono text-[10px] text-purple-700 font-bold">Tel: ${app.bride_phone || 'N/A'}</span>
-            </td>
-            <td class="p-4 text-center">${statusBadge}</td>
-            <td class="p-4 text-center space-y-1.5">
-              <div class="flex items-center justify-center gap-1.5">
-                <button onclick="updateAppStatus('${app.uniqueRowId}', 'Approved')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-[10px] transition shadow-sm cursor-pointer">Approve</button>
-                <button onclick="updateAppStatus('${app.uniqueRowId}', 'Rejected')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg text-[10px] transition shadow-sm cursor-pointer">Reject</button>
-              </div>
-              <button onclick="viewMatrimonyDetails('${app.uniqueRowId}')" class="w-full px-2.5 py-1.5 bg-purple-900 hover:bg-purple-950 text-white font-bold rounded-lg text-[10px] transition shadow-sm cursor-pointer flex items-center justify-center gap-1">👁️ View Complete Data</button>
-            </td>
-          </tr>
+      if (currentCategory === 'members') {
+        headerRow.innerHTML = `
+          <th class="p-4">Full Names</th>
+          <th class="p-4">National ID</th>
+          <th class="p-4">Local Church (Ikanisa)</th>
+          <th class="p-4 text-center">Baptized</th>
+          <th class="p-4 text-center">Confirmed</th>
+          <th class="p-4 text-center">Married</th>
         `;
-      });
-    }
-
-    function renderMembersTable(members) {
-      const tbody = document.getElementById('membersTableBody');
-      tbody.innerHTML = '';
-
-      if (members.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 font-medium">No registered church members found.</td></tr>`;
-        return;
-      }
-
-      members.forEach((m) => {
-        tbody.innerHTML += `
-          <tr class="hover:bg-purple-50/40 transition border-b border-slate-100 last:border-none">
-            <td class="p-4 font-bold text-slate-900">${m.full_names}</td>
-            <td class="p-4 font-mono text-slate-600">${m.national_id}</td>
-            <td class="p-4 font-semibold text-purple-900">${m.local_church}</td>
-            <td class="p-4 text-center">${m.is_baptized ? '<span class="text-emerald-600 font-bold">✅ Yes</span>' : '<span class="text-slate-400">❌ No</span>'}</td>
-            <td class="p-4 text-center">${m.is_confirmed ? '<span class="text-emerald-600 font-bold">✅ Yes</span>' : '<span class="text-slate-400">❌ No</span>'}</td>
-            <td class="p-4 text-center">${m.is_married ? '<span class="text-emerald-600 font-bold">✅ Yes</span>' : '<span class="text-slate-400">❌ No</span>'}</td>
-          </tr>
-        `;
-      });
-    }
-
-    // Permanently update status in Supabase table
-    async function updateAppStatus(uniqueRowId, newStatus) {
-      try {
-        const app = applications.find(a => String(a.uniqueRowId) === String(uniqueRowId));
-        if (!app) {
-          alert('Application record not found.');
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 font-medium">No church members found for this local church.</td></tr>`;
           return;
         }
-
-        let query = supabaseClient.from('matrimony_applications').update({ status: newStatus });
-        
-        if (app.id !== undefined && app.id !== null) {
-          query = query.eq('id', app.id);
-        } else if (app.ref_code) {
-          query = query.eq('ref_code', app.ref_code);
-        } else {
-          query = query.eq('id', uniqueRowId);
-        }
-
-        const { error } = await query;
-
-        if (error) {
-          alert('Failed to update application status in database.');
-          console.error(error);
-          return;
-        }
-
-        app.status = newStatus;
-        updateStats();
-        filterApplications();
-        alert(`Application status permanently updated to ${newStatus}`);
-      } catch (err) {
-        console.error('Error updating status:', err);
-      }
-    }
-
-    function viewMatrimonyDetails(uniqueRowId) {
-      const app = applications.find(a => String(a.uniqueRowId) === String(uniqueRowId));
-      if (!app) return;
-
-      currentSelectedApp = app;
-
-      let groomPhoto = app.groom_photo_url ? `<img src="${app.groom_photo_url}" class="h-32 w-32 object-cover rounded-2xl mx-auto border-4 border-white shadow-md" />` : `<div class="h-32 w-32 bg-slate-200 rounded-2xl mx-auto flex items-center justify-center text-[10px] text-slate-500 font-bold border-4 border-white shadow-sm">No Groom Photo</div>`;
-      let bridePhoto = app.bride_photo_url ? `<img src="${app.bride_photo_url}" class="h-32 w-32 object-cover rounded-2xl mx-auto border-4 border-white shadow-md" />` : `<div class="h-32 w-32 bg-slate-200 rounded-2xl mx-auto flex items-center justify-center text-[10px] text-slate-500 font-bold border-4 border-white shadow-sm">No Bride Photo</div>`;
-
-      let certUrl = app.civil_certificate_url || app.certificate_url || app.umurenge_certificate || app.marriage_certificate_url || app.civil_marriage_doc || '';
-
-      let certSectionHtml = '';
-      if (certUrl) {
-        certSectionHtml = `
-          <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-4 shadow-xs">
-            <div>
-              <span class="text-xs font-black text-amber-900 block uppercase tracking-wider">Civil Umurenge Marriage Certificate</span>
-              <p class="text-[11px] text-slate-600">Official civil marriage document submitted by the couple.</p>
-            </div>
-            <div class="flex items-center gap-2 shrink-0">
-              <a href="${certUrl}" target="_blank" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-1.5">
-                📄 View Certificate
-              </a>
-              <a href="${certUrl}" download class="px-4 py-2 bg-purple-900 hover:bg-purple-950 text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-1.5">
-                ⬇️ Download
-              </a>
-            </div>
-          </div>
-        `;
-      } else {
-        certSectionHtml = `
-          <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex justify-between items-center">
-            <div>
-              <span class="text-xs font-bold text-slate-700 block uppercase tracking-wider">Civil Umurenge Marriage Certificate</span>
-              <p class="text-[11px] text-slate-500">No civil certificate document was uploaded in this record.</p>
-            </div>
-            <span class="px-3 py-1 bg-slate-200 text-slate-700 rounded-lg text-[10px] font-bold">Not Attached</span>
-          </div>
-        `;
-      }
-
-      let excludedKeys = ['uniqueRowId', 'displayId', 'id', 'ref_code', 'submission_date', 'created_at', 'status', 'groom_name', 'groom_id_number', 'groom_dob', 'groom_phone', 'groom_email', 'groom_education', 'groom_job', 'groom_address', 'groom_photo_url', 'bride_name', 'bride_id_number', 'bride_dob', 'bride_phone', 'bride_email', 'bride_education', 'bride_job', 'bride_address', 'bride_photo_url', 'diocese', 'archdeaconry', 'parish_name', 'local_church', 'civil_certificate_url', 'certificate_url', 'umurenge_certificate', 'marriage_certificate_url', 'civil_marriage_doc'];
-      
-      let extraFieldsHtml = '';
-      for (const [key, val] of Object.entries(app)) {
-        if (!excludedKeys.includes(key)) {
-          extraFieldsHtml += `
-            <div class="bg-white p-3.5 rounded-xl border border-purple-100 shadow-xs flex justify-between items-center">
-              <span class="font-bold text-slate-400 uppercase text-[10px] tracking-wider">${key.replace(/_/g, ' ')}</span>
-              <span class="font-semibold text-purple-950 text-right">${val !== null && val !== '' ? val : 'N/A'}</span>
-            </div>
+        data.forEach(m => {
+          tbody.innerHTML += `
+            <tr class="hover:bg-purple-50/45 transition border-b border-slate-100">
+              <td class="p-4 font-bold text-slate-900">${m.full_names}</td>
+              <td class="p-4 font-mono text-slate-600">${m.national_id}</td>
+              <td class="p-4 font-semibold text-purple-900">${m.local_church}</td>
+              <td class="p-4 text-center">${m.is_baptized ? '<span class="text-emerald-600 font-bold">✅ Yes</span>' : '<span class="text-slate-400">❌ No</span>'}</td>
+              <td class="p-4 text-center">${m.is_confirmed ? '<span class="text-emerald-600 font-bold">✅ Yes</span>' : '<span class="text-slate-400">❌ No</span>'}</td>
+              <td class="p-4 text-center">${m.is_married ? '<span class="text-emerald-600 font-bold">✅ Yes</span>' : '<span class="text-slate-400">❌ No</span>'}</td>
+            </tr>
           `;
+        });
+      } else if (currentCategory === 'applications') {
+        headerRow.innerHTML = `
+          <th class="p-4">Reference / Date</th>
+          <th class="p-4">Local Church</th>
+          <th class="p-4">Groom Details</th>
+          <th class="p-4">Bride Details</th>
+          <th class="p-4 text-center">Status</th>
+          <th class="p-4 text-center">Actions</th>
+        `;
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 font-medium">No matrimony applications found.</td></tr>`;
+          return;
         }
+        data.forEach(app => {
+          let statusLower = String(app.status).toLowerCase();
+          let badge = statusLower === 'approved' ? '<span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-extrabold text-[10px]">Approved</span>' : statusLower === 'rejected' ? '<span class="bg-rose-100 text-rose-800 px-3 py-1 rounded-full font-extrabold text-[10px]">Rejected</span>' : '<span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-extrabold text-[10px]">Pending</span>';
+          
+          tbody.innerHTML += `
+            <tr class="hover:bg-purple-50/45 transition border-b border-slate-100">
+              <td class="p-4 font-mono font-bold text-purple-950">${app.displayId}<br/><span class="text-[10px] text-slate-400 font-normal">${app.date}</span></td>
+              <td class="p-4 font-semibold text-purple-900">${app.local_church}</td>
+              <td class="p-4"><span class="font-bold text-slate-800">${app.groom_name || 'N/A'}</span><br/><span class="font-mono text-[10px] text-purple-700 font-bold">Tel: ${app.groom_phone || 'N/A'}</span></td>
+              <td class="p-4"><span class="font-bold text-slate-800">${app.bride_name || 'N/A'}</span><br/><span class="font-mono text-[10px] text-purple-700 font-bold">Tel: ${app.bride_phone || 'N/A'}</span></td>
+              <td class="p-4 text-center">${badge}</td>
+              <td class="p-4 text-center">
+                <button onclick="viewRecordDetails('applications', '${app.uniqueRowId}')" class="px-3 py-1.5 bg-purple-900 hover:bg-purple-950 text-white font-bold rounded-lg text-[10px] transition shadow-sm cursor-pointer">👁️ View Full Data</button>
+              </td>
+            </tr>
+          `;
+        });
+      } else if (currentCategory === 'tithes') {
+        headerRow.innerHTML = `
+          <th class="p-4">Contributor Name</th>
+          <th class="p-4">Local Church</th>
+          <th class="p-4">Amount (RWF)</th>
+          <th class="p-4">Date</th>
+        `;
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 font-medium">No tithe or offering records found for this church.</td></tr>`;
+          return;
+        }
+        data.forEach(t => {
+          tbody.innerHTML += `
+            <tr class="hover:bg-purple-50/45 transition border-b border-slate-100">
+              <td class="p-4 font-bold text-slate-900">${t.contributor_name}</td>
+              <td class="p-4 font-semibold text-purple-900">${t.local_church}</td>
+              <td class="p-4 font-mono font-black text-emerald-700">${Number(t.amount).toLocaleString()} RWF</td>
+              <td class="p-4 text-slate-500 font-mono">${t.tithe_date}</td>
+            </tr>
+          `;
+        });
+      } else if (currentCategory === 'leaders') {
+        headerRow.innerHTML = `
+          <th class="p-4">Leader Name</th>
+          <th class="p-4">Position</th>
+          <th class="p-4">Local Church</th>
+          <th class="p-4">Phone Number</th>
+        `;
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 font-medium">No local church leaders recorded.</td></tr>`;
+          return;
+        }
+        data.forEach(l => {
+          tbody.innerHTML += `
+            <tr class="hover:bg-purple-50/45 transition border-b border-slate-100">
+              <td class="p-4 font-bold text-slate-900">${l.full_name}</td>
+              <td class="p-4 font-semibold text-amber-700">${l.position}</td>
+              <td class="p-4 font-semibold text-purple-900">${l.local_church}</td>
+              <td class="p-4 font-mono text-slate-700">${l.phone}</td>
+            </tr>
+          `;
+        });
+      } else if (currentCategory === 'announcements') {
+        headerRow.innerHTML = `
+          <th class="p-4">Title / Subject</th>
+          <th class="p-4">Local Church</th>
+          <th class="p-4">Content / Message</th>
+          <th class="p-4">Date</th>
+        `;
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 font-medium">No announcements recorded.</td></tr>`;
+          return;
+        }
+        data.forEach(a => {
+          tbody.innerHTML += `
+            <tr class="hover:bg-purple-50/45 transition border-b border-slate-100">
+              <td class="p-4 font-bold text-purple-950">${a.title}</td>
+              <td class="p-4 font-semibold text-purple-900">${a.local_church}</td>
+              <td class="p-4 text-slate-700">${a.content}</td>
+              <td class="p-4 font-mono text-slate-500">${a.date}</td>
+            </tr>
+          `;
+        });
+      } else if (currentCategory === 'assets') {
+        headerRow.innerHTML = `
+          <th class="p-4">Asset / Equipment Name</th>
+          <th class="p-4">Category</th>
+          <th class="p-4">Local Church</th>
+          <th class="p-4 text-center">Condition</th>
+        `;
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" class="p-8 text-center text-slate-400 font-medium">No church assets or inventory items found.</td></tr>`;
+          return;
+        }
+        data.forEach(ast => {
+          tbody.innerHTML += `
+            <tr class="hover:bg-purple-50/45 transition border-b border-slate-100">
+              <td class="p-4 font-bold text-slate-900">${ast.asset_name}</td>
+              <td class="p-4 font-semibold text-slate-600">${ast.category}</td>
+              <td class="p-4 font-semibold text-purple-900">${ast.local_church}</td>
+              <td class="p-4 text-center font-bold text-emerald-700">${ast.condition}</td>
+            </tr>
+          `;
+        });
       }
+    }
 
-      const detailsContainer = document.getElementById('matrimonyDetailsContent');
-      detailsContainer.innerHTML = `
-        <div class="bg-purple-50/80 p-4 rounded-2xl border border-purple-100 flex justify-between items-center shadow-xs">
-          <div>
-            <span class="text-[10px] font-bold text-purple-700 uppercase tracking-wider block">Application Reference / ID</span>
-            <h4 class="text-base font-black font-mono text-purple-950 mt-0.5">${app.displayId}</h4>
+    function viewRecordDetails(type, uniqueRowId) {
+      if (type === 'applications') {
+        const app = applications.find(a => String(a.uniqueRowId) === String(uniqueRowId));
+        if (!app) return;
+        currentSelectedRecord = app;
+        
+        const detailsContainer = document.getElementById('matrimonyDetailsContent');
+        detailsContainer.innerHTML = `
+          <div class="bg-purple-50 p-4 rounded-2xl flex justify-between items-center">
+            <div><span class="text-[10px] text-purple-700 uppercase font-bold">Reference ID</span><h4 class="font-mono font-black text-purple-950">${app.displayId}</h4></div>
+            <div><span class="text-[10px] text-slate-400 uppercase font-bold">Local Church</span><p class="font-bold text-slate-800">${app.local_church}</p></div>
           </div>
-          <div class="text-right">
-            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Submission Date / Time</span>
-            <p class="text-xs font-bold text-slate-700 mt-0.5">${app.submission_date || app.created_at || app.date}</p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-purple-50/30 p-4 rounded-xl border">
+              <p class="font-bold text-purple-950 uppercase border-b pb-1 mb-2">Groom Information</p>
+              <p><strong>Name:</strong> ${app.groom_name || 'N/A'}</p>
+              <p><strong>NID:</strong> ${app.groom_id_number || 'N/A'}</p>
+              <p><strong>Phone:</strong> ${app.groom_phone || 'N/A'}</p>
+            </div>
+            <div class="bg-purple-50/30 p-4 rounded-xl border">
+              <p class="font-bold text-purple-950 uppercase border-b pb-1 mb-2">Bride Information</p>
+              <p><strong>Name:</strong> ${app.bride_name || 'N/A'}</p>
+              <p><strong>NID:</strong> ${app.bride_id_number || 'N/A'}</p>
+              <p><strong>Phone:</strong> ${app.bride_phone || 'N/A'}</p>
+            </div>
           </div>
-        </div>
-
-        <!-- Civil Umurenge Certificate Button Section -->
-        ${certSectionHtml}
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-purple-50/40 p-4 rounded-2xl border border-purple-100">
-          <div><span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Diocese</span><strong class="text-purple-950 text-xs">${app.diocese || 'N/A'}</strong></div>
-          <div><span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Archdeaconry</span><strong class="text-purple-950 text-xs">${app.archdeaconry || 'N/A'}</strong></div>
-          <div><span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Parish</span><strong class="text-purple-950 text-xs">${app.parish_name || 'N/A'}</strong></div>
-          <div><span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Local Church</span><strong class="text-purple-950 text-xs">${app.local_church || 'N/A'}</strong></div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <!-- Groom Section -->
-          <div class="bg-purple-50/30 p-5 rounded-2xl border border-purple-100 space-y-2.5">
-            <div class="text-center mb-4">${groomPhoto}</div>
-            <p class="text-xs font-extrabold text-purple-950 uppercase border-b border-purple-200 pb-1.5 tracking-wider">Groom Full Information</p>
-            <p><strong>Full Name:</strong> ${app.groom_name || 'N/A'}</p>
-            <p><strong>National ID:</strong> <span class="font-mono font-semibold">${app.groom_id_number || 'N/A'}</span></p>
-            <p><strong>Date of Birth:</strong> ${app.groom_dob || 'N/A'}</p>
-            <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-purple-900">${app.groom_phone || 'N/A'}</span></p>
-            <p><strong>Email Address:</strong> ${app.groom_email || 'N/A'}</p>
-            <p><strong>Education Level:</strong> ${app.groom_education || 'N/A'}</p>
-            <p><strong>Profession / Occupation:</strong> ${app.groom_job || 'N/A'}</p>
-            <p><strong>Residential Address:</strong> ${app.groom_address || 'N/A'}</p>
-          </div>
-
-          <!-- Bride Section -->
-          <div class="bg-purple-50/30 p-5 rounded-2xl border border-purple-100 space-y-2.5">
-            <div class="text-center mb-4">${bridePhoto}</div>
-            <p class="text-xs font-extrabold text-purple-950 uppercase border-b border-purple-200 pb-1.5 tracking-wider">Bride Full Information</p>
-            <p><strong>Full Name:</strong> ${app.bride_name || 'N/A'}</p>
-            <p><strong>National ID:</strong> <span class="font-mono font-semibold">${app.bride_id_number || 'N/A'}</span></p>
-            <p><strong>Date of Birth:</strong> ${app.bride_dob || 'N/A'}</p>
-            <p><strong>Phone Number:</strong> <span class="font-mono font-bold text-purple-900">${app.bride_phone || 'N/A'}</span></p>
-            <p><strong>Email Address:</strong> ${app.bride_email || 'N/A'}</p>
-            <p><strong>Education Level:</strong> ${app.bride_education || 'N/A'}</p>
-            <p><strong>Profession / Occupation:</strong> ${app.bride_job || 'N/A'}</p>
-            <p><strong>Residential Address:</strong> ${app.bride_address || 'N/A'}</p>
-          </div>
-        </div>
-
-        ${extraFieldsHtml ? `<div class="space-y-2"><p class="text-xs font-extrabold text-purple-950 uppercase tracking-wider pt-2">Additional Application Parameters</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${extraFieldsHtml}</div></div>` : ''}
-      `;
-
-      document.getElementById('matrimonyDetailsModal').classList.remove('hidden');
+        `;
+        document.getElementById('matrimonyDetailsModal').classList.remove('hidden');
+      }
     }
 
     function closeMatrimonyDetailsModal() {
       document.getElementById('matrimonyDetailsModal').classList.add('hidden');
-      currentSelectedApp = null;
     }
 
-    function printMatrimonyReport() {
-      if (!currentSelectedApp) return;
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write(`
-        <html>
-        <head>
-          <title>Matrimony Application Report - ${currentSelectedApp.displayId}</title>
-          <script src="https://cdn.tailwindcss.com"><\/script>
-        </head>
-        <body class="p-8 font-sans text-slate-800 bg-white">
-          <div class="max-w-3xl mx-auto space-y-6">
-            <div class="text-center border-b pb-6">
-              <h1 class="text-xl font-bold uppercase">Anglican Church of Rwanda</h1>
-              <h2 class="text-lg font-semibold uppercase text-purple-900">Diocese of Gahini &mdash; Mukama Parish</h2>
-              <p class="text-xs text-slate-500 uppercase tracking-wider mt-1">Official Matrimony Application Report</p>
-            </div>
-            <div class="flex justify-between text-xs bg-slate-50 p-4 rounded-xl border">
-              <div><strong>Reference ID:</strong> ${currentSelectedApp.displayId}</div>
-              <div><strong>Status:</strong> ${currentSelectedApp.status}</div>
-              <div><strong>Submission Date:</strong> ${currentSelectedApp.submission_date || currentSelectedApp.created_at || 'N/A'}</div>
-            </div>
-            <div class="grid grid-cols-2 gap-6 text-xs">
-              <div class="border p-4 rounded-xl space-y-2">
-                <h3 class="font-bold uppercase text-purple-950 border-b pb-1">Groom Details</h3>
-                <p><strong>Name:</strong> ${currentSelectedApp.groom_name || 'N/A'}</p>
-                <p><strong>National ID:</strong> ${currentSelectedApp.groom_id_number || 'N/A'}</p>
-                <p><strong>Phone:</strong> ${currentSelectedApp.groom_phone || 'N/A'}</p>
-                <p><strong>Email:</strong> ${currentSelectedApp.groom_email || 'N/A'}</p>
-                <p><strong>Occupation:</strong> ${currentSelectedApp.groom_job || 'N/A'}</p>
-              </div>
-              <div class="border p-4 rounded-xl space-y-2">
-                <h3 class="font-bold uppercase text-purple-950 border-b pb-1">Bride Details</h3>
-                <p><strong>Name:</strong> ${currentSelectedApp.bride_name || 'N/A'}</p>
-                <p><strong>National ID:</strong> ${currentSelectedApp.bride_id_number || 'N/A'}</p>
-                <p><strong>Phone:</strong> ${currentSelectedApp.bride_phone || 'N/A'}</p>
-                <p><strong>Email:</strong> ${currentSelectedApp.bride_email || 'N/A'}</p>
-                <p><strong>Occupation:</strong> ${currentSelectedApp.bride_job || 'N/A'}</p>
-              </div>
-            </div>
-            <div class="text-center text-[10px] text-slate-400 pt-12 border-t">
-              <p>Mukama Parish Management System &mdash; Generated on ${new Date().toLocaleDateString()}</p>
-            </div>
-          </div>
-          <script>
-            window.onload = () => { window.print(); };
-          <\/script>
-        </body>
-        </html>
-      `);
-      printWindow.document.close();
-    }
-
-    // Initialize application data loaders on page load
     window.addEventListener('DOMContentLoaded', () => {
-      fetchApplications();
-      fetchMembers();
+      fetchAllData();
     });
   </script>
 </body>
