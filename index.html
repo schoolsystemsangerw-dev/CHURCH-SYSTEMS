@@ -128,11 +128,11 @@
           <!-- Groom Documents (Warabatijwe / Warakomejwe) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-200">
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Groom Baptism Certificate (Ifoto y'Uruhushya / Impapuro z'Umubatizo) *</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Groom Baptism Certificate *</label>
               <input type="file" id="groom_baptism_doc" accept=".pdf,image/*" required class="w-full p-2 bg-white border rounded-lg text-xs file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Groom Confirmation Certificate (Impapuro zo Gukomezwa) *</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Groom Confirmation Certificate *</label>
               <input type="file" id="groom_confirmation_doc" accept=".pdf,image/*" required class="w-full p-2 bg-white border rounded-lg text-xs file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
             </div>
           </div>
@@ -204,14 +204,14 @@
             <div><label class="block text-[11px] text-slate-600 mb-1">Cell *</label><input type="text" id="bride_cell" class="w-full p-2 border rounded text-xs" /></div>
             <div><label class="block text-[11px] text-slate-600 mb-1">Village *</label><input type="text" id="bride_village" class="w-full p-2 border rounded text-xs" /></div>
           </div>
-          <!-- Bride Documents (Warabatijwe / Warakomejwe) -->
+          <!-- Bride Documents -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-200">
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Bride Baptism Certificate (Impapuro z'Umubatizo) *</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Bride Baptism Certificate *</label>
               <input type="file" id="bride_baptism_doc" accept=".pdf,image/*" required class="w-full p-2 bg-white border rounded-lg text-xs file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Bride Confirmation Certificate (Impapuro zo Gukomezwa) *</label>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Bride Confirmation Certificate *</label>
               <input type="file" id="bride_confirmation_doc" accept=".pdf,image/*" required class="w-full p-2 bg-white border rounded-lg text-xs file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
             </div>
           </div>
@@ -242,6 +242,25 @@
               <div><label class="block text-[10px] text-slate-600 mb-1">National ID (16 Digits) *</label><input type="text" id="bride_witness_3_id" required maxlength="16" class="w-full p-2 border rounded text-xs" /></div>
               <div><label class="block text-[10px] text-slate-600 mb-1">Phone Number *</label><input type="tel" id="bride_witness_3_phone" required class="w-full p-2 border rounded text-xs" /></div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. CIVIL MARRIAGE / NIDA INTEGRATION SECTION -->
+      <div id="civil_section" class="space-y-4 pt-4 border-t border-slate-200">
+        <h2 class="font-bold text-indigo-950 text-base uppercase tracking-wider border-b pb-2">3. CIVIL MARRIAGE & LEGAL COMPLIANCE (UBUKWE BWO MU MURENGE)</h2>
+        <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-200 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Civil Certificate Number (Nimero y'Icyangombwa cy'Umurenge) *</label>
+            <input type="text" id="civil_certificate_number" required placeholder="Andika nimero y'icyangombwa" class="w-full p-2.5 bg-white border rounded-lg text-xs" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Civil Marriage Date (Itariki y'Umurenge) *</label>
+            <input type="date" id="civil_marriage_date" required class="w-full p-2.5 bg-white border rounded-lg text-xs" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Civil Marriage Certificate Document (Icyangombwa cya Murenge - PDF/Image) *</label>
+            <input type="file" id="civil_certificate_doc" accept=".pdf,image/*" required class="w-full p-2 bg-white border rounded-lg text-xs file:mr-4 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200" />
           </div>
         </div>
       </div>
@@ -349,7 +368,7 @@
         }
       }
 
-      async function uploadFileToSupabase(fileInputId, folderName) {
+      async function uploadFileToSupabase(fileInputId, folderName, bucketName = 'matrimony-photos') {
         const fileInput = document.getElementById(fileInputId);
         if (!fileInput.files || fileInput.files.length === 0) return null;
 
@@ -358,7 +377,7 @@
         const fileName = `${folderName}_${Date.now()}.${fileExt}`;
 
         const { error } = await supabase.storage
-          .from('matrimony-photos')
+          .from(bucketName)
           .upload(fileName, file);
 
         if (error) {
@@ -366,7 +385,7 @@
         }
 
         const { data: publicURLData } = supabase.storage
-          .from('matrimony-photos')
+          .from(bucketName)
           .getPublicUrl(fileName);
 
         return publicURLData.publicUrl;
@@ -403,12 +422,15 @@
         submitBtn.textContent = "Tegereza bari kohereza amakuru n'inyandiko...";
 
         try {
-          const groomPhotoUrl = await uploadFileToSupabase('groom_photo', 'groom_photo');
-          const bridePhotoUrl = await uploadFileToSupabase('bride_photo', 'bride_photo');
-          const groomBaptismUrl = await uploadFileToSupabase('groom_baptism_doc', 'groom_baptism');
-          const groomConfirmationUrl = await uploadFileToSupabase('groom_confirmation_doc', 'groom_confirmation');
-          const brideBaptismUrl = await uploadFileToSupabase('bride_baptism_doc', 'bride_baptism');
-          const brideConfirmationUrl = await uploadFileToSupabase('bride_confirmation_doc', 'bride_confirmation');
+          const groomPhotoUrl = await uploadFileToSupabase('groom_photo', 'groom_photo', 'matrimony-photos');
+          const bridePhotoUrl = await uploadFileToSupabase('bride_photo', 'bride_photo', 'matrimony-photos');
+          const groomBaptismUrl = await uploadFileToSupabase('groom_baptism_doc', 'groom_baptism', 'matrimony-photos');
+          const groomConfirmationUrl = await uploadFileToSupabase('groom_confirmation_doc', 'groom_confirmation', 'matrimony-photos');
+          const brideBaptismUrl = await uploadFileToSupabase('bride_baptism_doc', 'bride_baptism', 'matrimony-photos');
+          const brideConfirmationUrl = await uploadFileToSupabase('bride_confirmation_doc', 'bride_confirmation', 'matrimony-photos');
+          
+          // Civil certificate upload to matrimony-documents bucket
+          const civilCertificateUrl = await uploadFileToSupabase('civil_certificate_doc', 'civil_cert', 'matrimony-documents');
 
           const matrimonyData = {
             diocese: document.getElementById('diocese').value,
@@ -431,7 +453,7 @@
             groom_witness_1_name: document.getElementById('groom_witness_1_name').value,
             groom_witness_1_id: document.getElementById('groom_witness_1_id').value,
             groom_witness_1_phone: document.getElementById('groom_witness_1_phone').value,
-            groom_witness_2_name: document.getElementById('groom_witness_2_name5' in window ? '' : 'groom_witness_2_name').value, // Fallback safe read below
+            groom_witness_2_name: document.getElementById('groom_witness_2_name').value,
             groom_witness_2_id: document.getElementById('groom_witness_2_id').value,
             groom_witness_2_phone: document.getElementById('groom_witness_2_phone').value,
             groom_witness_3_name: document.getElementById('groom_witness_3_name').value,
@@ -458,7 +480,14 @@
             bride_witness_2_phone: document.getElementById('bride_witness_2_phone').value,
             bride_witness_3_name: document.getElementById('bride_witness_3_name').value,
             bride_witness_3_id: document.getElementById('bride_witness_3_id').value,
-            bride_witness_3_phone: document.getElementById('bride_witness_3_phone').value
+            bride_witness_3_phone: document.getElementById('bride_witness_3_phone').value,
+
+            // Civil Marriage Fields
+            civil_status: 'Pending',
+            civil_certificate_number: document.getElementById('civil_certificate_number').value,
+            civil_marriage_date: document.getElementById('civil_marriage_date').value,
+            civil_certificate_url: civilCertificateUrl,
+            nida_verified: false
           };
 
           const { error } = await supabase.from('matrimony_applications').insert([matrimonyData]);
