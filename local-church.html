@@ -21,130 +21,177 @@
     </marquee>
   </div>
 
-  <!-- Umubiri Mukuru -->
-  <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6 w-full">
+  <!-- Umubiri Mukuru n'Uruhande rw'Ibumoso (Sidebar Layout) -->
+  <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 w-full flex flex-col lg:flex-row gap-8 items-start">
     
-    <!-- Umutwe w'Inyandiko n'Ibirango -->
-    <header class="relative bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-3xl shadow-2xl border-2 border-amber-500/40 p-6 sm:p-10 overflow-hidden text-white flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
-        <img src="log-diocese.png" alt="Logo ya Diosezi" class="h-24 w-24 sm:h-32 sm:w-32 object-contain drop-shadow-md">
-      </div>
+    <!-- Urutonde rw'Ibikorwa ku Ruhande rw'Ibumoso (Left Sidebar Actions) -->
+    <aside class="w-full lg:w-72 shrink-0 space-y-4 lg:sticky lg:top-24">
+      <div class="bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-2xl shadow-xl border border-amber-500/30 p-5 text-white space-y-4">
+        <h3 class="text-xs font-black uppercase text-amber-400 tracking-wider border-b border-purple-800/60 pb-3">
+          ⚡ Ibikorwa by'Itorero
+        </h3>
+        
+        <div class="space-y-2.5">
+          <!-- Button 1: Kwandika Umukirisitu -->
+          <button onclick="openModal('memberModal')" class="w-full flex items-center gap-3 px-4 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 group cursor-pointer text-left">
+            <span class="text-base">➕</span>
+            <span class="leading-tight">Kwandika Umukirisitu Mushya</span>
+          </button>
 
-      <div class="text-center space-y-3 flex-1 px-2">
-        <span id="churchBadge" class="inline-block px-5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-purple-950 rounded-full text-xs font-black tracking-widest uppercase border border-amber-300 shadow-lg">
-          Ubuyobozi bw'Itorero
-        </span>
-        <div class="space-y-1">
-          <h1 id="churchTitle" class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white drop-shadow-sm">
-            Itorero...
-          </h1>
-          <p class="text-sm font-bold tracking-widest text-amber-300 uppercase">DISEZO YA GAHINI</p>
-          <p class="text-xs sm:text-sm font-extrabold tracking-wider text-indigo-200 uppercase">PARUWASI YA MUKAMA</p>
-        </div>
-        <div class="pt-2">
-          <a href="index.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-amber-400/30 text-amber-200 font-bold rounded-xl text-xs transition shadow-md">
-            ⬅️ Gusubira ku Cyicaro Gikuru (Parish Dashboard)
-          </a>
+          <!-- Button 2: Gusaba Ubukwe -->
+          <button onclick="openModal('matrimonyModal')" class="w-full flex items-center gap-3 px-4 py-3 bg-white/10 hover:bg-amber-500 hover:text-purple-950 text-white rounded-xl text-xs font-bold transition shadow-md border border-white/10 group cursor-pointer text-left">
+            <span class="text-base">💍</span>
+            <span class="leading-tight">Gutanga Busabe bw'Ubukwe</span>
+          </button>
         </div>
       </div>
 
-      <div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
-        <img src="logo-rwanda.png" alt="Logo y'u Rwanda" class="h-24 w-24 sm:h-32 sm:w-32 object-contain drop-shadow-md">
+      <!-- Quick Info Card -->
+      <div class="bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-md border border-purple-100 text-xs text-slate-600 space-y-2">
+        <p class="font-bold text-purple-950 uppercase tracking-tight">💡 Ubufasha bwihuse</p>
+        <p>Koresha ibikorwa biri hejuru kugira ngo wongeyeho abakirisitu cyangwa wohereze ubusabe bw'ubukwe kuri Paruwasi.</p>
       </div>
-    </header>
+    </aside>
 
-    <!-- Imibare y'Ibanze y'Ukwikurikirana (Monitoring Growth) -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-purple-100">
-        <p class="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Abakirisitu Banditse (Members)</p>
-        <p id="statChurchMembers" class="text-3xl font-black text-purple-950 mt-3">0</p>
-      </div>
-      <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-amber-50">
-        <p class="text-[11px] font-extrabold text-amber-600 uppercase tracking-wider">Ababatijwe (Baptized Souls)</p>
-        <p id="statChurchBaptized" class="text-3xl font-black text-amber-600 mt-3">0</p>
-      </div>
-      <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-emerald-50">
-        <p class="text-[11px] font-extrabold text-emerald-600 uppercase tracking-wider">Gushaka / Ubukwe (Matrimony)</p>
-        <p id="statChurchMatrimony" class="text-3xl font-black text-emerald-600 mt-3">0</p>
-      </div>
-    </div>
+    <!-- Ikigo cy'Amakuru (Main Content Area) -->
+    <main class="flex-1 space-y-6 w-full">
+      
+      <!-- Umutwe w'Inyandiko n'Ibirango -->
+      <header class="relative bg-gradient-to-br from-purple-950 via-indigo-950 to-slate-900 rounded-3xl shadow-2xl border-2 border-amber-500/40 p-6 sm:p-10 overflow-hidden text-white flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
+          <img src="log-diocese.png" alt="Logo ya Diosezi" class="h-24 w-24 sm:h-32 sm:w-32 object-contain drop-shadow-md">
+        </div>
 
-    <!-- Igice cya 1: Kwandika Umukirisitu Mushya (Registering New Members & Tracking Sacraments) -->
-    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 p-6 space-y-4">
-      <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">➕ 1. Kwandika Umukirisitu Mushya no Kuvugurura Amasakaramentu</h3>
-      <form id="addMemberForm" onsubmit="submitNewMember(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+        <div class="text-center space-y-3 flex-1 px-2">
+          <span id="churchBadge" class="inline-block px-5 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-purple-950 rounded-full text-xs font-black tracking-widest uppercase border border-amber-300 shadow-lg">
+            Ubuyobozi bw'Itorero
+          </span>
+          <div class="space-y-1">
+            <h1 id="churchTitle" class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white drop-shadow-sm">
+              Itorero...
+            </h1>
+            <p class="text-sm font-bold tracking-widest text-amber-300 uppercase">DISEZO YA GAHINI</p>
+            <p class="text-xs sm:text-sm font-extrabold tracking-wider text-indigo-200 uppercase">PARUWASI YA MUKAMA</p>
+          </div>
+          <div class="pt-2">
+            <a href="index.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-amber-400/30 text-amber-200 font-bold rounded-xl text-xs transition shadow-md">
+              ⬅️ Gusubira ku Cyicaro Gikuru (Parish Dashboard)
+            </a>
+          </div>
+        </div>
+
+        <div class="p-3.5 bg-white/15 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-inner shrink-0">
+          <img src="logo-rwanda.png" alt="Logo y'u Rwanda" class="h-24 w-24 sm:h-32 sm:w-32 object-contain drop-shadow-md">
+        </div>
+      </header>
+
+      <!-- Imibare y'Ibanze y'Ukwikurikirana (Monitoring Growth) -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-purple-100">
+          <p class="text-[11px] font-extrabold text-slate-500 uppercase tracking-wider">Abakirisitu Banditse</p>
+          <p id="statChurchMembers" class="text-3xl font-black text-purple-950 mt-3">0</p>
+        </div>
+        <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-amber-50">
+          <p class="text-[11px] font-extrabold text-amber-600 uppercase tracking-wider">Ababatijwe</p>
+          <p id="statChurchBaptized" class="text-3xl font-black text-amber-600 mt-3">0</p>
+        </div>
+        <div class="bg-white/90 backdrop-blur-sm p-5 rounded-2xl shadow-md border border-emerald-50">
+          <p class="text-[11px] font-extrabold text-emerald-600 uppercase tracking-wider">Gushaka / Ubukwe</p>
+          <p id="statChurchMatrimony" class="text-3xl font-black text-emerald-600 mt-3">0</p>
+        </div>
+      </div>
+
+      <!-- Urutonde rw'Abakirisitu (Members Table) -->
+      <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden p-6 space-y-4">
+        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">📋 Abakirisitu Banditse muri iri Torero</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-purple-950 text-purple-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-purple-900">
+                <th class="p-3">Amazina Yombi</th>
+                <th class="p-3">Nimero y'Indangamuntu</th>
+                <th class="p-3 text-center">Yarabatijwe?</th>
+                <th class="p-3 text-center">Yarakomejwe?</th>
+                <th class="p-3 text-center">Yarashyingiwe?</th>
+              </tr>
+            </thead>
+            <tbody id="churchMembersTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- MODAL 1: Kwandika Umukirisitu Mushya -->
+  <div id="memberModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-lg p-6 sm:p-8 space-y-6 relative animate-in fade-in zoom-in-95 duration-200">
+      <div class="flex justify-between items-center border-b pb-4">
+        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">➕ Kwandika Umukirisitu Mushya</h3>
+        <button onclick="closeModal('memberModal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg px-2 cursor-pointer">&times;</button>
+      </div>
+      
+      <form id="addMemberForm" onsubmit="submitNewMember(event)" class="space-y-4">
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina Yombi (Full Names)</label>
-          <input type="text" id="newFullName" required placeholder="Urugero: Niyitegeka Jean" class="w-full px-3 py-2 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+          <input type="text" id="newFullName" required placeholder="Urugero: Niyitegeka Jean" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
         </div>
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Nimero y'Indangamuntu (National ID)</label>
-          <input type="text" id="newNationalId" required placeholder="1199..." class="w-full px-3 py-2 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+          <input type="text" id="newNationalId" required placeholder="1199..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
         </div>
-        <div class="flex flex-col justify-center gap-1.5 pt-1">
+        <div class="flex items-center gap-6 pt-2">
           <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
-            <input type="checkbox" id="newBaptized" class="rounded text-purple-900 focus:ring-purple-900"> Yarabatijwe? (Baptized)
+            <input type="checkbox" id="newBaptized" class="rounded text-purple-900 focus:ring-purple-900"> Yarabatijwe?
           </label>
           <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
-            <input type="checkbox" id="newConfirmed" class="rounded text-purple-900 focus:ring-purple-900"> Yarakomejwe? (Confirmed)
+            <input type="checkbox" id="newConfirmed" class="rounded text-purple-900 focus:ring-purple-900"> Yarakomejwe?
           </label>
         </div>
-        <div class="flex items-end">
-          <button type="submit" id="submitMemberBtn" class="w-full py-2.5 bg-purple-950 hover:bg-purple-900 text-amber-200 font-bold rounded-xl text-xs transition shadow-md cursor-pointer">
-            💾 Emeza Umukirisitu
-          </button>
+        <div class="pt-4 flex gap-3">
+          <button type="button" onclick="closeModal('memberModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer">Reka / Garuka</button>
+          <button type="submit" id="submitMemberBtn" class="w-1/2 py-3 bg-purple-950 hover:bg-purple-900 text-amber-200 font-bold rounded-xl text-xs transition shadow-md cursor-pointer">💾 Bika Umukirisitu</button>
         </div>
       </form>
     </div>
+  </div>
 
-    <!-- Igice cya 2: Gutangaza Amasezerano y'Ubukwe / Matrimony Application Form -->
-    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 p-6 space-y-4">
-      <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">💍 2. Gutanga Busabe bw'Ubukwe (Matrimony / Wedding Intentions)</h3>
-      <p class="text-xs text-slate-500">Aya makuru azoherezwa ako kanya kuri Paruwasi kugira ngo Padiri Mukuru (Rev. Karyango Theoneste) ayigenzure kandi ayemeze.</p>
-      <form id="addMatrimonyForm" onsubmit="submitMatrimony(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 pt-2">
-        <div>
-          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umusore (Groom)</label>
-          <input type="text" id="groomName" required placeholder="Amazina y'umusore" class="w-full px-3 py-2 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
-        </div>
-        <div>
-          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Telefone y'Umusore</label>
-          <input type="text" id="groomPhone" required placeholder="078..." class="w-full px-3 py-2 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
-        </div>
-        <div>
-          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umukobwa (Bride)</label>
-          <input type="text" id="brideName" required placeholder="Amazina y'umukobwa" class="w-full px-3 py-2 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
-        </div>
-        <div>
-          <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Telefone y'Umukobwa</label>
-          <input type="text" id="bridePhone" required placeholder="072..." class="w-full px-3 py-2 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
-        </div>
-        <div class="flex items-end">
-          <button type="submit" id="submitMatrimonyBtn" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-purple-950 font-black rounded-xl text-xs transition shadow-md cursor-pointer">
-            ⛪ Ohereza Ubukwe kuri Paruwasi
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Urutonde rw'Abakirisitu (Members Table) -->
-    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-purple-100 overflow-hidden p-6 space-y-4">
-      <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">📋 Abakirisitu Banditse muri iri Torero</h3>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse text-xs">
-          <thead>
-            <tr class="bg-purple-950 text-purple-100 uppercase text-[10px] font-extrabold tracking-wider border-b border-purple-900">
-              <th class="p-3">Amazina Yombi</th>
-              <th class="p-3">Nimero y'Indangamuntu</th>
-              <th class="p-3 text-center">Yarabatijwe?</th>
-              <th class="p-3 text-center">Yarakomejwe?</th>
-              <th class="p-3 text-center">Yarashyingiwe?</th>
-            </tr>
-          </thead>
-          <tbody id="churchMembersTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
-        </table>
+  <!-- MODAL 2: Gutanga Busabe bw'Ubukwe -->
+  <div id="matrimonyModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl border border-purple-100 w-full max-w-xl p-6 sm:p-8 space-y-6 relative animate-in fade-in zoom-in-95 duration-200">
+      <div class="flex justify-between items-center border-b pb-4">
+        <h3 class="text-sm font-black uppercase text-purple-950 tracking-wider">💍 Gutanga Busabe bw'Ubukwe</h3>
+        <button onclick="closeModal('matrimonyModal')" class="text-slate-400 hover:text-slate-700 font-bold text-lg px-2 cursor-pointer">&times;</button>
       </div>
+      <p class="text-xs text-slate-500">Aya makuru azoherezwa ako kanya kuri Paruwasi kugira ngo Padiri Mukuru (Rev. Karyango Theoneste) ayigenzure.</p>
+      
+      <form id="addMatrimonyForm" onsubmit="submitMatrimony(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umusore (Groom)</label>
+            <input type="text" id="groomName" required placeholder="Amazina y'umusore" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Telefone y'Umusore</label>
+            <input type="text" id="groomPhone" required placeholder="078..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Amazina y'Umukobwa (Bride)</label>
+            <input type="text" id="brideName" required placeholder="Amazina y'umukobwa" class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Telefone y'Umukobwa</label>
+            <input type="text" id="bridePhone" required placeholder="072..." class="w-full px-3 py-2.5 border border-purple-200 rounded-xl text-xs bg-purple-50/30 focus:bg-white focus:outline-none">
+          </div>
+        </div>
+        <div class="pt-4 flex gap-3">
+          <button type="button" onclick="closeModal('matrimonyModal')" class="w-1/2 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer">Reka / Garuka</button>
+          <button type="submit" id="submitMatrimonyBtn" class="w-1/2 py-3 bg-amber-600 hover:bg-amber-500 text-purple-950 font-black rounded-xl text-xs transition shadow-md cursor-pointer">⛪ Ohereza Ubukwe</button>
+        </div>
+      </form>
     </div>
-
   </div>
 
   <!-- Umusozo w'Urupapuro -->
@@ -163,6 +210,15 @@
 
     document.getElementById('churchTitle').innerText = currentChurch;
     document.getElementById('churchBadge').innerText = `Ubuyobozi bwa ${currentChurch}`;
+
+    // Modal Control Functions
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+    }
 
     async function fetchChurchData() {
       try {
@@ -224,11 +280,12 @@
 
         alert('Umukirisitu yanditswe neza mu itorero!');
         document.getElementById('addMemberForm').reset();
+        closeModal('memberModal');
         fetchChurchData(); 
       } catch (err) {
         alert('Habaye ikosa mu kubika: ' + err.message);
       } finally {
-        submitBtn.innerText = '💾 Emeza Umukirisitu';
+        submitBtn.innerText = '💾 Bika Umukirisitu';
         submitBtn.disabled = false;
       }
     }
@@ -236,7 +293,7 @@
     async function submitMatrimony(event) {
       event.preventDefault();
       const submitBtn = document.getElementById('submitMatrimonyBtn');
-      submitBtn.innerText = 'Biri koherezwa...';
+      submitBtn.innerText = 'Buri koherezwa...';
       submitBtn.disabled = true;
 
       const groom_name = document.getElementById('groomName').value;
@@ -262,11 +319,12 @@
 
         alert('Gusaba ubukwe byoherejwe neza kuri Paruwasi! Bizagenzurwa na Padiri Mukuru.');
         document.getElementById('addMatrimonyForm').reset();
+        closeModal('matrimonyModal');
         fetchChurchData();
       } catch (err) {
         alert('Habaye ikosa mu kohereza ubukwe: ' + err.message);
       } finally {
-        submitBtn.innerText = '⛪ Ohereza Ubukwe kuri Paruwasi';
+        submitBtn.innerText = '⛪ Ohereza Ubukwe';
         submitBtn.disabled = false;
       }
     }
