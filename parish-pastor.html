@@ -266,7 +266,7 @@
 
     async function fetchMembers() {
       try {
-        const { data, error } = await supabaseClient
+        const { data, error } = await supabaseClient 
           .from('church_members') 
           .select('*')
           .order('created_at', { ascending: false });
